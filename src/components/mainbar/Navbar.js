@@ -1,6 +1,7 @@
 import { Menu } from '@mui/icons-material';
-import { AppBar, Box, Button, createTheme, IconButton, styled, Toolbar, Typography } from '@mui/material';
-import React from 'react';
+import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography } from '@mui/material';
+import { signInWithGoogle, signOutGoogle } from '../../config/firebase';
+
 const StyledToolbar = styled(Toolbar)({
     display: 'flex',
     justifyContent: 'space-between',
@@ -18,11 +19,15 @@ const Navbar = () => {
                     <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
                         Todo React & Redux Toolkit
                     </Typography>
-                    <Button color='inherit'>Login</Button>
+                    <Button color='inherit' onClick={signInWithGoogle}>
+                        Login
+                    </Button>
+                    <Button color='inherit' onClick={signOutGoogle}>
+                        Logout
+                    </Button>
                 </StyledToolbar>
             </AppBar>
         </Box>
     );
 };
-
 export default Navbar;

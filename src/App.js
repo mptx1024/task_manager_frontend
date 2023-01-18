@@ -1,9 +1,9 @@
 import './App.css';
 import { Box, createTheme, ThemeProvider, Stack } from '@mui/material';
-import Navbar from './components/mainbar/Navbar';
-import TodoList from './components/mainbar/TodoList';
-import AddTodo from './components/mainbar/AddTodo';
-import CompletedPanel from './components/mainbar/CompletedPanel';
+import Navbar from './components/Navbar';
+import TodoList from './features/todo/TodoList';
+import AddTodo from './features/todo/AddTodo';
+import CompletedPanel from './features/todo/CompletedPanel';
 
 function App() {
     return (

@@ -9,7 +9,7 @@ import TodoItem from './TodoItem';
 
 export default function TodoList(props) {
     const { data: todos, isLoading, isSuccess, isError, error } = useGetTodosQuery('getTodos');
-    // console.log('in todoList, iscompletePanel:', props.isCompletePanel);
+    // console.log('in todoList, iscompletedPanel:', props.isCompletePanel);
     let content;
     if (isLoading) {
         content = <p>Loading...</p>;
@@ -17,8 +17,7 @@ export default function TodoList(props) {
         const renderedTodos = todos?.ids.map((id) => {
             const todo = todos.entities[id];
             if (!props.isCompletePanel) {
-                if (!todo.isCompleted)
-                    return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;
+                if (!todo.isCompleted) return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;
             }
             // else {
             //     if (todo.isCompleted) return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;

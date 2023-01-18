@@ -1,5 +1,5 @@
 import { createEntityAdapter } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from '../../app/api/apiSlice';
 
 const todosAdapter = createEntityAdapter({
     sortComparer: (a, b) => b.date.localeCompare(a.date),

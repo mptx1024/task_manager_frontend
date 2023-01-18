@@ -21,38 +21,38 @@ provider.setCustomParameters({
 
 const auth = getAuth();
 
-const signInWithGoogle = () =>
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            console.log(`token: ${token}; user: ${JSON.stringify(user)}`);
-        })
-        .catch((error) => {
-            // Handle Errors here.
-            console.log(error);
+const signInWithGoogle = async () => {
+    try {
+        const result = await signInWithPopup(auth, provider);
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        // console.log(`token: ${token}; user: ${JSON.stringify(user)}`);
+    } catch (error) {
+        // Handle Errors here.
+        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+    }
+};
 
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-        });
-
-const signOutGoogle = () =>
-    signOut(auth)
-        .then(() => {
-            // Sign-out successful.
-            console.log(`Sign-out Successfully`);
-        })
-        .catch((error) => {
-            // An error happened.
-            console.log(`Error: ${error}`);
-        });
+const signOutGoogle = async () => {
+    try {
+        const isSignedOut = await signOut(auth);
+        // Sign-out successful.
+        console.log(`Sign-out Successfully. isSignedOut resolves to ${isSignedOut}`);
+    } catch (error) {
+        // An error happened.
+        console.log(`Error: ${error}`);
+    }
+};
 
 export { signInWithGoogle, signOutGoogle };

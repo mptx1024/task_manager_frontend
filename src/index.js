@@ -8,14 +8,14 @@ import { Theme } from './Theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={Theme}>
-            <Provider store={store}>
-                <CssBaseline />
-                <App />
-            </Provider>
-        </ThemeProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ThemeProvider theme={Theme}>
+        <Provider store={store}>
+            <CssBaseline />
+            <App />
+        </Provider>
+    </ThemeProvider>
+    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

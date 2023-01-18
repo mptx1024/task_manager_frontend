@@ -23,4 +23,3 @@ import { initializeApp } from "firebase/app";
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-json-server --watch data/db.json --port 3500

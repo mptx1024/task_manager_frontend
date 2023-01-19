@@ -1,6 +1,6 @@
 import { CheckCircle, RadioButtonUnchecked, Delete } from '@mui/icons-material';
 import { Box, Checkbox, IconButton, Paper, Stack, styled } from '@mui/material';
-import { useDeleteTodosMutation, useGetTodosQuery, useUpdateTodosMutation } from './todosSlice';
+import { useDeleteTodosMutation, useGetTodosQuery, useUpdateTodosMutation } from './todosApiSlice';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,13 +20,18 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const TodoItem = ({ todo }) => {
+    // console.log('🚀 ~ file: TodoItem.js:23 ~ TodoItem ~ todo', todo);
     const [deleteTodo] = useDeleteTodosMutation();
-    const [updateTodos] = useUpdateTodosMutation();
-
+    const [updateTodo] = useUpdateTodosMutation();
+    // if (!todo) {
+    //     return <p>test</p>;
+    // }
     const onClickCheck = () => {
-        updateTodos({ ...todo, isCompleted: !todo.isCompleted });
+        updateTodo({ ...todo, completed: !todo.completed });
     };
-
+    const onClickDelete = () => {
+        deleteTodo({ _id: todo._id });
+    };
     return (
         <Stack>
             <StyledPaper>
@@ -34,10 +39,10 @@ const TodoItem = ({ todo }) => {
                     <Checkbox
                         icon={<RadioButtonUnchecked />}
                         checkedIcon={<CheckCircle sx={{ color: '#2564cf' }} />}
-                        onChange={() => onClickCheck()}
+                        onChange={onClickCheck}
                         checked={todo.isCompleted ? true : false}
                     />
-                    {todo.isCompleted ? (
+                    {todo.completed ? (
                         <p>
                             <s>{todo.title}</s>
                         </p>
@@ -45,12 +50,7 @@ const TodoItem = ({ todo }) => {
                         <p>{todo.title}</p>
                     )}
                 </Box>
-                <IconButton
-                    edge='end'
-                    aria-label='delete'
-                    title='Delete'
-                    onClick={() => deleteTodo(todo.id)}
-                >
+                <IconButton edge='end' aria-label='delete' title='Delete' onClick={onClickDelete}>
                     <Delete />
                 </IconButton>
             </StyledPaper>

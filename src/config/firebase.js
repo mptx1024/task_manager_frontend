@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: 'AIzaSyB-JUzJhtY_-GgqX6YRzfl4pdYjgPn78nA',
@@ -20,17 +21,19 @@ provider.setCustomParameters({
 });
 
 const auth = getAuth();
-
 const signInWithGoogle = async () => {
+
     try {
+        // https://firebase.google.com/docs/auth/web/google-signin#web-version-9-modular
         const result = await signInWithPopup(auth, provider);
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log(user);
-        // console.log(`token: ${token}; user: ${JSON.stringify(user)}`);
+        console.log('🚀 ~ file: firebase.js:29 ~ signInWithGoogle ~ user', user);
+        // https://firebase.google.com/docs/reference/js/auth.googleauthprovider#googleauthprovidercredentialfromresult
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+
     } catch (error) {
         // Handle Errors here.
         console.log(error);

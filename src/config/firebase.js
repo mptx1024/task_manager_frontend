@@ -1,6 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-
+import {
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signOut,
+    signInAnonymously,
+    connectAuthEmulator,
+} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,8 +27,10 @@ provider.setCustomParameters({
 });
 
 const auth = getAuth();
-const signInWithGoogle = async () => {
+// Emulator
+connectAuthEmulator(auth, 'http://localhost:9099');
 
+const signInWithGoogle = async () => {
     try {
         // https://firebase.google.com/docs/auth/web/google-signin#web-version-9-modular
         const result = await signInWithPopup(auth, provider);
@@ -33,7 +41,6 @@ const signInWithGoogle = async () => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
-
     } catch (error) {
         // Handle Errors here.
         console.log(error);
@@ -57,5 +64,19 @@ const signOutGoogle = async () => {
         console.log(`Error: ${error}`);
     }
 };
+/**
+ * Each time anonymous device log out and log in would get a new anonymous UID
+ * This is expected. There is no way to log back in to the "same" anonymous auth account once logged out. If wanting to persist UID, need to create your own fake anonymous auth by making a custom auth token (on your server) for the user and creating some system that allows them to retrieve the same token multiple times on the same device.
+ *
+ */
+const signInAnonymous = async () => {
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+    }
+};
 
-export { signInWithGoogle, signOutGoogle };
+export { signInWithGoogle, signOutGoogle, signInAnonymous };

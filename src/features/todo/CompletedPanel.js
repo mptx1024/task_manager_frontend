@@ -3,6 +3,7 @@ import useCollapse from 'react-collapsed';
 import TodoList from './TodoList';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { color } from '@mui/system';
+
 const CompletedPanel = () => {
     const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({ duration: 100 });
     // console.log('in CompletePanel:');
@@ -14,11 +15,10 @@ const CompletedPanel = () => {
             </div>
             <section {...getCollapseProps()}>
                 {/* Collapsed content 🙈 */}
-                <TodoList isCompletePanel={true} />
+                <TodoList isCompletePanel={false} />
             </section>
         </div>
     );
 };
 
 export default CompletedPanel;
-

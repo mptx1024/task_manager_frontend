@@ -42,8 +42,10 @@ export default function TodoList(props) {
         // console.log(`isLoading: ${isLoading}`);
         content = <p>Loading...</p>;
     } else if (isSuccess) {
+        console.log('🚀 ~ file: TodoList.js:29 ~ TodoList ~ todos', todos);
+
         // console.log(`isSuccess: ${isSuccess}`);
-        const renderedTodos = todos?.ids.map((id) => {
+        const renderedTodos = todos?.ids?.map((id) => {
             const todo = todos.entities[id];
             if (!props.isCompletePanel) {
                 if (!todo.isCompleted) return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;

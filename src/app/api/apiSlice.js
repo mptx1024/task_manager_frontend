@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({
 
     prepareHeaders: (Headers, { getState }) => {
         const user = getState().auth.user; // Destruct user in state to get the token
-        console.log('🚀 ~ file: apiSlice.js:7 ~ firebaseIdToken', user?.firebaseIdToken);
+        // console.log('🚀 ~ file: apiSlice.js:7 ~ firebaseIdToken', user?.firebaseIdToken);
         if (user) {
             Headers.set('authorization', `Bearer ${user.firebaseIdToken}`);
         }

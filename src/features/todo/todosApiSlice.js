@@ -2,7 +2,9 @@ import { createEntityAdapter } from '@reduxjs/toolkit';
 import { apiSlice } from '../../app/api/apiSlice';
 
 const todosAdapter = createEntityAdapter({
-    // https://redux-toolkit.js.org/api/createEntityAdapter#selectid
+    /**
+     selectId: A function that accepts a single Entity instance, and returns the value of whatever unique ID field is inside. If not provided, the default implementation is entity => entity.id. If your Entity type keeps its unique ID values in a field other than entity.id, you must provide a selectId function.
+     */
     // _id() is a mongoose auto-generated field
     selectId: (todo) => todo._id,
     // Sort by date:
@@ -24,9 +26,11 @@ export const extendedTodosSlice = apiSlice.injectEndpoints({
                 validateStatus: (response, result) => response.status === 200 && !result.isError,
             }),
             transformResponse: (responseData) => {
+                console.log('🚀 ~ file: todosApiSlice.js:27 ~ responseData', responseData);
                 // const loadedTodos = responseData.map((todo) => {
                 //     todo.id = todo._id;
                 // });
+
                 return todosAdapter.setAll(initialState, responseData);
             },
             providesTags: (result, error, arg) => {

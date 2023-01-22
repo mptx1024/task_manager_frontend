@@ -1,31 +1,25 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import List from '@mui/material/List';
-
-import { TransitionGroup } from 'react-transition-group';
-import { useGetTodosQuery, useLazyGetTodosQuery } from './todosApiSlice';
+import { useLazyGetTodosQuery } from './todosApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useEffect, useRef } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
 import TodoItem from './TodoItem';
 
-export default function TodoList(props) {
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import { TransitionGroup } from 'react-transition-group';
+
+export default function TodoList() {
     // Use refetch():
     // const { data: todos, refetch, isLoading, isSuccess, isError, error } = useGetTodosQuery();
     // const userInState = useSelector(selectCurrentUser); // The user in redux state
     // useEffect(() => {
-    //     console.log('🚀 ~ file: TodoList.js:18 ~ TodoList ~ userInState', userInState);
-
     //     refetch();
     // }, [userInState, refetch]);
 
     // Use lazyQuery:
     const userInState = useSelector(selectCurrentUser); // The user in redux state
 
-    const [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery();
+    const [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery('todosCacheKey');
 
     const isFirstRun = useRef(true); // Used to prevent useEffect's first rending
     useEffect(() => {
@@ -42,34 +36,20 @@ export default function TodoList(props) {
         // console.log(`isLoading: ${isLoading}`);
         content = <p>Loading...</p>;
     } else if (isSuccess) {
-        console.log('🚀 ~ file: TodoList.js:29 ~ TodoList ~ todos', todos);
-
-        // console.log(`isSuccess: ${isSuccess}`);
-        const renderedTodos = todos?.ids?.map((id) => {
-            const todo = todos.entities[id];
-            if (!props.isCompletePanel) {
-                if (!todo.isCompleted) return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;
+        const { ids, entities } = todos;
+        let openedTodos = [];
+        for (let [id, todo] of Object.entries(entities)) {
+            if (!todo.completed) {
+                openedTodos.push(<Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>);
             }
-            // else {
-            //     if (todo.isCompleted) return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;
-            // }
-            return <Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>;
-        });
-        content = (
-            <List>
-                <TransitionGroup>{renderedTodos}</TransitionGroup>
-            </List>
-        );
+        }
+        content = <TransitionGroup>{openedTodos}</TransitionGroup>;
     } else if (isError) {
-        content = <p>{JSON.stringify(error)}</p>;
+        // content = <p>{JSON.stringify(error)}</p>;
+        // Expect:  {"status":400,"data":{"msg":"No todos found with uid PsijbkDmY0dELRHUJH8WQpl9UDjF"}}
+        content = null;
     }
+    return <div>{content}</div>;
 
-    return (
-        <Box>
-            <List>{content}</List>
-        </Box>
-    );
+    return <List>{content}</List>;
 }
-TodoList.defaultProps = {
-    isCompletePanel: false,
-};

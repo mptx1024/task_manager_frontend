@@ -20,7 +20,6 @@ const AddTodo = () => {
     const canSave = title && !isLoading;
 
     const onAddPostClicked = async () => {
-
         if (canSave) {
             if (canSave) {
                 await addNewTodo({ title, uid, isCompleted: false });
@@ -33,7 +32,6 @@ const AddTodo = () => {
             }
         }
     };
-
     return (
         <Box
             sx={{
@@ -43,7 +41,7 @@ const AddTodo = () => {
         >
             <TextField
                 id='standard-basic'
-                label='Add a new task111'
+                label='Add a new task'
                 variant='standard'
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}

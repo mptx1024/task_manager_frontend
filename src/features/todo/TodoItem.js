@@ -21,11 +21,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 const TodoItem = ({ todo }) => {
     // console.log('🚀 ~ file: TodoItem.js:23 ~ TodoItem ~ todo', todo);
+
     const [deleteTodo] = useDeleteTodosMutation();
     const [updateTodo] = useUpdateTodosMutation();
-    // if (!todo) {
-    //     return <p>test</p>;
-    // }
+
     const onClickCheck = () => {
         updateTodo({ ...todo, completed: !todo.completed });
     };

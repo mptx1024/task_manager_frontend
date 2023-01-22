@@ -16,9 +16,7 @@ const useFirebaseAuth = () => {
              *  It makes logic sense to update or flush Redux state whenever the auth state is changed.
              */
             if (authUser) {
-                console.log('🚀 ~ file: useFirebaseAuth.js:19 ~ unListen ~ authUser', authUser);
                 // idToken used to get verified in BE with firebase admin SDK
-
                 const firebaseIdToken = await getIdToken(authUser);
                 setAuthUser(authUser);
                 dispatch(
@@ -33,7 +31,7 @@ const useFirebaseAuth = () => {
                 );
             } else {
                 setAuthUser(null);
-                signInAnonymous(); 
+                signInAnonymous();
                 // Clear the Redux state
             }
         });

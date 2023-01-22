@@ -9,12 +9,12 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
-    <ThemeProvider theme={Theme}>
-        <Provider store={store}>
-            <CssBaseline />
-            <App />
-        </Provider>
-    </ThemeProvider>
+    // <ThemeProvider theme={Theme}>
+    <Provider store={store}>
+        <CssBaseline />
+        <App />
+    </Provider>
+    // </ThemeProvider>
     // </React.StrictMode>
 );
 

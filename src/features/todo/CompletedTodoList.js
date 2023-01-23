@@ -1,22 +1,19 @@
 import useFirebaseAuth from '../../hooks/useFirebaseAuth';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useLazyGetTodosQuery } from './todosApiSlice';
 import TodoItem from './TodoItem';
+import { Collapse, List } from '@mui/material';
 
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import useCollapse from 'react-collapsed';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Collapse from '@mui/material/Collapse';
-import { TransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { Box } from '@mui/material';
 
 const CompletedTodoList = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const authUser = useFirebaseAuth();
 
-    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({ duration: 100 });
-
-    const [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery('todosCacheKey');
+    let [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery();
 
     const isFirstRun = useRef(true); // Used to prevent useEffect's first rending
     useEffect(() => {
@@ -27,31 +24,16 @@ const CompletedTodoList = () => {
         trigger();
     }, [authUser]);
 
-    const completedList = (content) => (
-        // <>
-        //     <div
-        //         {...getToggleProps()}
-        //         style={{
-        //             // cursor: 'pointer',
-        //             fontWeight: 'bolder',
-        //             alignItems: 'center',
-        //             display: 'flex',
-        //         }}
-        //     >
-        //         <ArrowForwardIosIcon fontSize='small' sx={{ ...(isExpanded && { transform: 'rotate(90deg)' }) }} />
-        //         <span>Completed</span>
-        //     </div>
-        //     <div {...getCollapseProps()}>{content}</div>
-        // </>
-        <Stack {...getToggleProps()} direction='row' alignItems='center' gap={1}>
-            <ArrowForwardIosIcon fontSize='small' sx={{ ...(isExpanded && { transform: 'rotate(90deg)' }) }} />
-            {/* <KeyboardArrowRightIcon fontSize='small' sx={{ ...(isExpanded && { transform: 'rotate(90deg)' }) }} /> */}
-            <Typography variant='inherit'>Completed</Typography>
-            <div {...getCollapseProps()}>{content}</div>
-        </Stack>
-    );
+    // const isSuccess = true;
+    // const todos = {
+    //     ids: ['1'],
+    //     entities: {
+    //         1: { _id: '1', completed: true, title: 'test 1' },
+    //         2: { _id: '2', completed: true, title: 'test 2-1' },
+    //     },
+    // };
 
-    let content = <p>testing</p>;
+    let content;
     if (isLoading) {
         // console.log(`isLoading: ${isLoading}`);
         content = <p>Loading...</p>;
@@ -63,14 +45,37 @@ const CompletedTodoList = () => {
                 completedTodos.push(<Collapse key={id}> {<TodoItem todo={todo} />} </Collapse>);
             }
         }
-        content = <TransitionGroup>{completedTodos}</TransitionGroup>;
+        // content = <TransitionGroup>{completedTodos}</TransitionGroup>;
+        content = (
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'middle' }}>
+                    <ArrowForwardIosIcon
+                        fontSize='small'
+                        onClick={() => setIsOpen((prev) => !prev)}
+                        sx={{ transform: isOpen && 'rotate(90deg)', mr: 1 }}
+                    />
+                    <Typography variant='inherit'>Completed</Typography>
+                </Box>
+                <Collapse
+                    in={isOpen}
+                    easing={{
+                        enter: 'cubic-bezier(0, 1.5, .8, 1)',
+                        exit: 'cubic-bezier(0, 1.5, .8, 1)',
+                    }}
+                >
+                    <List>
+                        <TransitionGroup>{completedTodos}</TransitionGroup>
+                    </List>
+                </Collapse>
+            </Box>
+        );
     } else if (isError) {
         // content = <p>{JSON.stringify(error)}</p>;
         // Expect:  {"status":400,"data":{"msg":"No todos found with uid PsijbkDmY0dELRHUJH8WQpl9UDjF"}}
         content = null;
     }
 
-    return completedList(content);
+    return content;
 };
 
 export default CompletedTodoList;

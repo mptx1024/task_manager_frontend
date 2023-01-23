@@ -6,10 +6,11 @@ const authSlice = createSlice({
     reducers: {
         login: (state, action) => {
             state.user = action.payload;
+            // console.log(`In authSlice->login. state: ${JSON.stringify(state)}`);
         },
         logout: (state, action) => {
-            state.user = null;
-            console.log(`In authSlice->logout. state.user: ${state.user}`);
+            state = null;
+            // console.log(`In authSlice->logout. state: ${state}`);
         },
     },
 });

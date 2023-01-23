@@ -1,5 +1,5 @@
 import { CheckCircle, RadioButtonUnchecked, Delete } from '@mui/icons-material';
-import { Box, Checkbox, IconButton, Paper, Stack, styled } from '@mui/material';
+import { Box, Checkbox, IconButton, Paper, styled, Collapse, ListItem } from '@mui/material';
 import { useDeleteTodosMutation, useGetTodosQuery, useUpdateTodosMutation } from './todosApiSlice';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -26,13 +26,14 @@ const TodoItem = ({ todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
     const onClickCheck = () => {
+        console.log(`current completed: ${todo.completed}; new completed: ${!todo.completed}`);
         updateTodo({ ...todo, completed: !todo.completed });
     };
     const onClickDelete = () => {
         deleteTodo({ _id: todo._id });
     };
     return (
-        <Stack>
+
             <StyledPaper>
                 <Box sx={{ display: 'flex' }}>
                     <Checkbox
@@ -53,7 +54,6 @@ const TodoItem = ({ todo }) => {
                     <Delete />
                 </IconButton>
             </StyledPaper>
-        </Stack>
     );
 };
 

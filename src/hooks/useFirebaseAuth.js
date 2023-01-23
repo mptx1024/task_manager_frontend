@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../features/auth/authSlice';
 import { signInAnonymous } from '../config/firebase';
+
+const altPhoto = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 const useFirebaseAuth = () => {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useState(null);
@@ -22,8 +24,11 @@ const useFirebaseAuth = () => {
                 dispatch(
                     login({
                         email: authUser.email,
-                        displayName: authUser.displayName,
-                        photoUrl: authUser.photoURL,
+                        displayName: authUser.displayName?.split(' ')[0],
+                        photoUrl:
+                            !authUser.photoURL || authUser.photoURL === 'https://fakephoto.com'
+                                ? altPhoto
+                                : authUser.photoURL,
                         uid: authUser.uid,
                         firebaseIdToken,
                         isAnonymous: authUser.email ? false : true, // anonymous login

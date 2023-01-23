@@ -26,7 +26,7 @@ export const extendedTodosSlice = apiSlice.injectEndpoints({
                 validateStatus: (response, result) => response.status === 200 && !result.isError,
             }),
             transformResponse: (responseData) => {
-                console.log('🚀 ~ file: todosApiSlice.js:27 ~ responseData', responseData);
+                // console.log('🚀 ~ file: todosApiSlice.js:27 ~ responseData', responseData);
                 // const loadedTodos = responseData.map((todo) => {
                 //     todo.id = todo._id;
                 // });

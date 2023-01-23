@@ -1,16 +1,16 @@
 import { Menu } from '@mui/icons-material';
-import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography } from '@mui/material';
-import { signInWithGoogle, signOutGoogle, signInAnonymous } from '../config/firebase';
+import { AppBar, Box, Container, Button, IconButton, styled, Toolbar, Typography } from '@mui/material';
+import { signOutGoogle } from '../config/firebase';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import useFirebaseAuth from '../hooks/useFirebaseAuth';
-import { signOut } from 'firebase/auth';
+import LoginButton from './LoginButton';
+
 const StyledToolbar = styled(Toolbar)({
     display: 'flex',
     justifyContent: 'space-between',
-    // overflow: 'clip',
 });
 
 const Navbar = () => {
@@ -21,45 +21,39 @@ const Navbar = () => {
     const authUser = useFirebaseAuth();
     // console.log('🚀 ~ file: Navbar.js:19 ~ Navbar ~ authUser', typeof authUser, authUser);
 
-    // if (!authUser) {
-    //     console.log('test');
-    //     signInAnonymous();
-    // }
-
     const onClickSignOut = () => {
         signOutGoogle();
         dispatch(logout());
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <AppBar position='fixed'>
                 <StyledToolbar>
                     <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
                         <Menu />
                     </IconButton>
-                    <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+                    <Typography variant='h6' component='div' sx={{ flexGrow: 2 }}>
                         Todo React & Redux Toolkit
                     </Typography>
-                    {userInState?.isAnonymous ? (
-                        <Button color='inherit' onClick={signInWithGoogle}>
-                            Login
-                        </Button>
-                    ) : (
-                        <>
-                            <img
-                                src={userInState?.photoUrl}
-                                alt=''
-                                referrerPolicy='no-referrer'
-                                width={25}
-                                height={25}
-                            />
-                            <p>{userInState?.displayName}</p>
-                            <Button color='inherit' onClick={onClickSignOut}>
-                                Logout
-                            </Button>
-                        </>
-                    )}
+                    <Box sx={{ display: 'flex' }}>
+                        {userInState?.isAnonymous || !userInState ? (
+                            <LoginButton />
+                        ) : (
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box
+                                    component='img'
+                                    src={userInState?.photoUrl}
+                                    alt=''
+                                    sx={{ borderRadius: '50%', height: 25, width: 25, mr: 0.7 }}
+                                />
+                                <Typography sx={{ mr: 2 }}>{userInState?.displayName}</Typography>
+                                <Button color='inherit' onClick={onClickSignOut}>
+                                    Logout
+                                </Button>
+                            </Box>
+                        )}
+                    </Box>
                 </StyledToolbar>
             </AppBar>
         </Box>

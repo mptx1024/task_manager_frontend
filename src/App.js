@@ -15,7 +15,7 @@ function App() {
                 <TodoList />
                 <CompletedTodoList />
             </Stack>
-            <Box display='flex' justifyContent='center'>
+            <Box display='flex' justifyContent='center' alignContent='center'>
                 <Footer />
             </Box>
         </Box>

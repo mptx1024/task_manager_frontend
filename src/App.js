@@ -1,9 +1,9 @@
-import Navbar from './components/Navbar';
+import Navbar from './components/nav/Navbar';
 import TodoList from './features/todo/TodoList';
 import AddTodo from './features/todo/AddTodo';
 import CompletedTodoList from './features/todo/CompletedTodoList';
 import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
+import SideBar from './components/nav/Sidebar';
 import { lightTheme, darkTheme } from './features/visual/themes';
 import { useSelector } from 'react-redux';
 
@@ -16,7 +16,7 @@ function App() {
         <ThemeProvider theme={themeState === 'light' ? lightTheme : darkTheme}>
             <CssBaseline />
             <Box>
-                <Sidebar />
+                <SideBar />
                 <Navbar />
                 <Stack sx={{ height: '95vh', maxHeight: '95vh', overflow: 'auto', margin: 'auto', width: '40%' }}>
                     <AddTodo />

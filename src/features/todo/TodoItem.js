@@ -26,6 +26,7 @@ const TodoItem = ({ todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
     const onClickCheck = () => {
+
         updateTodo({ ...todo, completed: !todo.completed });
     };
     const onClickDelete = () => {

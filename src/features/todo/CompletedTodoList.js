@@ -3,11 +3,9 @@ import { useRef, useEffect, useState } from 'react';
 import { useLazyGetTodosQuery } from './todosApiSlice';
 import TodoItem from './TodoItem';
 
-import { Collapse, List } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Collapse, List, Typography, Box } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { TransitionGroup } from 'react-transition-group';
-import { Box } from '@mui/material';
 
 const CompletedTodoList = () => {
     const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(true);

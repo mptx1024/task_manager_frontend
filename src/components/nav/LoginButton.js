@@ -1,4 +1,4 @@
-import SocialLogin from '../features/auth/SocialLogin';
+import SocialLogin from '../../features/auth/SocialLogin';
 
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';

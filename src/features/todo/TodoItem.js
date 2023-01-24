@@ -26,34 +26,32 @@ const TodoItem = ({ todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
     const onClickCheck = () => {
-        console.log(`current completed: ${todo.completed}; new completed: ${!todo.completed}`);
         updateTodo({ ...todo, completed: !todo.completed });
     };
     const onClickDelete = () => {
         deleteTodo({ _id: todo._id });
     };
     return (
-
-            <StyledPaper>
-                <Box sx={{ display: 'flex' }}>
-                    <Checkbox
-                        icon={<RadioButtonUnchecked />}
-                        checkedIcon={<CheckCircle sx={{ color: '#2564cf' }} />}
-                        onChange={onClickCheck}
-                        checked={todo.isCompleted ? true : false}
-                    />
-                    {todo.completed ? (
-                        <p>
-                            <s>{todo.title}</s>
-                        </p>
-                    ) : (
-                        <p>{todo.title}</p>
-                    )}
-                </Box>
-                <IconButton edge='end' aria-label='delete' title='Delete' onClick={onClickDelete}>
-                    <Delete />
-                </IconButton>
-            </StyledPaper>
+        <StyledPaper>
+            <Box sx={{ display: 'flex' }}>
+                <Checkbox
+                    icon={<RadioButtonUnchecked />}
+                    checkedIcon={<CheckCircle sx={{ color: '#2564cf' }} />}
+                    onChange={onClickCheck}
+                    checked={todo.isCompleted ? true : false}
+                />
+                {todo.completed ? (
+                    <p>
+                        <s>{todo.title}</s>
+                    </p>
+                ) : (
+                    <p>{todo.title}</p>
+                )}
+            </Box>
+            <IconButton edge='end' aria-label='delete' title='Delete' onClick={onClickDelete}>
+                <Delete />
+            </IconButton>
+        </StyledPaper>
     );
 };
 

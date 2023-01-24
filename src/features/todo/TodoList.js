@@ -34,14 +34,17 @@ export default function TodoList() {
         // console.log(`isLoading: ${isLoading}`);
         content = <p>Loading...</p>;
     } else if (isSuccess) {
-        const { ids, entities } = todos;
+        const { entities } = todos;
         let openedTodos = [];
         for (let [id, todo] of Object.entries(entities)) {
             if (!todo.completed) {
-                openedTodos.push(<Collapse key={id}> {<TodoItem key={id} todo={todo} />} </Collapse>);
+                openedTodos.push(
+                    <Collapse timeout={500} key={id}>
+                        {<TodoItem key={id} todo={todo} />}
+                    </Collapse>
+                );
             }
         }
-        // content = <TransitionGroup>{openedTodos}</TransitionGroup>;
         content = (
             <List>
                 <TransitionGroup>{openedTodos}</TransitionGroup>

@@ -4,17 +4,22 @@ import './index.css';
 import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-import { Theme } from './Theme';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+// import { theme } from './hooks/useToggleTheme';
+// import { ThemeProvider, CssBaseline } from '@mui/material';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     // <React.StrictMode>
-    // <ThemeProvider theme={Theme}>
+
     <Provider store={store}>
-        <CssBaseline />
+        {/* <ThemeProvider theme={theme}>
+            <CssBaseline /> */}
+
         <App />
+        {/* </ThemeProvider> */}
     </Provider>
-    // </ThemeProvider>
+
     // </React.StrictMode>
 );
 

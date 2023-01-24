@@ -25,7 +25,6 @@ const AddTodo = () => {
                 await addNewTodo({ title, uid, isCompleted: false });
                 setTitle('');
             }
-            console.log('in addTodo:', title);
             try {
             } catch (err) {
                 console.error('Failed to save the post', err);

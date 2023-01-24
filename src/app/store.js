@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './api/apiSlice';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import authReducer from '../features/auth/authSlice';
-import themeReducer from '../features/theme/themeSlice';
+import themeReducer from '../features/visual/themeSlice';
+import sideBarReducer from '../features/visual/sideBarSlice';
 
 export const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]: apiSlice.reducer,
         auth: authReducer,
         theme: themeReducer,
+        sideBar: sideBarReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
     devTools: true,

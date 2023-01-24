@@ -1,7 +1,8 @@
 import { signOutGoogle } from '../config/firebase';
 import { logout } from '../features/auth/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleTheme } from '../features/theme/themeSlice';
+import { toggleTheme } from '../features/visual/themeSlice';
+import { toggleSideBar } from '../features/visual/sideBarSlice';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import useFirebaseAuth from '../hooks/useFirebaseAuth';
 import LoginButton from './LoginButton';
@@ -9,18 +10,33 @@ import LoginButton from './LoginButton';
 import { Menu } from '@mui/icons-material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography, useTheme } from '@mui/material';
 
-const StyledToolbar = styled(Toolbar)({
-    display: 'flex',
-    justifyContent: 'space-between',
-});
+const drawerWidth = 240;
+
+const StyledAppBar = styled(AppBar, {
+    shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
+})(({ theme, isSideBarOpen }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(isSideBarOpen && {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
 
 const Navbar = () => {
     const dispatch = useDispatch();
     const userInState = useSelector(selectCurrentUser); // The user in redux state
     const authUser = useFirebaseAuth();
     const themeState = useSelector((state) => state.theme.theme);
+    const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
     const onClickSignOut = () => {
         signOutGoogle();
@@ -29,10 +45,20 @@ const Navbar = () => {
     const onClickToggleMode = () => {
         dispatch(toggleTheme());
     };
+    const onClickToggleSideBar = () => {
+        dispatch(toggleSideBar());
+    };
     return (
-        <AppBar position='fixed'>
-            <StyledToolbar>
-                <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
+        <StyledAppBar position='fixed' isSideBarOpen={isSideBarOpen}>
+            <Toolbar>
+                <IconButton
+                    onClick={onClickToggleSideBar}
+                    size='large'
+                    edge='start'
+                    color='inherit'
+                    aria-label='menu'
+                    sx={{ mr: 2 }}
+                >
                     <Menu />
                 </IconButton>
                 <Typography variant='h6' component='div' sx={{ flexGrow: 2 }}>
@@ -63,8 +89,8 @@ const Navbar = () => {
                         </Box>
                     )}
                 </Box>
-            </StyledToolbar>
-        </AppBar>
+            </Toolbar>
+        </StyledAppBar>
     );
 };
 export default Navbar;

@@ -3,15 +3,13 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import Popover from '@mui/material/Popover';
+// import Popover from '@mui/material/Popover';
 import EventIcon from '@mui/icons-material/Event';
 
-const DatePickerButton = () => {
+const DatePickerButton = ({ setDueDate, dueDate }) => {
     // const [anchorEl, setAnchorEl] = useState(null);
     // const [showPopover, setShowPopover] = useState(false);
-    const [startDate, setStartDate] = useState(undefined);
     const [isOpen, setIsOpen] = useState(false);
-    console.log(startDate);
     // const onOpenClick = (e) => {
     //     setShowPopover((prev) => !prev);
     //     setAnchorEl(e.currentTarget);
@@ -26,26 +24,30 @@ const DatePickerButton = () => {
     };
     const handleChange = (e) => {
         setIsOpen(!isOpen);
-        setStartDate(e);
+        setDueDate(e);
     };
     const handleClickOutside = (e) => {
         setIsOpen(!isOpen);
-        // setStartDate(e);
     };
 
     return (
         <div>
             <StyledButton onClick={handleClick} variant='outlined' size='small' startIcon={<EventIcon />}>
-                {/* {format(startDate, 'dd-MM-yyyy')} */}
-                {startDate ? startDate?.toLocaleDateString('en-US') : 'Due Date'}
+                {dueDate ? dueDate?.toLocaleDateString('en-US') : 'Due Date'}
             </StyledButton>
             {isOpen && (
-                <div style={{ display: 'flex', maxWidth: '200px', position: 'absolute', zIndex: '100' }}>
+                <div
+                    style={{ display: 'flex', maxWidth: '500px', width: '500px', position: 'absolute', zIndex: '100' }}
+                >
                     <DatePicker
+                        dateFormat='MM-DD-YYYY'
                         onClickOutside={handleClickOutside}
-                        selected={startDate}
+                        selected={new Date()}
                         onChange={handleChange}
                         inline
+                        minDate={new Date()}
+                        isClearable={true}
+                        placeholderText='Select a day'
                     />
                 </div>
             )}

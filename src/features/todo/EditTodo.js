@@ -1,20 +1,31 @@
 import { useState } from 'react';
+import { useUpdateTodosMutation } from './todosApiSlice';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from '../../components/todo/DatePickerButton';
 
 import { Stack, Box, TextField } from '@mui/material';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-const EditTodo = ({ setIsEditing }) => {
-    const [title, setTitle] = useState('test 3');
+const EditTodo = ({ setIsEditing, todo }) => {
+    const [updateTodo] = useUpdateTodosMutation();
+
+    const [title, setTitle] = useState(todo.title);
     const [description, setDescription] = useState('');
-    const [startDate, setStartDate] = useState(new Date());
+    const [dueDate, setDueDate] = useState(undefined);
 
     const onTitleChange = (e) => {
         setTitle(e.target.value);
     };
     const onDescriptionChange = (e) => {
         setDescription(e.target.value);
+    };
+
+    const onClickCancel = () => {
+        setIsEditing(false);
+    };
+    const onClickSave = () => {
+        updateTodo({ ...todo, title, description, dueDate });
+        setIsEditing(false);
     };
 
     return (
@@ -32,6 +43,7 @@ const EditTodo = ({ setIsEditing }) => {
                         fullWidth
                         id='title'
                         label={title === '' ? 'Title' : ' '}
+                        // label='title'
                         variant='standard'
                         InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
                         InputLabelProps={{
@@ -59,10 +71,7 @@ const EditTodo = ({ setIsEditing }) => {
                         // sx={{ border: '1px solid blue' }}
                     />
                     <Box sx={{ display: 'flex', justifyContent: 'flex-start', py: '8px' }}>
-                        {/* <StyledButton variant='outlined' size='small' startIcon={<EventIcon />}>
-                            Due Date
-                        </StyledButton> */}
-                        <DatePickerButton />
+                        <DatePickerButton setDueDate={setDueDate} dueDate={dueDate} />
                         <StyledButton variant='outlined' size='small' startIcon={<FlagOutlinedIcon />} sx={{ ml: 1 }}>
                             Priority
                         </StyledButton>
@@ -79,10 +88,15 @@ const EditTodo = ({ setIsEditing }) => {
                         my: '10px',
                     }}
                 >
-                    <StyledButton isMajor={true} size='large'>
+                    <StyledButton onClick={onClickCancel} isMajor={true} size='large'>
                         Cancel
                     </StyledButton>
-                    <StyledButton isMajor={true} size='large' sx={{ bgcolor: 'green', color: 'white', ml: 2 }}>
+                    <StyledButton
+                        onClick={onClickSave}
+                        isMajor={true}
+                        size='large'
+                        sx={{ bgcolor: 'green', color: 'white', ml: 2 }}
+                    >
                         Save
                     </StyledButton>
                 </Stack>

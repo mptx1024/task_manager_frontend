@@ -1,4 +1,4 @@
-import { useDeleteTodosMutation, useUpdateTodosMutation } from './todosApiSlice';
+import { useDeleteTodosMutation, useUpdateTodosMutation, useGetTodosQuery } from './todosApiSlice';
 import { useState } from 'react';
 import EditTodo from './EditTodo';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
@@ -11,25 +11,37 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { Box, Checkbox, IconButton, Typography } from '@mui/material';
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todoId }) => {
+    const { todo } = useGetTodosQuery(undefined, {
+        selectFromResult: ({ data }) => ({
+            // Select from cache
+            todo: data?.entities[todoId],
+        }),
+    });
+
     const [deleteTodo] = useDeleteTodosMutation();
     const [updateTodo] = useUpdateTodosMutation();
     const [isHovered, setIsHovered] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
+    if (!todo) {
+        return null;
+    }
     const onClickEdit = () => {
         setIsEditing((prev) => !prev);
     };
 
-    const onClickCheck = () => {
+    const onClickCheckbox = () => {
         updateTodo({ ...todo, completed: !todo.completed });
     };
     const onClickDelete = () => {
         deleteTodo({ _id: todo._id });
     };
 
+    
+
     return isEditing ? (
-        <EditTodo setIsEditing={setIsEditing} />
+        <EditTodo setIsEditing={setIsEditing} todo={todo} />
     ) : (
         <StyledPaper>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -44,8 +56,8 @@ const TodoItem = ({ todo }) => {
                         )
                     }
                     checkedIcon={<CheckCircleIcon color='secondary' />}
-                    onChange={onClickCheck}
-                    checked={todo.completed}
+                    onChange={onClickCheckbox}
+                    checked={todo?.completed}
                     sx={{ mr: 1 }}
                 />
                 {todo.completed ? (

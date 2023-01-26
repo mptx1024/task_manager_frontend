@@ -10,7 +10,7 @@ import LoginButton from './LoginButton';
 import { Menu } from '@mui/icons-material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography, useTheme } from '@mui/material';
+import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography } from '@mui/material';
 
 const drawerWidth = 240;
 

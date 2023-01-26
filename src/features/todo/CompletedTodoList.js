@@ -11,7 +11,7 @@ const CompletedTodoList = () => {
     const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(false);
     const authUser = useFirebaseAuth();
 
-    let [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery();
+    let [trigger, { data: todos, isLoading, isSuccess, isError }] = useLazyGetTodosQuery();
 
     const isFirstRun = useRef(true); // Used to prevent useEffect's first rending
     useEffect(() => {
@@ -19,7 +19,7 @@ const CompletedTodoList = () => {
             isFirstRun.current = false;
             return;
         }
-        trigger();
+        trigger({}, true);
     }, [authUser]);
 
     let content;
@@ -32,7 +32,7 @@ const CompletedTodoList = () => {
             if (todo.completed) {
                 completedTodos.push(
                     <Collapse timeout={250} key={id}>
-                        {<TodoItem todo={todo} />}
+                        {<TodoItem todoId={todo._id} />}
                     </Collapse>
                 );
             }

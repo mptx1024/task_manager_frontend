@@ -25,7 +25,7 @@ export default function TodoList() {
             isFirstRun.current = false;
             return;
         }
-        trigger();
+        trigger({}, true);
     }, [userInState]);
 
     let content;
@@ -40,7 +40,7 @@ export default function TodoList() {
             if (!todo.completed) {
                 openedTodos.push(
                     <Collapse timeout={500} key={id}>
-                        {<TodoItem key={id} todo={todo} />}
+                        {<TodoItem key={id} todoId={todo._id} />}
                     </Collapse>
                 );
             }

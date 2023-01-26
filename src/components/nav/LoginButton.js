@@ -1,7 +1,6 @@
 import SocialLogin from '../../features/auth/SocialLogin';
 
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 

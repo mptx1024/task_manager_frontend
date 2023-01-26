@@ -3,12 +3,12 @@ import { useRef, useEffect, useState } from 'react';
 import { useLazyGetTodosQuery } from './todosApiSlice';
 import TodoItem from './TodoItem';
 
-import { Collapse, List, Typography, Box } from '@mui/material';
+import { Collapse, List, Typography, Box, IconButton, Divider } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { TransitionGroup } from 'react-transition-group';
 
 const CompletedTodoList = () => {
-    const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(true);
+    const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(false);
     const authUser = useFirebaseAuth();
 
     let [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery();
@@ -24,7 +24,6 @@ const CompletedTodoList = () => {
 
     let content;
     if (isLoading) {
-        // console.log(`isLoading: ${isLoading}`);
         content = <p>Loading...</p>;
     } else if (isSuccess) {
         const { entities } = todos;
@@ -51,24 +50,30 @@ const CompletedTodoList = () => {
 
     return (
         <Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <ArrowForwardIosIcon
-                    fontSize='small'
+            <Box sx={{ display: 'flex', alignItems: 'center', my: '1rem' }}>
+                <IconButton
+                    size='small'
                     onClick={() => setIsCompletedPanelOpen((prev) => !prev)}
-                    sx={{ transform: isCompletedPanelOpen && 'rotate(90deg)', mr: 1 }}
-                />
+                    sx={{ transform: isCompletedPanelOpen && 'rotate(90deg)', mr: 2 }}
+                >
+                    <ArrowForwardIosIcon fontSize='small' />
+                </IconButton>
                 <Typography variant='inherit'>Completed</Typography>
             </Box>
-            <Collapse
-                in={isCompletedPanelOpen}
-                timeout={300}
-                easing={{
-                    enter: 'cubic-bezier(0, 1.5, .8, 1)',
-                    exit: 'cubic-bezier(0, 1.5, .8, 1)',
-                }}
-            >
-                {content}
-            </Collapse>
+            {isCompletedPanelOpen ? (
+                <Collapse
+                    in={isCompletedPanelOpen}
+                    // timeout={50000}
+                    // easing={{
+                    //     enter: 'cubic-bezier(0, 1.5, .8, 1)',
+                    //     exit: 'cubic-bezier(0, 1.5, .8, 1)',
+                    // }}
+                >
+                    {content}
+                </Collapse>
+            ) : (
+                <Divider />
+            )}
         </Box>
     );
 };

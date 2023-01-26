@@ -25,7 +25,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    height: '4rem',
+    height: '3rem',
     padding: theme.spacing(0, 1),
 }));
 

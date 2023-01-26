@@ -1,57 +1,72 @@
-import { CheckCircle, RadioButtonUnchecked, Delete } from '@mui/icons-material';
-import { Box, Checkbox, IconButton, Paper, styled, Collapse, ListItem } from '@mui/material';
-import { useDeleteTodosMutation, useGetTodosQuery, useUpdateTodosMutation } from './todosApiSlice';
+import { useDeleteTodosMutation, useUpdateTodosMutation } from './todosApiSlice';
+import { useState } from 'react';
+import EditTodo from './EditTodo';
+import StyledPaper from '../../components/muiTemplate/StyledPaper';
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    marginTop: '1rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    // alignItems: 'center',
-    // padding: '0 1rem',
-    ':hover': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f5f5f5',
-    },
-    cursor: 'pointer',
-}));
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { Box, Checkbox, IconButton, Typography } from '@mui/material';
 
 const TodoItem = ({ todo }) => {
-    // console.log('🚀 ~ file: TodoItem.js:23 ~ TodoItem ~ todo', todo);
-
     const [deleteTodo] = useDeleteTodosMutation();
     const [updateTodo] = useUpdateTodosMutation();
+    const [isHovered, setIsHovered] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const onClickEdit = () => {
+        setIsEditing((prev) => !prev);
+    };
 
     const onClickCheck = () => {
-
         updateTodo({ ...todo, completed: !todo.completed });
     };
     const onClickDelete = () => {
         deleteTodo({ _id: todo._id });
     };
-    return (
+
+    return isEditing ? (
+        <EditTodo setIsEditing={setIsEditing} />
+    ) : (
         <StyledPaper>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Checkbox
-                    icon={<RadioButtonUnchecked />}
-                    checkedIcon={<CheckCircle sx={{ color: '#2564cf' }} />}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    icon={
+                        isHovered ? (
+                            <CheckCircleOutlineRoundedIcon color='secondary' />
+                        ) : (
+                            <RadioButtonUncheckedIcon color='secondary' />
+                        )
+                    }
+                    checkedIcon={<CheckCircleIcon color='secondary' />}
                     onChange={onClickCheck}
-                    checked={todo.isCompleted ? true : false}
+                    checked={todo.completed}
+                    sx={{ mr: 1 }}
                 />
                 {todo.completed ? (
-                    <p>
+                    <Typography>
                         <s>{todo.title}</s>
-                    </p>
+                    </Typography>
                 ) : (
-                    <p>{todo.title}</p>
+                    <Typography>{todo.title}</Typography>
                 )}
             </Box>
-            <IconButton edge='end' aria-label='delete' title='Delete' onClick={onClickDelete}>
-                <Delete />
-            </IconButton>
+            <Box>
+                <IconButton title='Edit' size='small' onClick={onClickEdit}>
+                    <EditOutlinedIcon fontSize='small' />
+                </IconButton>
+                <IconButton title='Important' size='small'>
+                    <StarBorderIcon fontSize='small' />
+                </IconButton>
+                <IconButton title='Delete' size='small' onClick={onClickDelete}>
+                    <DeleteOutlinedIcon fontSize='small' />
+                </IconButton>
+            </Box>
         </StyledPaper>
     );
 };

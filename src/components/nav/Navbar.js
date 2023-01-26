@@ -19,7 +19,7 @@ const StyledAppBar = styled(AppBar, {
 })(
     //
     ({ theme, isSideBarOpen }) => ({
-        height: '4rem',
+        height: '3rem',
         justifyContent: 'center',
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,

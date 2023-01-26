@@ -18,7 +18,16 @@ function App() {
             <Box>
                 <SideBar />
                 <Navbar />
-                <Stack sx={{ height: '95vh', maxHeight: '95vh', overflow: 'auto', margin: 'auto', width: '40%' }}>
+                <Stack
+                    sx={{
+                        boxSizing: 'border-box',
+                        height: '95vh',
+                        maxHeight: '95vh',
+                        overflow: 'auto',
+                        margin: 'auto',
+                        width: '65%',
+                    }}
+                >
                     <AddTodo />
                     <TodoList />
                     <CompletedTodoList />

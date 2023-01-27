@@ -38,18 +38,25 @@ export default function TodoList() {
         let openedTodos = [];
         for (let [id, todo] of Object.entries(entities)) {
             if (!todo.completed) {
-                openedTodos.push(
-                    <Collapse timeout={500} key={id}>
-                        {<TodoItem key={id} todoId={todo._id} />}
-                    </Collapse>
-                );
+                // <Collapse
+                //     unmountOnExit
+                //     key={id}
+                //     in={true}
+                //     timeout={{ enter: 1500, exit: 100 }}
+                //     easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
+                // >
+                //     {<TodoItem key={id} todoId={todo._id} />}
+                // </Collapse>
+
+                openedTodos.push(<TodoItem key={id} todoId={todo._id} />);
             }
         }
-        content = (
-            <List>
-                <TransitionGroup>{openedTodos}</TransitionGroup>
-            </List>
-        );
+        content =
+            // <List>
+            //     {openedTodos}
+            //     {/* <TransitionGroup>{openedTodos}</TransitionGroup> */}
+            // </List>
+            openedTodos;
     } else if (isError) {
         // content = <p>{JSON.stringify(error)}</p>;
         // Expect:  {"status":400,"data":{"msg":"No todos found with uid PsijbkDmY0dELRHUJH8WQpl9UDjF"}}

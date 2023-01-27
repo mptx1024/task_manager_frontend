@@ -43,6 +43,7 @@ const AddTodo = () => {
                 label='Add a new task'
                 variant='standard'
                 value={title}
+                autoComplete='false'
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyPress={(e) => {
                     if (e.key === 'Enter') onAddPostClicked();

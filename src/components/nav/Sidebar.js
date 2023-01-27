@@ -18,13 +18,12 @@ import {
     styled,
     Typography,
     Box,
-    useTheme,
 } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end', // for anchoring arrow button
     height: '3rem',
     padding: theme.spacing(0, 1),
 }));
@@ -34,7 +33,6 @@ const SideBar = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
     const dispatch = useDispatch();
-    const theme = useTheme();
 
     const onClickCloseSideBar = () => {
         dispatch(toggleSideBar());
@@ -52,9 +50,6 @@ const SideBar = () => {
 
     return (
         <Drawer
-            // PaperProps={{
-            //     sx: { width: '90%' },
-            // }}
             sx={{
                 width: drawerWidth,
                 flexShrink: 0,

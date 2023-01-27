@@ -1,4 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOutGoogle } from '../../config/firebase';
+import { logout } from '../../features/auth/authSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
 
 import {
@@ -16,7 +18,12 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const AvatarPopoverContent = () => {
     const userInState = useSelector(selectCurrentUser); // The user in redux state
+    const dispatch = useDispatch();
 
+    const onClickSignOut = () => {
+        signOutGoogle();
+        dispatch(logout());
+    };
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <ListItem alignItems='flex-start'>
@@ -38,7 +45,7 @@ const AvatarPopoverContent = () => {
             </ListItem>
             <Divider />
             <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={onClickSignOut}>
                     <ListItemIcon>
                         <ExitToAppIcon />
                     </ListItemIcon>

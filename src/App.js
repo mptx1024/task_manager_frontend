@@ -1,13 +1,11 @@
 import Navbar from './components/nav/Navbar';
-import TodoList from './features/todo/TodoList';
-import AddTodo from './features/todo/AddTodo';
-import CompletedTodoList from './features/todo/CompletedTodoList';
 import Footer from './components/Footer';
 import SideBar from './components/nav/Sidebar';
 import { lightTheme, darkTheme } from './features/visual/themes';
 import { useSelector } from 'react-redux';
+import BodyLayout from './components/main/BodyLayout';
 
-import { Box, CssBaseline, Stack } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
@@ -19,20 +17,7 @@ function App() {
             <Box>
                 <SideBar />
                 <Navbar />
-                <Stack
-                    sx={{
-                        boxSizing: 'border-box',
-                        height: '95vh',
-                        maxHeight: '95vh',
-                        overflow: 'auto',
-                        margin: 'auto',
-                        width: '65%',
-                    }}
-                >
-                    <AddTodo />
-                    <TodoList />
-                    <CompletedTodoList />
-                </Stack>
+                <BodyLayout />
                 <Box display='flex' justifyContent='center' alignContent='center'>
                     <Footer />
                 </Box>

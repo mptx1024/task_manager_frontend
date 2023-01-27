@@ -6,10 +6,10 @@ import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+// import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import { Box, Checkbox, IconButton, Typography } from '@mui/material';
+import { Box, Checkbox, IconButton, Typography, Collapse } from '@mui/material';
 
 const TodoItem = ({ todoId }) => {
     const { todo } = useGetTodosQuery(undefined, {
@@ -41,43 +41,49 @@ const TodoItem = ({ todoId }) => {
     return isEditing ? (
         <EditTodo setIsEditing={setIsEditing} todo={todo} />
     ) : (
-        <StyledPaper>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Checkbox
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    icon={
-                        isHovered ? (
-                            <CheckCircleOutlineRoundedIcon color='secondary' />
-                        ) : (
-                            <RadioButtonUncheckedIcon color='secondary' />
-                        )
-                    }
-                    checkedIcon={<CheckCircleIcon color='secondary' />}
-                    onChange={onClickCheckbox}
-                    checked={todo?.completed}
-                    sx={{ mr: 1 }}
-                />
-                {todo.completed ? (
-                    <Typography>
-                        <s>{todo.title}</s>
-                    </Typography>
-                ) : (
-                    <Typography>{todo.title}</Typography>
-                )}
-            </Box>
-            <Box>
-                <IconButton title='Edit' size='small' onClick={onClickEdit}>
-                    <EditOutlinedIcon fontSize='small' />
-                </IconButton>
-                {/* <IconButton title='Important' size='small'>
+        <Collapse
+            in={true}
+            timeout={{ enter: 600, exit: 100 }}
+            easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
+        >
+            <StyledPaper>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Checkbox
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        icon={
+                            isHovered ? (
+                                <CheckCircleOutlineRoundedIcon color='secondary' />
+                            ) : (
+                                <RadioButtonUncheckedIcon color='secondary' />
+                            )
+                        }
+                        checkedIcon={<CheckCircleIcon color='secondary' />}
+                        onChange={onClickCheckbox}
+                        checked={todo?.completed}
+                        sx={{ mr: 1 }}
+                    />
+                    {todo.completed ? (
+                        <Typography>
+                            <s>{todo.title}</s>
+                        </Typography>
+                    ) : (
+                        <Typography>{todo.title}</Typography>
+                    )}
+                </Box>
+                <Box>
+                    <IconButton title='Edit' size='small' onClick={onClickEdit}>
+                        <EditOutlinedIcon fontSize='small' />
+                    </IconButton>
+                    {/* <IconButton title='Important' size='small'>
                     <StarBorderIcon fontSize='small' />
                 </IconButton> */}
-                <IconButton title='Delete' size='small' onClick={onClickDelete}>
-                    <DeleteOutlinedIcon fontSize='small' />
-                </IconButton>
-            </Box>
-        </StyledPaper>
+                    <IconButton title='Delete' size='small' onClick={onClickDelete}>
+                        <DeleteOutlinedIcon fontSize='small' />
+                    </IconButton>
+                </Box>
+            </StyledPaper>
+        </Collapse>
     );
 };
 

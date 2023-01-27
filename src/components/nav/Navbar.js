@@ -1,10 +1,8 @@
-import { signOutGoogle } from '../../config/firebase';
-import { logout } from '../../features/auth/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../../features/visual/themeSlice';
 import { toggleSideBar } from '../../features/visual/sideBarSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
-import useFirebaseAuth from '../../hooks/useFirebaseAuth';
+// import useFirebaseAuth from '../../hooks/useFirebaseAuth';
 import LoginUserBox from '../user/LoginUserBox';
 import LoginButton from './LoginButton';
 
@@ -43,12 +41,8 @@ const Navbar = () => {
     const themeState = useSelector((state) => state.theme.theme);
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
-    const authUser = useFirebaseAuth();
+    // const authUser = useFirebaseAuth();
 
-    const onClickSignOut = () => {
-        signOutGoogle();
-        dispatch(logout());
-    };
     const onClickToggleMode = () => {
         dispatch(toggleTheme());
     };

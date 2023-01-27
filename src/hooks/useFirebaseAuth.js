@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { login, logout } from '../features/auth/authSlice';
 import { signInAnonymous } from '../config/firebase';
 
-const altPhoto = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+// const altPhoto = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 const useFirebaseAuth = () => {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useState(null);
@@ -21,14 +21,13 @@ const useFirebaseAuth = () => {
                 // idToken used to get verified in BE with firebase admin SDK
                 const firebaseIdToken = await getIdToken(authUser);
                 setAuthUser(authUser);
+
                 dispatch(
                     login({
                         email: authUser.email,
-                        displayName: authUser.displayName?.split(' ')[0],
-                        photoUrl:
-                            !authUser.photoURL || authUser.photoURL === 'https://fakephoto.com'
-                                ? altPhoto
-                                : authUser.photoURL,
+                        firstName: authUser.displayName?.split(' ')[0],
+                        lastName: authUser.displayName?.split(' ')[1],
+                        photoUrl: authUser.photoURL,
                         uid: authUser.uid,
                         firebaseIdToken,
                         isAnonymous: authUser.email ? false : true, // anonymous login
@@ -39,6 +38,7 @@ const useFirebaseAuth = () => {
                 signInAnonymous();
                 // Clear the Redux state
             }
+            // console.log('🚀 ~ file: useFirebaseAuth.js:40 ~ unListen ~ authUser.displayName', authUser.displayName);
         });
         return () => unListen();
     }, []);

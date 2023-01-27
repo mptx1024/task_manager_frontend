@@ -40,7 +40,7 @@ const DatePickerButton = ({ setDueDate, dueDate }) => {
                     style={{ display: 'flex', maxWidth: '500px', width: '500px', position: 'absolute', zIndex: '100' }}
                 >
                     <DatePicker
-                        dateFormat='MM-DD-YYYY'
+                        // dateFormat='MM-DD-YYYY'
                         onClickOutside={handleClickOutside}
                         selected={new Date()}
                         onChange={handleChange}

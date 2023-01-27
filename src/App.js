@@ -7,7 +7,8 @@ import SideBar from './components/nav/Sidebar';
 import { lightTheme, darkTheme } from './features/visual/themes';
 import { useSelector } from 'react-redux';
 
-import { Box, ThemeProvider, CssBaseline, Stack } from '@mui/material';
+import { Box, CssBaseline, Stack } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
     const themeState = useSelector((state) => state.theme.theme);

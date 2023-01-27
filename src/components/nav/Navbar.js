@@ -5,12 +5,13 @@ import { toggleTheme } from '../../features/visual/themeSlice';
 import { toggleSideBar } from '../../features/visual/sideBarSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
 import useFirebaseAuth from '../../hooks/useFirebaseAuth';
+import LoginUserBox from '../user/LoginUserBox';
 import LoginButton from './LoginButton';
 
 import { Menu } from '@mui/icons-material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { AppBar, Box, Button, IconButton, styled, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, styled, Toolbar, Typography } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -83,18 +84,7 @@ const Navbar = () => {
                     {userInState?.isAnonymous || !userInState ? (
                         <LoginButton />
                     ) : (
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Box
-                                component='img'
-                                src={userInState?.photoUrl}
-                                alt=''
-                                sx={{ borderRadius: '50%', height: 25, width: 25, mr: 0.7 }}
-                            />
-                            <Typography sx={{ mr: 2 }}>{userInState?.displayName}</Typography>
-                            <Button color='inherit' onClick={onClickSignOut}>
-                                Logout
-                            </Button>
-                        </Box>
+                        <LoginUserBox userInState={userInState} />
                     )}
                 </Box>
             </Toolbar>

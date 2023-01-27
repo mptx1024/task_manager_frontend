@@ -38,8 +38,6 @@ const TodoItem = ({ todoId }) => {
         deleteTodo({ _id: todo._id });
     };
 
-    
-
     return isEditing ? (
         <EditTodo setIsEditing={setIsEditing} todo={todo} />
     ) : (
@@ -72,9 +70,9 @@ const TodoItem = ({ todoId }) => {
                 <IconButton title='Edit' size='small' onClick={onClickEdit}>
                     <EditOutlinedIcon fontSize='small' />
                 </IconButton>
-                <IconButton title='Important' size='small'>
+                {/* <IconButton title='Important' size='small'>
                     <StarBorderIcon fontSize='small' />
-                </IconButton>
+                </IconButton> */}
                 <IconButton title='Delete' size='small' onClick={onClickDelete}>
                     <DeleteOutlinedIcon fontSize='small' />
                 </IconButton>

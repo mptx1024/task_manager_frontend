@@ -4,14 +4,14 @@ import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from '../../components/todo/DatePickerButton';
 
-import { Stack, Box, TextField } from '@mui/material';
+import { Stack, Box, TextField, Button } from '@mui/material';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
     const [title, setTitle] = useState(todo.title);
-    const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState(undefined);
+    const [description, setDescription] = useState(todo.description);
+    const [dueDate, setDueDate] = useState(todo.dueDate ? new Date(todo.dueDate) : null);
 
     const onTitleChange = (e) => {
         setTitle(e.target.value);
@@ -24,7 +24,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
         setIsEditing(false);
     };
     const onClickSave = () => {
-        updateTodo({ ...todo, title, description, dueDate });
+        updateTodo({ ...todo, title: title?.trim(), description: description?.trim(), dueDate });
         setIsEditing(false);
     };
 
@@ -42,7 +42,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
                         autoFocus={true}
                         fullWidth
                         id='title'
-                        label={title === '' ? 'Title' : ' '}
+                        label={title ? ' ' : 'Title'}
                         // label='title'
                         variant='standard'
                         InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
@@ -59,10 +59,13 @@ const EditTodo = ({ setIsEditing, todo }) => {
                     <TextField
                         fullWidth
                         id='description'
-                        label={description === '' ? 'Description' : ' '}
+                        label={description ? ' ' : 'Description'}
                         variant='standard'
-                        InputProps={{ style: { fontSize: '0.8rem' }, disableUnderline: true }} // font size of input text
-                        InputLabelProps={{ shrink: false, style: { fontSize: '0.8rem', paddingBottom: '5px' } }}
+                        InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
+                        InputLabelProps={{
+                            shrink: false,
+                            style: { fontSize: '1rem', transformOrigin: 'center', paddingBottom: '5px' },
+                        }}
                         value={description}
                         onChange={onDescriptionChange}
                         multiline={true}
@@ -88,14 +91,16 @@ const EditTodo = ({ setIsEditing, todo }) => {
                         my: '10px',
                     }}
                 >
-                    <StyledButton onClick={onClickCancel} isMajor={true} size='large'>
+                    <StyledButton onClick={onClickCancel} isMajor={true} sx={{ bgcolor: 'grey.500' }}>
                         Cancel
                     </StyledButton>
+
                     <StyledButton
                         onClick={onClickSave}
                         isMajor={true}
-                        size='large'
-                        sx={{ bgcolor: 'green', color: 'white', ml: 2 }}
+                        // size='large'
+                        sx={{ bgcolor: 'secondary.main', color: 'primary.contrastText', ml: 2 }}
+                        disabled={title ? false : true}
                     >
                         Save
                     </StyledButton>

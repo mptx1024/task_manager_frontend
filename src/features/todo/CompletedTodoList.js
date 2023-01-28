@@ -63,11 +63,11 @@ const CompletedTodoList = () => {
             {isCompletedPanelOpen ? (
                 <Collapse
                     in={isCompletedPanelOpen}
-                    // timeout={50000}
-                    // easing={{
-                    //     enter: 'cubic-bezier(0, 1.5, .8, 1)',
-                    //     exit: 'cubic-bezier(0, 1.5, .8, 1)',
-                    // }}
+                    timeout={{ enter: 500, exit: 100 }}
+                    easing={{
+                        enter: 'cubic-bezier(0, 1.5, .8, 1)',
+                        exit: 'cubic-bezier(0, 1.5, .8, 1)',
+                    }}
                 >
                     {content}
                 </Collapse>

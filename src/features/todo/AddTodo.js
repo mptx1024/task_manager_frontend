@@ -1,18 +1,8 @@
 import { Box, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useAddTodosMutation } from './todosApiSlice';
-import { selectCurrentUser } from '../auth/authSlice';
-import { useSelector } from 'react-redux';
 
 const AddTodo = () => {
-    const user = useSelector(selectCurrentUser);
-    let uid;
-    if (user?.uid) {
-        uid = user.uid;
-    } else {
-        uid = 0;
-    }
-
     const [addNewTodo, { isLoading }] = useAddTodosMutation();
 
     const [title, setTitle] = useState('');
@@ -22,7 +12,7 @@ const AddTodo = () => {
     const onAddPostClicked = async () => {
         if (canSave) {
             if (canSave) {
-                await addNewTodo({ title, uid, isCompleted: false });
+                await addNewTodo({ title, isCompleted: false });
                 setTitle('');
             }
             try {

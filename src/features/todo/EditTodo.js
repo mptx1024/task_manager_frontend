@@ -4,7 +4,7 @@ import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from '../../components/todo/DatePickerButton';
 
-import { Stack, Box, TextField, Button } from '@mui/material';
+import { Stack, Box, TextField } from '@mui/material';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodosMutation();

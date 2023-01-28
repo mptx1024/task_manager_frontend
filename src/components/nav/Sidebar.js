@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleSideBar } from '../../features/visual/sideBarSlice';
+import SidebarProjectArea from './SidebarProjectArea';
 
 import { ChevronLeft } from '@mui/icons-material';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
@@ -16,8 +17,6 @@ import {
     IconButton,
     Divider,
     styled,
-    Typography,
-    Box,
 } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -43,7 +42,7 @@ const SideBar = () => {
             return <AllInclusiveIcon />;
         } else if (text === 'Today') {
             return <StarBorderIcon />;
-        } else if (text === 'Important') {
+        } else if (text === 'Priority') {
             return <LightModeIcon />;
         }
     };
@@ -70,8 +69,8 @@ const SideBar = () => {
             </DrawerHeader>
             <Divider variant='middle' />
             <List>
-                {['All', 'Today', 'Important'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                {['All', 'Today', 'Priority'].map((text, index) => (
+                    <ListItem key={index} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>{getIcon(text)}</ListItemIcon>
                             <ListItemText primary={text} />
@@ -80,11 +79,7 @@ const SideBar = () => {
                 ))}
             </List>
             <Divider variant='middle' />
-            <Box>
-                <Typography variant='subtitle1' sx={{ ml: 2, mt: 3, fontWeight: 'bold', color: 'grey' }}>
-                    Projects
-                </Typography>
-            </Box>
+            <SidebarProjectArea />
         </Drawer>
     );
 };

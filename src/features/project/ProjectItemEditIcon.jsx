@@ -11,7 +11,7 @@ const ProjectItemEditIcon = ({ setIsEditing }) => {
                 borderRadius: 0,
                 width: '10%',
             }}
-            onClick={() => setIsEditing(true)}
+            onClick={() => setIsEditing((prev) => !prev)}
         >
             <MoreHorizOutlinedIcon sx={{ '&:hover': { color: 'blue' } }} />
         </IconButton>

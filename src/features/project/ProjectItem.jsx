@@ -1,4 +1,4 @@
-import { useUpdateProjectsMutation } from '../../features/project/ProjectsApiSlice';
+import { useUpdateProjectsMutation } from './ProjectsApiSlice';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ProjectItemEditIcon from './ProjectItemEditIcon';

@@ -26,7 +26,7 @@ export const extendedProjectsSlice = apiSlice.injectEndpoints({
         }),
 
         // POST
-        addProjects: builder.mutation({
+        addProject: builder.mutation({
             query: (initialProject) => ({
                 url: '/projects',
                 method: 'POST',
@@ -62,7 +62,7 @@ export const extendedProjectsSlice = apiSlice.injectEndpoints({
 export const {
     useGetProjectsQuery,
     useLazyGetProjectsQuery,
-    useAddProjectsMutation,
+    useAddProjectMutation,
     useUpdateProjectsMutation,
     useDeleteProjectsMutation,
 } = extendedProjectsSlice;

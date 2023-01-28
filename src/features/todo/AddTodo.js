@@ -9,13 +9,11 @@ const AddTodo = () => {
 
     const canSave = title && !isLoading;
 
-    const onAddPostClicked = async () => {
+    const onClickAddTodo = async () => {
         if (canSave) {
-            if (canSave) {
+            try {
                 await addNewTodo({ title, isCompleted: false });
                 setTitle('');
-            }
-            try {
             } catch (err) {
                 console.error('Failed to save the post', err);
             }
@@ -36,7 +34,7 @@ const AddTodo = () => {
                 autoComplete='false'
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyPress={(e) => {
-                    if (e.key === 'Enter') onAddPostClicked();
+                    if (e.key === 'Enter') onClickAddTodo();
                 }}
                 sx={{ width: '100%' }}
             />

@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleSideBar } from '../../features/visual/sideBarSlice';
-import SidebarProjectArea from './SidebarProjectArea';
+import ProjectList from '../../features/project/ProjectList';
+
+import { drawerWidth } from '../../config/UiParams';
 
 import { ChevronLeft } from '@mui/icons-material';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
@@ -28,7 +30,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const SideBar = () => {
-    const drawerWidth = 240;
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
     const dispatch = useDispatch();
@@ -79,7 +80,7 @@ const SideBar = () => {
                 ))}
             </List>
             <Divider variant='middle' />
-            <SidebarProjectArea />
+            <ProjectList />
         </Drawer>
     );
 };

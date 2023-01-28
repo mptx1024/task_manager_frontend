@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 import AddTodo from '../../features/todo/AddTodo';
 import TodoList from '../../features/todo/TodoList';
 import CompletedTodoList from '../../features/todo/CompletedTodoList';
+import { drawerWidth } from '../../config/UiParams';
 
 import { Stack, styled, Container, Box } from '@mui/material';
 
-const drawerWidth = 240;
 
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',

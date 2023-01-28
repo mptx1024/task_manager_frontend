@@ -8,7 +8,7 @@ const LoginUserBox = ({ userInState }) => {
     const [showPopover, setShowPopover] = useState(false);
 
     const onAvatarClick = (e) => {
-        setShowPopover((prev) => !prev);
+        setShowPopover(true);
         setAnchorEl(e.currentTarget);
     };
     const onCloseClick = () => {

@@ -9,7 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import { Box, Checkbox, IconButton, Typography, Zoom, Collapse } from '@mui/material';
+import { Box, Checkbox, IconButton, Typography, Zoom } from '@mui/material';
 
 const TodoItem = ({ todoId }) => {
     const { todo } = useGetTodosQuery(undefined, {

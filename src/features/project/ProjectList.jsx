@@ -2,9 +2,7 @@ import { useLazyGetProjectsQuery, useUpdateProjectsMutation, useAddProjectMutati
 import { useEffect, useState, useRef } from 'react';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
-import ProjectItem from './ProjectItem';
-
-
+import Project from './Project';
 
 import { Typography, List, ListItem, Input, IconButton } from '@mui/material';
 
@@ -52,7 +50,7 @@ const ProjectList = () => {
             </Typography>
             <List sx={{ width: '100%' }}>
                 {projects?.map((project) => (
-                    <ProjectItem key={project._id} project={project} />
+                    <Project key={project._id} project={project} />
                 ))}
                 <ListItem>
                     {/* New project input */}

@@ -25,7 +25,7 @@ const AvatarPopoverContent = () => {
         dispatch(logout());
     };
     return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} disablePadding={true}>
             <ListItem alignItems='flex-start'>
                 <ListItemAvatar sx={{ width: 50, height: 50 }}>
                     <Avatar src={userInState.photoUrl} />

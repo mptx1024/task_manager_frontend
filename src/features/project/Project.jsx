@@ -1,13 +1,14 @@
-import { useUpdateProjectsMutation } from './ProjectsApiSlice';
+import { useUpdateProjectsMutation, useDeleteProjectsMutation } from './ProjectsApiSlice';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import ProjectItemEditIcon from './ProjectItemEditIcon';
+import { useRef, useEffect } from 'react';
+import ProjectEditIcon from './ProjectEditIcon';
 
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import { IconButton, TextField, Box } from '@mui/material';
+import { IconButton, Box, InputBase } from '@mui/material';
 
-const ProjectItem = ({ project }) => {
+const Project = ({ project }) => {
     const [updateProject] = useUpdateProjectsMutation();
+    const [deleteProject] = useDeleteProjectsMutation();
 
     const [title, setTitle] = useState(project.title);
     const [isEditing, setIsEditing] = useState(false);
@@ -16,9 +17,19 @@ const ProjectItem = ({ project }) => {
         updateProject({ _id: project._id, title });
         setIsEditing(false);
     };
+    const onClickDeleteProject = () => {
+        deleteProject({ _id: project._id });
+    };
     const onChangeTitle = (e) => {
         setTitle(e.target.value);
     };
+    // For title input field autoFocus
+    const inputElement = useRef(null);
+    useEffect(() => {
+        if (inputElement.current) {
+            inputElement.current.focus();
+        }
+    }, [isEditing]);
 
     return (
         <Box
@@ -58,13 +69,12 @@ const ProjectItem = ({ project }) => {
                     }}
                 >
                     {isEditing ? (
-                        <TextField
-                            autoFocus={true}
-                            placeholder='Project name'
+                        <InputBase
+                            onBlur={() => setIsEditing(false)}
+                            inputRef={inputElement}
+                            placeholder='Email address'
                             value={title}
-                            // variant='outlined'
                             onChange={onChangeTitle}
-                            size='small'
                             onKeyPress={(e) => {
                                 if (e.key === 'Enter') onClickUpdateProject();
                             }}
@@ -74,8 +84,8 @@ const ProjectItem = ({ project }) => {
                     )}
                 </Box>
             </IconButton>
-            <ProjectItemEditIcon setIsEditing={setIsEditing} />
+            <ProjectEditIcon setIsEditing={setIsEditing} onClickDeleteProject={onClickDeleteProject} />
         </Box>
     );
 };
-export default ProjectItem;
+export default Project;

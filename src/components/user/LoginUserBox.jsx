@@ -16,7 +16,7 @@ const LoginUserBox = ({ userInState }) => {
         // setAnchorEl(null);
     };
 
-    const PopoverComponent = (
+    const popover = (
         <Popover
             anchorEl={anchorEl}
             open={showPopover}
@@ -36,7 +36,7 @@ const LoginUserBox = ({ userInState }) => {
                 <Avatar src={userInState?.photoUrl} sx={{ width: 25, height: 25 }} />
                 {/* <Typography sx={{ mr: 1, ml: 0.5 }}>{userInState?.firstName}</Typography> */}
             </IconButton>
-            {PopoverComponent}
+            {popover}
         </>
     );
 };

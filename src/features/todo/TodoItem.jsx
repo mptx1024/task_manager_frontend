@@ -9,7 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import { Box, Checkbox, IconButton, Typography, Zoom } from '@mui/material';
+import { Box, Checkbox, IconButton, Typography, Collapse } from '@mui/material';
 
 const TodoItem = ({ todoId }) => {
     const { todo } = useGetTodosQuery(undefined, {
@@ -41,7 +41,7 @@ const TodoItem = ({ todoId }) => {
     return isEditing ? (
         <EditTodo setIsEditing={setIsEditing} todo={todo} />
     ) : (
-        <Zoom in easing={{ enter: 'linear', exit: 'linear' }}>
+        <Collapse in easing={{ enter: 'linear', exit: 'linear' }}>
             <StyledPaper>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Checkbox
@@ -79,7 +79,7 @@ const TodoItem = ({ todoId }) => {
                     </IconButton>
                 </Box>
             </StyledPaper>
-        </Zoom>
+        </Collapse>
     );
 };
 

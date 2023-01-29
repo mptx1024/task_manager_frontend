@@ -24,7 +24,7 @@ import {
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end', // for anchoring arrow button
+    justifyContent: 'flex-end', // for anchoring sidebar arrow button
     height: '3rem',
     padding: theme.spacing(0, 1),
 }));
@@ -52,7 +52,7 @@ const SideBar = () => {
         <Drawer
             sx={{
                 width: drawerWidth,
-                flexShrink: 0,
+                // flexShrink: 2,
                 '& .MuiDrawer-paper': {
                     width: drawerWidth,
                     boxSizing: 'border-box',

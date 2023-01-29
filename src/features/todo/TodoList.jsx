@@ -4,8 +4,8 @@ import { selectCurrentUser } from '../auth/authSlice';
 import { useEffect, useRef } from 'react';
 import TodoItem from './TodoItem';
 
-import { Collapse, List, Box } from '@mui/material';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { Collapse, List, Fade } from '@mui/material';
+import { TransitionGroup } from 'react-transition-group';
 export default function TodoList() {
     // Use refetch():
     // const { data: todos, refetch, isLoading, isSuccess, isError, error } = useGetTodosQuery();
@@ -38,25 +38,27 @@ export default function TodoList() {
         let openedTodos = [];
         for (let [id, todo] of Object.entries(entities)) {
             if (!todo.completed) {
-                // <Collapse
-                //     unmountOnExit
-                //     key={id}
-                //     in={true}
-                //     timeout={{ enter: 1500, exit: 100 }}
-                //     easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
-                // >
-                //     {<TodoItem key={id} todoId={todo._id} />}
-                // </Collapse>
+                openedTodos.push(
+                    <Collapse
+                        unmountOnExit
+                        key={id}
+                        timeout={{ enter: 250, exit: 100 }}
+                        easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
+                    >
+                        {<TodoItem key={id} todoId={todo._id} />}
+                    </Collapse>
+                );
 
-                openedTodos.push(<TodoItem key={id} todoId={todo._id} />);
+                // openedTodos.push(<TodoItem key={id} todoId={todo._id} />);
             }
         }
-        content =
-            // <List>
-            //     {openedTodos}
-            //     {/* <TransitionGroup>{openedTodos}</TransitionGroup> */}
-            // </List>
-            openedTodos;
+        content = (
+            <List>
+                {/* {openedTodos} */}
+                <TransitionGroup>{openedTodos}</TransitionGroup>
+            </List>
+        );
+        // openedTodos;
     } else if (isError) {
         // content = <p>{JSON.stringify(error)}</p>;
         // Expect:  {"status":400,"data":{"msg":"No todos found with uid PsijbkDmY0dELRHUJH8WQpl9UDjF"}}

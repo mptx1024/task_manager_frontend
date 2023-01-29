@@ -4,7 +4,7 @@ import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from '../../components/todo/DatePickerButton';
 
-import { Stack, Box, TextField, Button } from '@mui/material';
+import { Stack, Box, TextField } from '@mui/material';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
@@ -42,14 +42,13 @@ const EditTodo = ({ setIsEditing, todo }) => {
                         autoFocus={true}
                         fullWidth
                         id='title'
-                        label={title ? ' ' : 'Title'}
-                        // label='title'
+                        placeholder='title'
                         variant='standard'
                         InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
-                        InputLabelProps={{
-                            shrink: false,
-                            style: { fontSize: '1rem', transformOrigin: 'center' },
-                        }}
+                        // InputLabelProps={{
+                        //     shrink: false,
+                        //     style: { fontSize: '1rem', transformOrigin: 'center' },
+                        // }}
                         value={title}
                         onChange={onTitleChange}
                         size='small'
@@ -59,13 +58,13 @@ const EditTodo = ({ setIsEditing, todo }) => {
                     <TextField
                         fullWidth
                         id='description'
-                        label={description ? ' ' : 'Description'}
+                        placeholder='Description'
                         variant='standard'
                         InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
-                        InputLabelProps={{
-                            shrink: false,
-                            style: { fontSize: '1rem', transformOrigin: 'center', paddingBottom: '5px' },
-                        }}
+                        // InputLabelProps={{
+                        //     shrink: false,
+                        //     style: { fontSize: '1rem', transformOrigin: 'center', paddingBottom: '5px' },
+                        // }}
                         value={description}
                         onChange={onDescriptionChange}
                         multiline={true}

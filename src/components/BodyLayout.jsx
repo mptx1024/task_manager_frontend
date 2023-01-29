@@ -1,11 +1,14 @@
+import AddTodo from '../features/todo/AddTodo';
+import TodoList from '../features/todo/TodoList';
+import CompletedTodoList from '../features/todo/CompletedTodoList';
+import { drawerWidth } from '../config/UiParams';
+import sidebar from './nav/Sidebar';
+
 import { useSelector } from 'react-redux';
-import AddTodo from '../../features/todo/AddTodo';
-import TodoList from '../../features/todo/TodoList';
-import CompletedTodoList from '../../features/todo/CompletedTodoList';
+import { Outlet } from 'react-router-dom';
 
 import { Stack, styled, Container, Box } from '@mui/material';
-
-const drawerWidth = 240;
+import SideBar from './nav/Sidebar';
 
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
@@ -34,20 +37,22 @@ const BodyLayout = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <StyledStack
-                isSideBarOpen={isSideBarOpen}
-                sx={{
-                    boxSizing: 'border-box',
-                    height: '95vh',
-                    maxHeight: '95vh',
-                }}
-            >
-                <AddTodo />
-                <TodoList />
-                <CompletedTodoList />
-            </StyledStack>
-        </Box>
+        <>
+            <SideBar />
+            <Box sx={{ display: 'flex' }}>
+                <StyledStack
+                    isSideBarOpen={isSideBarOpen}
+                    sx={{
+                        // boxSizing: 'border-box',
+                        height: '95vh',
+                        maxHeight: '95vh',
+                    }}
+                >
+                    <AddTodo />
+                    <Outlet />
+                </StyledStack>
+            </Box>
+        </>
     );
 };
 export default BodyLayout;

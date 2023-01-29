@@ -1,31 +1,19 @@
 import { Box, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useAddTodosMutation } from './todosApiSlice';
-import { selectCurrentUser } from '../auth/authSlice';
-import { useSelector } from 'react-redux';
 
 const AddTodo = () => {
-    const user = useSelector(selectCurrentUser);
-    let uid;
-    if (user?.uid) {
-        uid = user.uid;
-    } else {
-        uid = 0;
-    }
-
     const [addNewTodo, { isLoading }] = useAddTodosMutation();
 
     const [title, setTitle] = useState('');
 
     const canSave = title && !isLoading;
 
-    const onAddPostClicked = async () => {
+    const onClickAddTodo = async () => {
         if (canSave) {
-            if (canSave) {
-                await addNewTodo({ title, uid, isCompleted: false });
-                setTitle('');
-            }
             try {
+                await addNewTodo({ title, isCompleted: false });
+                setTitle('');
             } catch (err) {
                 console.error('Failed to save the post', err);
             }
@@ -46,7 +34,7 @@ const AddTodo = () => {
                 autoComplete='false'
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyPress={(e) => {
-                    if (e.key === 'Enter') onAddPostClicked();
+                    if (e.key === 'Enter') onClickAddTodo();
                 }}
                 sx={{ width: '100%' }}
             />

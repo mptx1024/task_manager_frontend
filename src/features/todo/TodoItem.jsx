@@ -41,11 +41,7 @@ const TodoItem = ({ todoId }) => {
     return isEditing ? (
         <EditTodo setIsEditing={setIsEditing} todo={todo} />
     ) : (
-        <Collapse
-            in={true}
-            timeout={{ enter: 600, exit: 100 }}
-            easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
-        >
+        <Collapse in easing={{ enter: 'linear', exit: 'linear' }}>
             <StyledPaper>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Checkbox

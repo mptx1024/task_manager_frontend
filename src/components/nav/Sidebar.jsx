@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleSideBar } from '../../features/visual/sideBarSlice';
+import ProjectList from '../../features/project/ProjectList';
+
+import { drawerWidth } from '../../config/UiParams';
 
 import { ChevronLeft } from '@mui/icons-material';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
@@ -16,20 +19,17 @@ import {
     IconButton,
     Divider,
     styled,
-    Typography,
-    Box,
 } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end', // for anchoring arrow button
+    justifyContent: 'flex-end', // for anchoring sidebar arrow button
     height: '3rem',
     padding: theme.spacing(0, 1),
 }));
 
 const SideBar = () => {
-    const drawerWidth = 240;
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const SideBar = () => {
             return <AllInclusiveIcon />;
         } else if (text === 'Today') {
             return <StarBorderIcon />;
-        } else if (text === 'Important') {
+        } else if (text === 'Priority') {
             return <LightModeIcon />;
         }
     };
@@ -52,7 +52,7 @@ const SideBar = () => {
         <Drawer
             sx={{
                 width: drawerWidth,
-                flexShrink: 0,
+                // flexShrink: 2,
                 '& .MuiDrawer-paper': {
                     width: drawerWidth,
                     boxSizing: 'border-box',
@@ -70,8 +70,8 @@ const SideBar = () => {
             </DrawerHeader>
             <Divider variant='middle' />
             <List>
-                {['All', 'Today', 'Important'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                {['All', 'Today', 'Priority'].map((text, index) => (
+                    <ListItem key={index} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>{getIcon(text)}</ListItemIcon>
                             <ListItemText primary={text} />
@@ -80,11 +80,7 @@ const SideBar = () => {
                 ))}
             </List>
             <Divider variant='middle' />
-            <Box>
-                <Typography variant='subtitle1' sx={{ ml: 2, mt: 3, fontWeight: 'bold', color: 'grey' }}>
-                    Projects
-                </Typography>
-            </Box>
+            <ProjectList />
         </Drawer>
     );
 };

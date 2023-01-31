@@ -6,7 +6,7 @@ const todosAdapter = createEntityAdapter({
      selectId: A function that accepts a single Entity instance, and returns the value of whatever unique ID field is inside. If not provided, the default implementation is entity => entity.id. If your Entity type keeps its unique ID values in a field other than entity.id, you must provide a selectId function.
      */
     // _id() is a mongoose auto-generated field
-    selectId: (todo) => todo._id,
+    selectId: (todo) => (todo._id ? todo._id : null),
     // Sort by date:
     // sortComparer: (a, b) => b.date.localeCompare(a.date)
 
@@ -16,27 +16,31 @@ const todosAdapter = createEntityAdapter({
 });
 const initialState = todosAdapter.getInitialState();
 
-export const extendedTodosSlice = apiSlice.injectEndpoints({
+export const todosApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getTodos: builder.query({
             // GET
             query: () => ({
                 url: '/todos',
                 // https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery#handling-non-standard-response-status-codes
-                validateStatus: (response, result) => response.status === 200 && !result.isError,
+                validateStatus: (response, result) => {
+                    // console.log(result);
+                    return response.status === 200 && !result.isError;
+                },
             }),
             transformResponse: (responseData) => {
                 // console.log('🚀 ~ file: todosApiSlice.js:27 ~ responseData', responseData);
                 // const loadedTodos = responseData.map((todo) => {
                 //     todo.id = todo._id;
                 // });
-
                 return todosAdapter.setAll(initialState, responseData);
             },
             providesTags: (result, error, arg) => {
-                if (result?.ids) {
-                    return [{ type: 'Todo', id: 'LIST' }, ...result.ids.map((id) => ({ type: 'Todo', id }))];
-                } else return [{ type: 'Todo', id: 'LIST' }];
+                // console.log('🚀 ~ file: todosApiSlice.jsx:42 ~ result', result);
+                // console.log([{ type: 'Todo', id: 'LIST' }, ...result.ids.map((id) => ({ type: 'Todo', id }))]);
+                return result?.ids
+                    ? [{ type: 'Todo', id: 'LIST' }, ...result.ids.map((id) => ({ type: 'Todo', id }))]
+                    : [{ type: 'Todo', id: 'LIST' }];
             },
         }),
 
@@ -80,4 +84,4 @@ export const {
     useAddTodosMutation,
     useUpdateTodosMutation,
     useDeleteTodosMutation,
-} = extendedTodosSlice;
+} = todosApiSlice;

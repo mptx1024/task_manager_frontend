@@ -36,7 +36,11 @@ const AddTodo = () => {
                 onKeyPress={(e) => {
                     if (e.key === 'Enter') onClickAddTodo();
                 }}
-                sx={{ width: '100%' }}
+                sx={{
+                    width: '100%',
+                    '& .MuiInput-underline:before': { borderBottomColor: 'orange' },
+                    '& .MuiInput-underline:after': { borderBottomColor: 'orange' },
+                }}
             />
         </Box>
     );

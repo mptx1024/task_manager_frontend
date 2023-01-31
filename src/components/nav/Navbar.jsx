@@ -38,6 +38,7 @@ const StyledAppBar = styled(AppBar, {
 const Navbar = () => {
     const dispatch = useDispatch();
     const userInState = useSelector(selectCurrentUser); // The user in redux state
+    // console.log('🚀 ~ file: Navbar.jsx:41 ~ Navbar ~ userInState', userInState);
     const themeState = useSelector((state) => state.theme.theme);
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 

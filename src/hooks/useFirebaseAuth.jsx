@@ -12,12 +12,14 @@ const useFirebaseAuth = () => {
     useEffect(() => {
         // https://firebase.google.com/docs/reference/js/auth.auth#authonauthstatechanged
         // The onAuthStateChanged() function actually returns a function that you can call to unsubscribe
+        console.log('useFireBaseAuth');
         const unListen = onAuthStateChanged(getAuth(), async (authUser) => {
             console.log('onAuthStateChanged executed');
             /**
              *  It makes logic sense to update or flush Redux state whenever the auth state is changed.
              */
             if (authUser) {
+                // console.log('🚀 ~ file: useFirebaseAuth.jsx:21 ~ unListen ~ authUser', authUser);
                 // idToken used to get verified in BE with firebase admin SDK
                 const firebaseIdToken = await getIdToken(authUser);
                 setAuthUser(authUser);
@@ -40,7 +42,7 @@ const useFirebaseAuth = () => {
             }
             // console.log('🚀 ~ file: useFirebaseAuth.js:40 ~ unListen ~ authUser.displayName', authUser.displayName);
         });
-        return () => unListen();
+        // return () => unListen();
     }, []);
     return authUser;
 };

@@ -2,11 +2,11 @@ import { createEntityAdapter } from '@reduxjs/toolkit';
 import { apiSlice } from '../../app/api/apiSlice';
 
 const projectsAdapter = createEntityAdapter({
-    selectId: (project) => project._id,
+    selectId: (project) => (project._id ? project._id : null),
 });
 const initialState = projectsAdapter.getInitialState();
 
-export const extendedProjectsSlice = apiSlice.injectEndpoints({
+export const projectsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getProjects: builder.query({
             // GET
@@ -65,4 +65,4 @@ export const {
     useAddProjectMutation,
     useUpdateProjectsMutation,
     useDeleteProjectsMutation,
-} = extendedProjectsSlice;
+} = projectsApiSlice;

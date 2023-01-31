@@ -23,6 +23,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
     const onClickCancel = () => {
         setIsEditing(false);
     };
+    
     const onClickSave = () => {
         updateTodo({ ...todo, title: title?.trim(), description: description?.trim(), dueDate });
         setIsEditing(false);

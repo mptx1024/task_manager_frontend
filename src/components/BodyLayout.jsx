@@ -3,11 +3,10 @@ import TodoList from '../features/todo/TodoList';
 import CompletedTodoList from '../features/todo/CompletedTodoList';
 import { drawerWidth } from '../config/UiParams';
 import sidebar from './nav/Sidebar';
-
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
-import { Stack, styled, Container, Box } from '@mui/material';
+import { Stack, styled, Box } from '@mui/material';
 import SideBar from './nav/Sidebar';
 
 const StyledStack = styled(Stack, {
@@ -35,10 +34,8 @@ const StyledStack = styled(Stack, {
 
 const BodyLayout = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
-
     return (
         <>
-            <SideBar />
             <Box sx={{ display: 'flex' }}>
                 <StyledStack
                     isSideBarOpen={isSideBarOpen}
@@ -49,6 +46,7 @@ const BodyLayout = () => {
                     }}
                 >
                     <AddTodo />
+                    {/* <TodoList /> */}
                     <Outlet />
                 </StyledStack>
             </Box>

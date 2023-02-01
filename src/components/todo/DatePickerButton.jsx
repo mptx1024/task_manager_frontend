@@ -2,11 +2,10 @@ import StyledButton from '../muiTemplate/StyledButton';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import EventIcon from '../asset/event_FILL0_wght400_GRAD0_opsz48.svg';
+import { Avatar } from '@mui/material';
 
-// import Popover from '@mui/material/Popover';
-import EventIcon from '@mui/icons-material/Event';
-
-const DatePickerButton = ({ setDueDate, dueDate }) => {
+const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
     // const [anchorEl, setAnchorEl] = useState(null);
     // const [showPopover, setShowPopover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -31,14 +30,13 @@ const DatePickerButton = ({ setDueDate, dueDate }) => {
     };
 
     return (
-        <div>
-            <StyledButton onClick={handleClick} variant='outlined' size='small' startIcon={<EventIcon />}>
-                {dueDate ? dueDate?.toLocaleDateString('en-US') : 'Due Date'}
+        <>
+            <StyledButton onClick={handleClick} variant={variant} size='small'>
+                <img src={EventIcon} alt='event-img' />
+                {text ? <span>{dueDate ? dueDate?.toLocaleDateString('en-US') : text}</span> : null}
             </StyledButton>
             {isOpen && (
-                <div
-                    style={{ display: 'flex', maxWidth: '500px', width: '500px', position: 'absolute', zIndex: '100' }}
-                >
+                <div style={{ display: 'flex', maxWidth: '500px', position: 'absolute', zIndex: '100' }}>
                     <DatePicker
                         // dateFormat='MM-DD-YYYY'
                         onClickOutside={handleClickOutside}
@@ -51,20 +49,7 @@ const DatePickerButton = ({ setDueDate, dueDate }) => {
                     />
                 </div>
             )}
-            {/* <Popover
-                anchorEl={anchorEl}
-                open={showPopover}
-                onClose={onCloseClick}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-            >
-                <div>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} inline />
-                </div>
-            </Popover> */}
-        </div>
+        </>
     );
 };
 

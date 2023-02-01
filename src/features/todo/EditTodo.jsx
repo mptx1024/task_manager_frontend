@@ -3,9 +3,8 @@ import { useUpdateTodosMutation } from './todosApiSlice';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from '../../components/todo/DatePickerButton';
-
+import PriorityButton from './PriorityButton';
 import { Stack, Box, TextField } from '@mui/material';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
@@ -23,7 +22,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
     const onClickCancel = () => {
         setIsEditing(false);
     };
-    
+
     const onClickSave = () => {
         updateTodo({ ...todo, title: title?.trim(), description: description?.trim(), dueDate });
         setIsEditing(false);
@@ -32,53 +31,49 @@ const EditTodo = ({ setIsEditing, todo }) => {
     return (
         <>
             <StyledPaper isEditing={true}>
+                <TextField
+                    autoFocus={true}
+                    fullWidth
+                    id='title'
+                    placeholder='title'
+                    variant='standard'
+                    InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }}
+                    //     shrink: false,
+                    //     style: { fontSize: '1rem', transformOrigin: 'center' },
+                    value={title}
+                    onChange={onTitleChange}
+                    size='small'
+                    // sx={{ border: '1px solid black' }}
+                />
+                <TextField
+                    fullWidth
+                    id='description'
+                    placeholder='Description'
+                    variant='standard'
+                    InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }}
+                    value={description}
+                    onChange={onDescriptionChange}
+                    multiline={true}
+                    rows={1}
+                    size='small'
+                    // sx={{ border: '1px solid blue' }}
+                />
                 <Box
                     sx={{
-                        '& > :not(style)': { m: 0.0 },
-                        width: '100%',
-                        align: 'left',
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        '&>*:nth-of-type(2)': {
+                            mx: '0.5rem',
+                        },
                     }}
                 >
-                    <TextField
-                        autoFocus={true}
-                        fullWidth
-                        id='title'
-                        placeholder='title'
-                        variant='standard'
-                        InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
-                        // InputLabelProps={{
-                        //     shrink: false,
-                        //     style: { fontSize: '1rem', transformOrigin: 'center' },
-                        // }}
-                        value={title}
-                        onChange={onTitleChange}
-                        size='small'
-                        // disableUnderline={true}
-                        // sx={{ border: '1px solid black' }}
+                    <DatePickerButton
+                        setDueDate={setDueDate}
+                        dueDate={dueDate}
+                        text={'Due Date'}
+                        variant={'outlined'}
                     />
-                    <TextField
-                        fullWidth
-                        id='description'
-                        placeholder='Description'
-                        variant='standard'
-                        InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }} // font size of input text
-                        // InputLabelProps={{
-                        //     shrink: false,
-                        //     style: { fontSize: '1rem', transformOrigin: 'center', paddingBottom: '5px' },
-                        // }}
-                        value={description}
-                        onChange={onDescriptionChange}
-                        multiline={true}
-                        rows={1}
-                        size='small'
-                        // sx={{ border: '1px solid blue' }}
-                    />
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-start', py: '8px' }}>
-                        <DatePickerButton setDueDate={setDueDate} dueDate={dueDate} />
-                        <StyledButton variant='outlined' size='small' startIcon={<FlagOutlinedIcon />} sx={{ ml: 1 }}>
-                            Priority
-                        </StyledButton>
-                    </Box>
+                    <PriorityButton text={'Priority'} variant={'outlined'} />
                 </Box>
             </StyledPaper>
             <Box>

@@ -2,18 +2,17 @@ import { styled, Paper } from '@mui/material';
 
 const StyledPaper = styled(Paper, { shouldForwardProp: (prop) => prop !== 'isEditing' })(({ theme, isEditing }) => ({
     outline: isEditing ? '0.5px solid grey' : '',
-    height: isEditing ? '8rem' : '4rem',
+    height: isEditing ? '6.5rem' : '4rem',
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
-    padding: theme.spacing(1),
-    // marginTop: theme.spacing(1),
-    margin: '3px',
-    boxShadow: '3',
     color: theme.palette.text.secondary,
+    // marginTop: theme.spacing(1),
+    margin: '0.3rem',
+    boxShadow: '3',
     textAlign: 'center',
-    display: 'flex',
-    justifyContent: isEditing ? 'normal' : 'space-between',
-    // justifyContent: 'space-between',
+    padding: '0.5rem',
+    display: isEditing ? null : 'flex',
+    justifyContent: isEditing ? null : 'space-between',
     alignItems: 'center',
     ':hover': isEditing
         ? ''

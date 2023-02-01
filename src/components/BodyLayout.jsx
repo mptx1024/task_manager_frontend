@@ -13,7 +13,6 @@ const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
 })(({ theme, isSideBarOpen }) => ({
     flexGrow: 1,
-    border: '1px solid red',
     paddingLeft: theme.spacing(8),
     paddingRight: theme.spacing(8),
     transition: theme.transitions.create('margin', {

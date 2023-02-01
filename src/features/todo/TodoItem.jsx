@@ -12,7 +12,7 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { Box, Checkbox, IconButton, Typography, Collapse } from '@mui/material';
 
 const TodoItem = ({ todoId }) => {
-    const { todo } = useGetTodosQuery(undefined, {
+    const { todo } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
             // Select from cache
             todo: data?.entities[todoId],

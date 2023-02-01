@@ -1,34 +1,19 @@
-import { useLazyGetProjectsQuery, useUpdateProjectsMutation, useAddProjectMutation } from './ProjectsApiSlice';
-import { useEffect, useState, useRef } from 'react';
-import { selectCurrentUser } from '../auth/authSlice';
-import { useSelector } from 'react-redux';
+import { useGetProjectsQuery, useUpdateProjectsMutation, useAddProjectMutation } from './ProjectsApiSlice';
+import { useState } from 'react';
 import Project from './Project';
 
 import { Typography, List, ListItem, Input, IconButton } from '@mui/material';
-
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const ProjectList = () => {
-    const userInState = useSelector(selectCurrentUser); // The user in redux state
-    const isFirstRun = useRef(true); // Used to prevent useEffect's first rending
-
     const [title, setTitle] = useState('');
 
-    let [trigger, { data, isLoading, isSuccess, isError }] = useLazyGetProjectsQuery();
+    const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
     const [updateProject] = useUpdateProjectsMutation();
     const [addProject] = useAddProjectMutation();
 
-    useEffect(() => {
-        if (isFirstRun.current) {
-            isFirstRun.current = false;
-            return;
-        }
-        trigger({}, true);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userInState]);
-
     if (isLoading) {
-        console.log('Loading...');
+        console.log('Project Loading...');
         return <p>Loading...</p>;
     }
 

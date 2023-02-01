@@ -9,7 +9,7 @@ const authSlice = createSlice({
             // console.log(`In authSlice->login. state: ${JSON.stringify(state)}`);
         },
         logout: (state, action) => {
-            state = null;
+            state = { user: null };
             // console.log(`In authSlice->logout. state: ${state}`);
         },
     },

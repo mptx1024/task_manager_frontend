@@ -1,68 +1,63 @@
-import { useLazyGetTodosQuery } from './todosApiSlice';
+import { useGetTodosQuery } from './todosApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useEffect, useRef } from 'react';
+import { Counter } from '../../config/Counter';
 import TodoItem from './TodoItem';
+import CompletedTodoList from './CompletedTodoList';
 
 import { Collapse, List, Fade } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
+
 export default function TodoList() {
-    // Use refetch():
-    // const { data: todos, refetch, isLoading, isSuccess, isError, error } = useGetTodosQuery();
-    // const userInState = useSelector(selectCurrentUser); // The user in redux state
-    // useEffect(() => {
-    //     refetch();
-    // }, [userInState, refetch]);
-
-    // Use lazyQuery:
-    const userInState = useSelector(selectCurrentUser); // The user in redux state
-
-    const [trigger, { data: todos, isLoading, isSuccess, isError, error }] = useLazyGetTodosQuery();
-
-    const isFirstRun = useRef(true); // Used to prevent useEffect's first rending
-    useEffect(() => {
-        if (isFirstRun.current) {
-            isFirstRun.current = false;
-            return;
-        }
-        trigger({}, true);
-    }, [userInState]);
-
-    let content;
+    const { data, isError, isLoading, error } = useGetTodosQuery('todosList');
+    // console.log(`data: ${JSON.stringify(data)}`);
+    // console.log(`data.ids: ${data?.ids}; typeof data.ids: ${typeof data?.ids}; length:${data?.ids.length}`);
+    const todos = data?.ids.map((id) => data?.entities[id]);
 
     if (isLoading) {
-        // console.log(`isLoading: ${isLoading}`);
-        content = <p>Loading...</p>;
-    } else if (isSuccess) {
-        const { entities } = todos;
-        let openedTodos = [];
-        for (let [id, todo] of Object.entries(entities)) {
-            if (!todo.completed) {
-                openedTodos.push(
-                    <Collapse
-                        unmountOnExit
-                        key={id}
-                        timeout={{ enter: 250, exit: 100 }}
-                        easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
-                    >
-                        {<TodoItem key={id} todoId={todo._id} />}
-                    </Collapse>
-                );
+        return <p>Loading</p>;
+    }
+    if (isError && error.status === 404) {
+        return <p>No Content</p>;
+    }
 
-                // openedTodos.push(<TodoItem key={id} todoId={todo._id} />);
-            }
+    let openedTodos = [];
+    let completedTodos = [];
+
+    todos?.forEach((todo) => {
+        if (!todo.completed) {
+            openedTodos.push(
+                <Collapse
+                    key={todo._id}
+                    timeout={{ enter: 250, exit: 100 }}
+                    unmountOnExit
+                    easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
+                >
+                    {<TodoItem key={todo._id} todoId={todo._id} />}
+                </Collapse>
+            );
+        } else if (todo.completed) {
+            completedTodos.push(
+                <Collapse timeout={250} key={todo._id} unmountOnExit>
+                    {<TodoItem key={todo._id} todoId={todo._id} />}
+                </Collapse>
+            );
         }
-        content = (
+    });
+
+    return (
+        <>
             <List>
-                {/* {openedTodos} */}
                 <TransitionGroup>{openedTodos}</TransitionGroup>
             </List>
-        );
-        // openedTodos;
-    } else if (isError) {
-        // content = <p>{JSON.stringify(error)}</p>;
-        // Expect:  {"status":400,"data":{"msg":"No todos found with uid PsijbkDmY0dELRHUJH8WQpl9UDjF"}}
-        content = null;
-    }
-    return content;
+            <CompletedTodoList
+                content={
+                    <List>
+                        <TransitionGroup>{completedTodos}</TransitionGroup>
+                    </List>
+                }
+            />
+        </>
+    );
 }

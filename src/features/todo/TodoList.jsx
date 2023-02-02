@@ -1,12 +1,8 @@
 import { useGetTodosQuery } from './todosApiSlice';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../auth/authSlice';
-import { useEffect, useRef } from 'react';
-import { Counter } from '../../config/Counter';
+
 import TodoItem from './TodoItem';
 import CompletedTodoList from './CompletedTodoList';
-
-import { Collapse, List, Fade } from '@mui/material';
+import { Collapse, List } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 
 export default function TodoList() {
@@ -39,7 +35,7 @@ export default function TodoList() {
             );
         } else if (todo.completed) {
             completedTodos.push(
-                <Collapse timeout={250} key={todo._id} unmountOnExit>
+                <Collapse timeout={{ enter: 250, exit: 100 }} key={todo._id} unmountOnExit>
                     {<TodoItem key={todo._id} todoId={todo._id} />}
                 </Collapse>
             );
@@ -51,13 +47,7 @@ export default function TodoList() {
             <List>
                 <TransitionGroup>{openedTodos}</TransitionGroup>
             </List>
-            <CompletedTodoList
-                content={
-                    <List>
-                        <TransitionGroup>{completedTodos}</TransitionGroup>
-                    </List>
-                }
-            />
+            <CompletedTodoList content={completedTodos} />
         </>
     );
 }

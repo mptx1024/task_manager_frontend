@@ -58,7 +58,7 @@ const Project = ({ project }) => {
             >
                 <CircleOutlinedIcon sx={{ width: 20, height: 20 }} />
                 <Box
-                    fontSize='h6.fontSize'
+                    fontSize='subtitle1.fontSize'
                     sx={{
                         mx: '0.5rem',
                         overflow: 'hidden',

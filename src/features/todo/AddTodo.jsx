@@ -3,23 +3,25 @@ import { useAddTodosMutation } from './todosApiSlice';
 import DatePickerButton from '../../components/todo/DatePickerButton';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import PriorityButton from './PriorityButton';
-import EventIcon from '../../components/asset/event_FILL0_wght400_GRAD0_opsz48.svg';
-import { Box, Paper, InputBase, Divider, Avatar, IconButton } from '@mui/material';
+import ProjectButton from './ProjectButton';
+import { Box, Paper, InputBase, Divider } from '@mui/material';
 
 const AddTodo = () => {
     const [addNewTodo, { isLoading }] = useAddTodosMutation();
     const [isInputFocused, setIsInputFocused] = useState(true);
-    console.log('🚀 ~ file: AddTodo.jsx:12 ~ AddTodo ~ isInputFocused', isInputFocused);
 
     const [title, setTitle] = useState('');
     const [dueDate, setDueDate] = useState(null);
-    const [Priority, setPriority] = useState(false);
-    const canSave = title && !isLoading;
+    const [priority, setPriority] = useState(false);
+    const [projectId, setProjectId] = useState(null);
+
+    const canSave = title.trim() && !isLoading;
+
     const onClickAddTodo = async (e) => {
         e.preventDefault();
         if (canSave) {
             try {
-                await addNewTodo({ title, isCompleted: false });
+                await addNewTodo({ title, isCompleted: false, projectId, priority });
                 setTitle('');
             } catch (err) {
                 console.error('Failed to save the post', err);
@@ -49,9 +51,9 @@ const AddTodo = () => {
                     onFocus={() => {
                         setIsInputFocused(true);
                     }}
-                    onBlur={() => {
-                        setIsInputFocused(false);
-                    }}
+                    // onBlur={() => {
+                    //     setIsInputFocused(false);
+                    // }}
                 />
                 {isInputFocused ? (
                     <>
@@ -64,17 +66,20 @@ const AddTodo = () => {
                                 alignItems: 'center',
                                 py: '0.3rem',
                                 px: '1rem',
+                                bgcolor: 'grey.200',
                             }}
                         >
                             <Box sx={{ display: 'flex', '&>*': { mr: '0.8rem' } }}>
                                 <DatePickerButton setDueDate={setDueDate} dueDate={dueDate} variant={'text'} />
-                                <PriorityButton variant={'text'} />
+                                <ProjectButton variant={'text'} projectId={projectId} setProjectId={setProjectId} />
+                                <PriorityButton variant={'text'} priority={priority} setPriority={setPriority} />
                             </Box>
                             <StyledButton
                                 variant='outlined'
                                 size='small'
-                                disabled={title ? false : true}
+                                disabled={canSave ? false : true}
                                 sx={{ color: 'secondary.main', ':hover': { color: 'secondary.main' } }}
+                                onClick={onClickAddTodo}
                             >
                                 Add
                             </StyledButton>

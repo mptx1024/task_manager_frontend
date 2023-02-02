@@ -7,7 +7,6 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const ProjectList = () => {
     const [title, setTitle] = useState('');
-
     const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
     const [updateProject] = useUpdateProjectsMutation();
     const [addProject] = useAddProjectMutation();
@@ -27,6 +26,7 @@ const ProjectList = () => {
         setTitle(e.target.value);
     };
     const projects = data?.ids?.map((id) => data.entities[id]);
+    console.log('🚀 ~ file: ProjectList.jsx:30 ~ ProjectList ~ projects', projects);
 
     return (
         <>
@@ -46,6 +46,7 @@ const ProjectList = () => {
                         onChange={onChangeTitle}
                         value={title}
                         disableUnderline={true}
+                        required
                     />
                     <IconButton onClick={onClickAddProject}>
                         <AddOutlinedIcon />

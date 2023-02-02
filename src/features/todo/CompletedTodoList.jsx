@@ -13,6 +13,7 @@ const CompletedTodoList = ({ content }) => {
                     size='small'
                     onClick={() => setIsCompletedPanelOpen((prev) => !prev)}
                     sx={{ transform: isCompletedPanelOpen && 'rotate(90deg)', mr: 2 }}
+                    disableRipple={true}
                 >
                     <ArrowForwardIosIcon fontSize='small' />
                 </IconButton>
@@ -27,7 +28,9 @@ const CompletedTodoList = ({ content }) => {
                         exit: 'cubic-bezier(0, 1.5, .8, 1)',
                     }}
                 >
-                    {content}
+                    <List>
+                        <TransitionGroup>{content}</TransitionGroup>
+                    </List>
                 </Collapse>
             ) : (
                 <Divider />

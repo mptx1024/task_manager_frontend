@@ -45,7 +45,6 @@ const BodyLayout = () => {
                     }}
                 >
                     <AddTodo />
-                    {/* <TodoList /> */}
                     <Outlet />
                 </StyledStack>
             </Box>

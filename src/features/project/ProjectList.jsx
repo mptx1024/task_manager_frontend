@@ -26,7 +26,6 @@ const ProjectList = () => {
         setTitle(e.target.value);
     };
     const projects = data?.ids?.map((id) => data.entities[id]);
-    console.log('🚀 ~ file: ProjectList.jsx:30 ~ ProjectList ~ projects', projects);
 
     return (
         <>

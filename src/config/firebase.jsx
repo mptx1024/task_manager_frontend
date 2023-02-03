@@ -26,7 +26,7 @@ provider.setCustomParameters({
     login_hint: 'user@example.com',
 });
 
-const auth = getAuth();
+const auth = getAuth(app);
 // Emulator
 connectAuthEmulator(auth, 'http://localhost:9099');
 
@@ -79,4 +79,4 @@ const signInAnonymous = async () => {
     }
 };
 
-export { signInWithGoogle, signOutGoogle, signInAnonymous };
+export { signInWithGoogle, signOutGoogle, signInAnonymous, auth };

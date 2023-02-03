@@ -4,7 +4,7 @@ import TodoList from '../../features/todo/TodoList';
 const ProjectPage = ({ projectId }) => {
     const { todos, isError, isLoading, error } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
-            todo: data?.ids.map((id) => data?.entities[id]).filter((todo) => todo.projectId === projectId),
+            todos: data?.ids.map((id) => data?.entities[id]).filter((todo) => todos.projectId === projectId),
         }),
     });
     // const todos = data?.ids.map((id) => data?.entities[id]);

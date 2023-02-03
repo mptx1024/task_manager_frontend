@@ -7,7 +7,7 @@ import { login, logout } from './authSlice';
 import { signInAnonymous } from '../../config/firebase';
 
 const Login = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const userInState = useSelector((state) => state.auth.user);
     // const [authUser, setAuthUser] = useState(null);
@@ -36,6 +36,11 @@ const Login = () => {
         }
     });
 
+
     return <div>Logging in.....</div>;
 };
 export default Login;
+
+// if (userInState) {
+//     navigate('/all');
+// }

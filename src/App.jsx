@@ -22,25 +22,39 @@ function App() {
     return (
         <ThemeProvider theme={themeState === 'light' ? lightTheme : darkTheme}>
             <CssBaseline />
-            {userInState ? (
-                <Routes>
+
+            <Routes>
+                <Route path='/' element={<Layout />}>
                     <Route element={<Prefetch />}>
-                        <Route path='/' element={<Layout />}>
-                            <Route index element={<All />} />
-                            <Route path='priority' element={<Priority />} />
-                        </Route>
+                        {/* <Route
+                            index
+                            element={<Box sx={{ height: '500px', width: '500px', bgcolor: 'blue' }}>testing</Box>}
+                        /> */}
+                        <Route index element={<All />} />
+                        <Route path='priority' element={<Priority />} />
                     </Route>
-                    {/* </Route> */}
-                </Routes>
-            ) : (
-                <Routes>
-                    <Route path='/' element={<Login />} />
-                </Routes>
-            )}
-            <Box display='flex' justifyContent='center' alignContent='center'>
-                <Footer />
-            </Box>
+                </Route>
+            </Routes>
         </ThemeProvider>
     );
 }
 export default App;
+
+// {userInState ? (
+//     <Routes>
+// <Route element={<Prefetch />}>
+//     <Route path='/' element={<Layout />}>
+//         <Route index element={<All />} />
+//         <Route path='priority' element={<Priority />} />
+//     </Route>
+// </Route>
+//         {/* </Route> */}
+//     </Routes>
+// ) : (
+//     <Routes>
+//         <Route path='/' element={<Login />} />
+//     </Routes>
+// )}
+// <Box display='flex' justifyContent='center' alignContent='center'>
+//     <Footer />
+// </Box>

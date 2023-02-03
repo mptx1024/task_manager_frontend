@@ -4,10 +4,11 @@ import TodoList from '../../features/todo/TodoList';
 const Priority = () => {
     const { todos, isError, isLoading, error } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
-            todo: data?.ids.map((id) => data?.entities[id]).filter((todo) => todo.priority === true),
+            todos: data?.ids.map((id) => data?.entities[id]).filter((todo) => todo.priority === true),
         }),
     });
     console.log('🚀 ~ file: Priority.jsx:10 ~ Priority ~ todos', todos);
+
     // const todos = data?.ids.map((id) => data?.entities[id]);
 
     if (isLoading) {

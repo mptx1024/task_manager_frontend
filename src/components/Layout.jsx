@@ -13,10 +13,7 @@ const Layout = () => {
     return (
         <>
             <Navbar />
-            <SideBar />
-            <BodyLayout>
-                <Outlet />
-            </BodyLayout>
+            <Outlet />
         </>
     );
 };

@@ -19,5 +19,6 @@ export const { login, logout } = authSlice.actions;
 
 //selector
 export const selectCurrentUser = (state) => state.auth.user;
+// export const isUserLoggedIn = (state) => Boolean(state.auth.user);
 
 export default authSlice.reducer;

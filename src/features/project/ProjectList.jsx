@@ -7,10 +7,12 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const ProjectList = () => {
     const [title, setTitle] = useState('');
-    const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
+
     const [updateProject] = useUpdateProjectsMutation();
     const [addProject] = useAddProjectMutation();
 
+    const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
+    console.log('ProjectList.jsx');
     if (isLoading) {
         console.log('Project Loading...');
         return <p>Loading...</p>;

@@ -31,6 +31,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const SideBar = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
+    const isUserInState = useSelector((state) => Boolean(state.auth.user));
+    console.log('🚀 ~ file: Sidebar.jsx:35 ~ SideBar ~ isUserInState', isUserInState);
 
     const dispatch = useDispatch();
 
@@ -53,11 +55,11 @@ const SideBar = () => {
             sx={{
                 width: drawerWidth,
                 // flexShrink: 2,
-                '& .MuiDrawer-paper': {
-                    width: drawerWidth,
-                    boxSizing: 'border-box',
-                },
-                zIndex: 1,
+                // '& .MuiDrawer-paper': {
+                //     width: drawerWidth,
+                //     boxSizing: 'border-box',
+                // },
+                // zIndex: 1,
             }}
             variant='persistent'
             anchor='left'
@@ -81,6 +83,7 @@ const SideBar = () => {
             </List>
             <Divider variant='middle' />
             <ProjectList />
+            {/* {isUserInState ? <ProjectList /> : <p>no project yet</p>} */}
         </Drawer>
     );
 };

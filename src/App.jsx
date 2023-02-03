@@ -26,12 +26,11 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route element={<Prefetch />}>
-                        {/* <Route
-                            index
-                            element={<Box sx={{ height: '500px', width: '500px', bgcolor: 'blue' }}>testing</Box>}
-                        /> */}
-                        <Route index element={<All />} />
-                        <Route path='priority' element={<Priority />} />
+
+                        <Route element={<BodyLayout />}>
+                            <Route index element={<All />} />
+                            <Route path='priority' element={<Priority />} />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>

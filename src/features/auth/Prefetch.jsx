@@ -13,6 +13,8 @@ import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
 
 const Prefetch = () => {
     const userInState = useSelector((state) => state.auth.user);
+    const state = useSelector((state) => state);
+
     const navigate = useNavigate();
     // https://redux-toolkit.js.org/rtk-query/api/created-api/api-slice-utils#prefetch
     // let returnedTodos;
@@ -25,11 +27,11 @@ const Prefetch = () => {
         }
     }, [userInState]);
 
-    if (userInState) {
-        // console.log(`ReturnTodos: ${returnedTodos}`);
+    if (Object.keys(state.api.subscriptions).length !== 0) {
         return <Outlet />;
     }
-    console.log(`user NOT in state`);
+
+    // console.log(`user NOT in state`);
     return <p>prefetching</p>;
 };
 export default Prefetch;

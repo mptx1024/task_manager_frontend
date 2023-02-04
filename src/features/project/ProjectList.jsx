@@ -12,9 +12,8 @@ const ProjectList = () => {
     const [addProject] = useAddProjectMutation();
 
     const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
-    console.log('ProjectList.jsx');
     if (isLoading) {
-        console.log('Project Loading...');
+        // console.log('Project Loading...');
         return <p>Loading...</p>;
     }
 

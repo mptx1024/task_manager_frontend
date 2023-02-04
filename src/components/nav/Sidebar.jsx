@@ -32,7 +32,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const SideBar = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
     const isUserInState = useSelector((state) => Boolean(state.auth.user));
-    console.log('🚀 ~ file: Sidebar.jsx:35 ~ SideBar ~ isUserInState', isUserInState);
+    // console.log('🚀 ~ file: Sidebar.jsx:35 ~ SideBar ~ isUserInState', isUserInState);
 
     const dispatch = useDispatch();
 

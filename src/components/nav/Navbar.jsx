@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { login, logout } from '../../features/auth/authSlice';
+import { signInAnonymous } from '../../config/firebase';
 
 import { Menu } from '@mui/icons-material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -63,7 +64,8 @@ const Navbar = () => {
             } else {
                 // User is signed out
                 // ...
-                console.log('user is logged out');
+                signInAnonymous();
+                // console.log('user is logged out');
             }
         });
     }, []);

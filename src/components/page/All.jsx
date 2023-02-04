@@ -6,7 +6,7 @@ const All = () => {
     const { data, isError, isLoading, error } = useGetTodosQuery('todosList');
     const todos = data?.ids.map((id) => data?.entities[id]);
     const navigate = useNavigate();
-    console.log('🚀 ~ file: All.jsx:7 ~ All ~ todos', todos);
+    // console.log('🚀 ~ file: All.jsx:7 ~ All ~ todos', todos);
 
     if (isLoading) {
         return <p>Loading</p>;

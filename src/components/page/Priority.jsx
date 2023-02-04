@@ -17,10 +17,6 @@ const Priority = () => {
     if (isError && error.status === 404) {
         return <p>No Content</p>;
     }
-    return (
-        <div>
-            <TodoList todos={todos} />
-        </div>
-    );
+    return <TodoList todos={todos} />;
 };
 export default Priority;

@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleSideBar } from '../../features/visual/sideBarSlice';
-import ProjectList from '../../features/project/ProjectList';
+import { toggleSideBar } from '../../../features/visual/sideBarSlice';
+import ProjectList from '../../../features/project/ProjectList';
 
-import { drawerWidth } from '../../config/UiParams';
+import { drawerWidth } from '../../../config/UiParams';
 
 import { ChevronLeft } from '@mui/icons-material';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
@@ -32,13 +32,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const SideBar = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
     const isUserInState = useSelector((state) => Boolean(state.auth.user));
-    // console.log('🚀 ~ file: Sidebar.jsx:35 ~ SideBar ~ isUserInState', isUserInState);
 
     const dispatch = useDispatch();
 
     const onClickCloseSideBar = () => {
         dispatch(toggleSideBar());
     };
+    const onClickAll = () => {
+        alert('All');
+    };
+    const onClickToday = () => {};
+    const onClickPriority = () => {};
 
     const getIcon = (text) => {
         if (text === 'All') {

@@ -6,11 +6,11 @@ import { selectCurrentUser } from '../../features/auth/authSlice';
 import LoginUserBox from '../user/LoginUserBox';
 import LoginButton from './LoginButton';
 
-import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../config/firebase';
-import { login, logout } from '../../features/auth/authSlice';
-import { signInAnonymous } from '../../config/firebase';
+// import { useEffect } from 'react';
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { auth } from '../../config/firebase';
+// import { login, logout } from '../../features/auth/authSlice';
+// import { signInAnonymous } from '../../config/firebase';
 
 import { Menu } from '@mui/icons-material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -46,29 +46,6 @@ const Navbar = () => {
     const userInState = useSelector(selectCurrentUser);
     const themeState = useSelector((state) => state.theme.theme);
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (authUser) => {
-            if (authUser) {
-                dispatch(
-                    login({
-                        email: authUser.email,
-                        firstName: authUser.displayName?.split(' ')[0],
-                        lastName: authUser.displayName?.split(' ')[1],
-                        photoUrl: authUser.photoURL,
-                        uid: authUser.uid,
-                        firebaseIdToken: authUser.auth.currentUser.accessToken,
-                        isAnonymous: authUser.email ? false : true, // anonymous login
-                    })
-                );
-            } else {
-                // User is signed out
-                // ...
-                signInAnonymous();
-                // console.log('user is logged out');
-            }
-        });
-    }, []);
 
     const onClickToggleMode = () => {
         dispatch(toggleTheme());

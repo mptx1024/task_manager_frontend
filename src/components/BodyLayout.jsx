@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 import AddTodo from '../features/todo/AddTodo';
 
 import { Stack, styled, Box } from '@mui/material';
-import SideBar from './nav/Sidebar';
+import SideBar from './nav/Sidebar/Sidebar';
 
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',

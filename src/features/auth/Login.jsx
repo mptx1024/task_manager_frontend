@@ -1,42 +1,38 @@
-import { useNavigate } from 'react-router-dom';
-import { getAuth, getIdToken, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Outlet } from 'react-router-dom';
 import { login, logout } from './authSlice';
 import { signInAnonymous } from '../../config/firebase';
-
+import { auth } from '../../config/firebase';
 const Login = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const userInState = useSelector((state) => state.auth.user);
-    // const [authUser, setAuthUser] = useState(null);
-    const unListen = onAuthStateChanged(getAuth(), async (authUser) => {
-        console.log('onAuthStateChanged executed');
-        /**
-         *  It makes logic sense to update or flush Redux state whenever the auth state is changed.
-         */
-        if (authUser) {
-            // console.log('🚀 ~ file: Login.jsx:21 ~ unListen ~ authUser', authUser);
-            // idToken is for getting verified in BE with firebase admin SDK
-            const firebaseIdToken = await getIdToken(authUser);
-            dispatch(
-                login({
-                    email: authUser.email,
-                    firstName: authUser.displayName?.split(' ')[0],
-                    lastName: authUser.displayName?.split(' ')[1],
-                    photoUrl: authUser.photoURL,
-                    uid: authUser.uid,
-                    firebaseIdToken,
-                    isAnonymous: authUser.email ? false : true, // anonymous login
-                })
-            );
-        } else {
-            signInAnonymous();
-        }
-    });
 
+    useEffect(() => {
+        onAuthStateChanged(getAuth(), (authUser) => {
+            if (authUser) {
+                dispatch(
+                    login({
+                        email: authUser.email,
+                        firstName: authUser.displayName?.split(' ')[0],
+                        lastName: authUser.displayName?.split(' ')[1],
+                        photoUrl: authUser.photoURL,
+                        uid: authUser.uid,
+                        firebaseIdToken: authUser.auth.currentUser.accessToken,
+                        isAnonymous: authUser.email ? false : true, // anonymous login
+                    })
+                );
+            } else {
+                signInAnonymous();
+                // console.log('user is logged out');
+            }
+        });
+    }, []);
 
+    if (userInState) {
+        return <Outlet />;
+    }
     return <div>Logging in.....</div>;
 };
 export default Login;

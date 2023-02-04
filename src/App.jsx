@@ -22,14 +22,15 @@ function App() {
     return (
         <ThemeProvider theme={themeState === 'light' ? lightTheme : darkTheme}>
             <CssBaseline />
-
             <Routes>
                 <Route path='/' element={<Layout />}>
-                    <Route element={<Prefetch />}>
-
-                        <Route element={<BodyLayout />}>
-                            <Route index element={<All />} />
-                            <Route path='priority' element={<Priority />} />
+                    <Route element={<Login />}>
+                        <Route element={<Prefetch />}>
+                            <Route element={<BodyLayout />}>
+                                <Route index element={<All />} />
+                                <Route path='priority' element={<Priority />} />
+                                <Route path='today' element={<Today />} />
+                            </Route>
                         </Route>
                     </Route>
                 </Route>
@@ -38,22 +39,3 @@ function App() {
     );
 }
 export default App;
-
-// {userInState ? (
-//     <Routes>
-// <Route element={<Prefetch />}>
-//     <Route path='/' element={<Layout />}>
-//         <Route index element={<All />} />
-//         <Route path='priority' element={<Priority />} />
-//     </Route>
-// </Route>
-//         {/* </Route> */}
-//     </Routes>
-// ) : (
-//     <Routes>
-//         <Route path='/' element={<Login />} />
-//     </Routes>
-// )}
-// <Box display='flex' justifyContent='center' alignContent='center'>
-//     <Footer />
-// </Box>

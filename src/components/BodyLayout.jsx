@@ -1,13 +1,12 @@
-import AddTodo from '../features/todo/AddTodo';
 import TodoList from '../features/todo/TodoList';
 import CompletedTodoList from '../features/todo/CompletedTodoList';
 import { drawerWidth } from '../config/UiParams';
-import sidebar from './nav/Sidebar';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import AddTodo from '../features/todo/AddTodo';
 
 import { Stack, styled, Box } from '@mui/material';
-import SideBar from './nav/Sidebar';
+import SideBar from './nav/Sidebar/Sidebar';
 
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
@@ -15,15 +14,19 @@ const StyledStack = styled(Stack, {
     flexGrow: 1,
     paddingLeft: theme.spacing(8),
     paddingRight: theme.spacing(8),
+    height: '95vh',
+    maxHeight: '95vh',
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    // marginLeft: `-${drawerWidth}px`,
+    border: '1px solid red',
+    marginLeft: `-${drawerWidth}px`,
     // marginRight: `5px`,
     ...(isSideBarOpen && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
+        // width: `calc(100% - ${drawerWidth}px)`,
+        // marginLeft: `${drawerWidth}px`,
+        marginLeft: `0px`,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
@@ -36,16 +39,9 @@ const BodyLayout = () => {
     return (
         <>
             <Box sx={{ display: 'flex' }}>
-                <StyledStack
-                    isSideBarOpen={isSideBarOpen}
-                    sx={{
-                        // boxSizing: 'border-box',
-                        height: '95vh',
-                        maxHeight: '95vh',
-                    }}
-                >
+                <SideBar />
+                <StyledStack isSideBarOpen={isSideBarOpen}>
                     <AddTodo />
-                    {/* <TodoList /> */}
                     <Outlet />
                 </StyledStack>
             </Box>

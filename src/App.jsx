@@ -6,12 +6,12 @@ import Layout from './components/Layout';
 
 import All from './components/page/All';
 import Today from './components/page/Today';
-import Important from './components/page/Important';
+import Priority from './components/page/Priority';
 import Prefetch from './features/auth/Prefetch';
 import { lightTheme, darkTheme } from './features/visual/themes';
 import { useSelector } from 'react-redux';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import TodoList from './features/todo/TodoList';
+import { Routes, Route } from 'react-router-dom';
+import ProjectPage from './components/page/ProjectPage';
 
 import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
@@ -23,33 +23,23 @@ function App() {
     return (
         <ThemeProvider theme={themeState === 'light' ? lightTheme : darkTheme}>
             <CssBaseline />
-            {userInState ? (
-                <Routes>
-                    <Route element={<Prefetch />}>
-                        {/* <Route path='/all' element={<Layout />}> */}
-                        <Route path='/' element={<Layout />}>
-                            {/* <Route element={<BodyLayout />}> */}
-                            <Route index element={<All />} />
+            <Routes>
+                <Route path='/' element={<Layout />}>
+                    <Route element={<Login />}>
+                        <Route element={<Prefetch />}>
+                            <Route element={<BodyLayout />}>
+                                <Route index element={<All />} />
+                                <Route path='priority' element={<Priority />} />
+                                <Route path='today' element={<Today />} />
+                                <Route path='project'>
+                                    <Route path=':id' element={<ProjectPage />} />
+                                </Route>
+                            </Route>
                         </Route>
                     </Route>
-                    {/* </Route> */}
-                </Routes>
-            ) : (
-                <Routes>
-                    <Route path='/' element={<Login />} />
-                </Routes>
-            )}
-            <Box display='flex' justifyContent='center' alignContent='center'>
-                <Footer />
-            </Box>
+                </Route>
+            </Routes>
         </ThemeProvider>
     );
 }
 export default App;
-
-// <Route path='bodylayout' element={<BodyLayout />}>
-// <Route path='all' element={<All />} />
-// <Route path='today' element={<Today />} />
-// <Route path='important' element={<Important />} />
-// {/* <Route index element={<Navigate to='all' replace />} /> */}
-// </Route>

@@ -1,15 +1,15 @@
 import { useGetTodosQuery } from '../../features/todo/todosApiSlice';
 import TodoList from '../../features/todo/TodoList';
 
-const Today = () => {
+const Priority = () => {
     const { todos, isError, isLoading, error } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
-            todos: data?.ids
-                .map((id) => data?.entities[id])
-                .filter((todo) => new Date(todo.dueDate).getDay() === new Date().getDay()),
+            todos: data?.ids.map((id) => data?.entities[id]).filter((todo) => todo.priority === true),
         }),
     });
-    console.log('🚀 ~ file: Today.jsx:10 ~ Today ~ todos', todos);
+    console.log('🚀 ~ file: Priority.jsx:10 ~ Priority ~ todos', todos);
+
+    // const todos = data?.ids.map((id) => data?.entities[id]);
 
     if (isLoading) {
         return <p>Loading</p>;
@@ -19,4 +19,4 @@ const Today = () => {
     }
     return <TodoList todos={todos} />;
 };
-export default Today;
+export default Priority;

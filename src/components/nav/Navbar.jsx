@@ -6,6 +6,12 @@ import { selectCurrentUser } from '../../features/auth/authSlice';
 import LoginUserBox from '../user/LoginUserBox';
 import LoginButton from './LoginButton';
 
+// import { useEffect } from 'react';
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { auth } from '../../config/firebase';
+// import { login, logout } from '../../features/auth/authSlice';
+// import { signInAnonymous } from '../../config/firebase';
+
 import { Menu } from '@mui/icons-material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -37,12 +43,9 @@ const StyledAppBar = styled(AppBar, {
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const userInState = useSelector(selectCurrentUser); // The user in redux state
-    // console.log('🚀 ~ file: Navbar.jsx:41 ~ Navbar ~ userInState', userInState);
+    const userInState = useSelector(selectCurrentUser);
     const themeState = useSelector((state) => state.theme.theme);
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
-
-    // const authUser = useFirebaseAuth();
 
     const onClickToggleMode = () => {
         dispatch(toggleTheme());

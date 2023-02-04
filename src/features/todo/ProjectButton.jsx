@@ -1,4 +1,4 @@
-import { useGetProjectsQuery, useUpdateProjectsMutation } from '../project/ProjectsApiSlice';
+import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
 
 import { useState } from 'react';
 

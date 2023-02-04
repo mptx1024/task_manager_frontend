@@ -1,21 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleSideBar } from '../../../features/visual/sideBarSlice';
 import ProjectList from '../../../features/project/ProjectList';
-
+import Categories from './Categories';
 import { drawerWidth } from '../../../config/UiParams';
-
 import { ChevronLeft } from '@mui/icons-material';
-import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import LightModeIcon from '@mui/icons-material/LightMode';
+
 
 import {
     Drawer,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
     IconButton,
     Divider,
     styled,
@@ -31,27 +23,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const SideBar = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
-    const isUserInState = useSelector((state) => Boolean(state.auth.user));
-
     const dispatch = useDispatch();
 
     const onClickCloseSideBar = () => {
         dispatch(toggleSideBar());
-    };
-    const onClickAll = () => {
-        alert('All');
-    };
-    const onClickToday = () => {};
-    const onClickPriority = () => {};
-
-    const getIcon = (text) => {
-        if (text === 'All') {
-            return <AllInclusiveIcon />;
-        } else if (text === 'Today') {
-            return <StarBorderIcon />;
-        } else if (text === 'Priority') {
-            return <LightModeIcon />;
-        }
     };
 
     return (
@@ -75,16 +50,8 @@ const SideBar = () => {
                 </IconButton>
             </DrawerHeader>
             <Divider variant='middle' />
-            <List>
-                {['All', 'Today', 'Priority'].map((text, index) => (
-                    <ListItem key={index} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>{getIcon(text)}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
+            <Categories />
+
             <Divider variant='middle' />
             <ProjectList />
             {/* {isUserInState ? <ProjectList /> : <p>no project yet</p>} */}

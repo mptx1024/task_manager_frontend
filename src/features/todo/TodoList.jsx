@@ -6,7 +6,7 @@ import { Collapse, List } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 
 export default function TodoList({ todos }) {
-    console.log('🚀 ~ file: TodoList.jsx:9 ~ TodoList ~ todos', todos);
+    // console.log('🚀 ~ file: TodoList.jsx:9 ~ TodoList ~ todos', todos);
     // const { data, isError, isLoading, error } = useGetTodosQuery('todosList');
     // const todos = data?.ids.map((id) => data?.entities[id]);
 

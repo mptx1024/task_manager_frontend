@@ -11,6 +11,7 @@ import Prefetch from './features/auth/Prefetch';
 import { lightTheme, darkTheme } from './features/visual/themes';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import ProjectPage from './components/page/ProjectPage';
 
 import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
@@ -30,6 +31,9 @@ function App() {
                                 <Route index element={<All />} />
                                 <Route path='priority' element={<Priority />} />
                                 <Route path='today' element={<Today />} />
+                                <Route path='project'>
+                                    <Route path=':id' element={<ProjectPage />} />
+                                </Route>
                             </Route>
                         </Route>
                     </Route>

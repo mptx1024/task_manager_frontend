@@ -1,14 +1,13 @@
 import { useGetProjectsQuery, useUpdateProjectsMutation, useAddProjectMutation } from './ProjectsApiSlice';
-import { useState } from 'react';
 import Project from './Project';
-
-import { Typography, List, ListItem, Input, IconButton } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Typography, List, ListItem, Input, IconButton, ListItemButton } from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const ProjectList = () => {
     const [title, setTitle] = useState('');
-
-    const [updateProject] = useUpdateProjectsMutation();
+    const navigate = useNavigate();
     const [addProject] = useAddProjectMutation();
 
     const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
@@ -17,14 +16,19 @@ const ProjectList = () => {
         return <p>Loading...</p>;
     }
 
+    const onClickProject = (projectId) => {
+        navigate(`/project/${projectId}`, { state: { projectId } });
+    };
+
     const onClickAddProject = () => {
         if (title) {
             addProject({ title });
         }
         setTitle('');
     };
-    const onChangeTitle = (e) => {
-        setTitle(e.target.value);
+
+    const onChangeTitle = (key) => {
+        setTitle(key);
     };
     const projects = data?.ids?.map((id) => data.entities[id]);
 
@@ -35,7 +39,9 @@ const ProjectList = () => {
             </Typography>
             <List sx={{ width: '100%' }}>
                 {projects?.map((project) => (
-                    <Project key={project._id} project={project} />
+                    <ListItemButton key={project._id} onClick={() => onClickProject(project._id)}>
+                        <Project project={project} />
+                    </ListItemButton>
                 ))}
                 <ListItem>
                     {/* New project input */}

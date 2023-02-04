@@ -1,8 +1,8 @@
-import StyledButton from '../muiTemplate/StyledButton';
+import StyledButton from '../../components/muiTemplate/StyledButton';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import EventIcon from '../asset/event_FILL0_wght400_GRAD0_opsz48.svg';
+import { CalendarIcon } from '../../components/asset/svgIcons';
 import { Typography } from '@mui/material';
 
 const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
@@ -32,8 +32,12 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
     return (
         <>
             <StyledButton onClick={handleClick} variant={variant} size='small'>
-                <img src={EventIcon} alt='event-img' />
-                <Typography> {dueDate ? dueDate.toLocaleDateString('en-US') : text ? text : null}</Typography>
+                <CalendarIcon fontSize='small' />
+                {dueDate ? (
+                    <Typography>{dueDate.toLocaleDateString('en-US')}</Typography>
+                ) : text ? (
+                    <Typography>{text}</Typography>
+                ) : null}
             </StyledButton>
             {isOpen && (
                 <div style={{ display: 'flex', maxWidth: '500px', position: 'absolute', zIndex: '100' }}>

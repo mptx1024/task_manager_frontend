@@ -2,15 +2,19 @@ import { useState } from 'react';
 import { useUpdateTodosMutation } from './todosApiSlice';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
-import DatePickerButton from '../../components/todo/DatePickerButton';
+import DatePickerButton from './DatePickerButton';
 import PriorityButton from './PriorityButton';
+import ProjectButton from './ProjectButton';
 import { Stack, Box, TextField } from '@mui/material';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
     const [title, setTitle] = useState(todo.title);
     const [description, setDescription] = useState(todo.description);
+
     const [dueDate, setDueDate] = useState(todo.dueDate ? new Date(todo.dueDate) : null);
+    const [priority, setPriority] = useState(todo.priority);
+    const [projectId, setProjectId] = useState(todo.projectId);
 
     const onTitleChange = (e) => {
         setTitle(e.target.value);
@@ -24,7 +28,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
     };
 
     const onClickSave = () => {
-        updateTodo({ ...todo, title: title?.trim(), description: description?.trim(), dueDate });
+        updateTodo({ ...todo, title: title?.trim(), description: description?.trim(), dueDate, priority, projectId });
         setIsEditing(false);
     };
 
@@ -73,7 +77,18 @@ const EditTodo = ({ setIsEditing, todo }) => {
                         text={'Due Date'}
                         variant={'outlined'}
                     />
-                    <PriorityButton text={'Priority'} variant={'outlined'} />
+                    <PriorityButton
+                        setPriority={setPriority}
+                        priority={priority}
+                        text={'Priority'}
+                        variant={'outlined'}
+                    />
+                    <ProjectButton
+                        projectId={projectId}
+                        setProjectId={setProjectId}
+                        text='Project'
+                        variant={'outlined'}
+                    />
                 </Box>
             </StyledPaper>
             <Box>

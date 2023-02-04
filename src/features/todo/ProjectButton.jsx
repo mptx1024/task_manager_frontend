@@ -1,18 +1,21 @@
 import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
 
 import { useState } from 'react';
-
+import { ProjectIcon } from '../../components/asset/svgIcons';
 import StyledButton from '../../components/muiTemplate/StyledButton';
-import FlagIcon from '../../components/asset/folder.svg';
 import { List, ListItem, ListItemText, ListItemButton, Popover, Divider, Typography } from '@mui/material';
 
-const ProjectButton = ({ text, variant, setProjectId }) => {
+const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
     const { data } = useGetProjectsQuery('projectsList');
-    // const projects = data?.ids.map((id) => data.entities[id].title);
+    const projects = data?.ids.map((id) => data.entities[id]);
+
+    const title = projects
+        ?.filter((project) => project._id && project._id === projectId)
+        .map((project) => project.title);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
-    const [projectName, setProjectName] = useState(null); // To be shown on button
+    const [projectTitle, setProjectTitle] = useState(title); // To be shown on button
 
     const onClickShowPopover = (e) => {
         setShowPopover(true);
@@ -23,7 +26,7 @@ const ProjectButton = ({ text, variant, setProjectId }) => {
     };
     const onClickProjectInPopover = (e) => {
         setProjectId(e.currentTarget.id);
-        setProjectName(e.target.textContent);
+        setProjectTitle(e.target.textContent);
         setShowPopover(false);
     };
     let popoverContent;
@@ -36,12 +39,12 @@ const ProjectButton = ({ text, variant, setProjectId }) => {
     } else {
         popoverContent = (
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} disablePadding>
-                {data?.ids.map((id, index) => {
+                {projects?.map((project) => {
                     return (
-                        <div key={id}>
+                        <div key={project._id}>
                             <ListItem disablePadding>
-                                <ListItemButton id={id} onClick={onClickProjectInPopover}>
-                                    <ListItemText primary={data.entities[id].title} />
+                                <ListItemButton id={project._id} onClick={onClickProjectInPopover}>
+                                    <ListItemText primary={project.title} />
                                 </ListItemButton>
                             </ListItem>
                             <Divider />
@@ -68,8 +71,12 @@ const ProjectButton = ({ text, variant, setProjectId }) => {
     return (
         <>
             <StyledButton onClick={onClickShowPopover} variant={variant} size='small'>
-                <img src={FlagIcon} alt='event-img' />
-                <Typography>{projectName ? projectName : text ? text : null}</Typography>
+                <ProjectIcon fontSize='small' />
+                {projectTitle?.length ? (
+                    <Typography>{projectTitle}</Typography>
+                ) : text ? (
+                    <Typography>{text}</Typography>
+                ) : null}
             </StyledButton>
             {popover}
         </>

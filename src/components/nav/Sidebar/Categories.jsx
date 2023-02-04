@@ -16,6 +16,9 @@ const Categories = () => {
     const onClickPriority = () => {
         navigate('/priority');
     };
+    const onClickOverdue = () => {
+        alert('This feature is in the roadmap');
+    };
     return (
         <List>
             <ListItem disablePadding>
@@ -43,7 +46,7 @@ const Categories = () => {
                 </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-                <ListItemButton onClick={onClickPriority}>
+                <ListItemButton onClick={onClickOverdue}>
                     <ListItemIcon>
                         <CalendarOverdueIcon />
                     </ListItemIcon>

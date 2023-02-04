@@ -1,6 +1,6 @@
 import StyledButton from '../../components/muiTemplate/StyledButton';
-import FlagFilledIcon from '../../components/asset/flag_filled.svg';
-import FlagOutlinedIcon from '../../components/asset/flag_outlined.svg';
+
+import { FlagFilledIcon, FlagOutlinedIcon } from '../../components/asset/svgIcons';
 
 import { Typography } from '@mui/material';
 const PriorityButton = ({ text, variant, priority, setPriority }) => {
@@ -9,8 +9,8 @@ const PriorityButton = ({ text, variant, priority, setPriority }) => {
     };
     return (
         <StyledButton variant={variant} size='small' onClick={onClickPriority}>
-            <img src={priority ? FlagFilledIcon : FlagOutlinedIcon} alt='event-img' />
-            <Typography> {text ? text : null}</Typography>
+            {priority ? <FlagFilledIcon fontSize='small' /> : <FlagOutlinedIcon fontSize='small' />}
+            {text ? <Typography>{text}</Typography> : null}
         </StyledButton>
     );
 };

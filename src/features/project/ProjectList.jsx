@@ -27,8 +27,8 @@ const ProjectList = () => {
         setTitle('');
     };
 
-    const onChangeTitle = (key) => {
-        setTitle(key);
+    const onChangeTitle = (e) => {
+        setTitle(e.target.value);
     };
     const projects = data?.ids?.map((id) => data.entities[id]);
 
@@ -50,6 +50,9 @@ const ProjectList = () => {
                         type='text'
                         placeholder='New project'
                         onChange={onChangeTitle}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter') onClickAddProject();
+                        }}
                         value={title}
                         disableUnderline={true}
                         required

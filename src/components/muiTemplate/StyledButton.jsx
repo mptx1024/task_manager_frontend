@@ -1,7 +1,6 @@
 import { styled, Button, ButtonBase } from '@mui/material';
 const StyledButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isMajor' })(({ theme, isMajor }) => ({
     // color: isMajor ? theme.palette.grey[50] : theme.palette.grey[700],
-    color: isMajor ? null : theme.palette.text.primary,
     textTransform: 'capitalize',
     borderColor: theme.palette.grey[400],
     width: isMajor ? '5rem' : null,
@@ -9,8 +8,14 @@ const StyledButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isM
     borderRadius: '0.3rem',
     minHeight: 0,
     minWidth: 0,
-
-    '& > .MuiTypography-root': { fontSize: '0.8rem', paddingLeft: '5px' },
+    '& > .MuiSvgIcon-root': {
+        color: theme.palette.action.active,
+    },
+    '& > .MuiTypography-root': {
+        fontSize: '0.8rem',
+        paddingLeft: '5px',
+        color: isMajor ? null : theme.palette.text.primary,
+    },
     ':hover': isMajor
         ? null
         : {

@@ -10,8 +10,9 @@ const Login = () => {
     const userInState = useSelector((state) => state.auth.user);
 
     useEffect(() => {
-        onAuthStateChanged(getAuth(), (authUser) => {
+        onAuthStateChanged(getAuth(), async (authUser) => {
             if (authUser) {
+                const firebaseIdToken = await authUser.getIdToken();
                 dispatch(
                     login({
                         email: authUser.email,
@@ -19,7 +20,7 @@ const Login = () => {
                         lastName: authUser.displayName?.split(' ')[1],
                         photoUrl: authUser.photoURL,
                         uid: authUser.uid,
-                        firebaseIdToken: authUser.auth.currentUser.accessToken,
+                        firebaseIdToken,
                         isAnonymous: authUser.email ? false : true, // anonymous login
                     })
                 );
@@ -28,6 +29,7 @@ const Login = () => {
                 // console.log('user is logged out');
             }
         });
+        
     }, []);
 
     if (userInState) {

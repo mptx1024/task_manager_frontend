@@ -9,7 +9,6 @@ const Today = () => {
                 .filter((todo) => new Date(todo.dueDate).getDay() === new Date().getDay()),
         }),
     });
-    console.log('🚀 ~ file: Today.jsx:10 ~ Today ~ todos', todos);
 
     if (isLoading) {
         return <p>Loading</p>;

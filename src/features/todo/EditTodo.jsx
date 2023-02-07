@@ -66,6 +66,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
                     sx={{
                         display: 'flex',
                         justifyContent: 'flex-start',
+                        // select the second child
                         '&>*:nth-of-type(2)': {
                             mx: '0.5rem',
                         },

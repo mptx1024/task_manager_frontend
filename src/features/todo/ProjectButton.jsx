@@ -1,6 +1,6 @@
 import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ProjectIcon } from '../../components/asset/svgIcons';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import { List, ListItem, ListItemText, ListItemButton, Popover, Divider, Typography } from '@mui/material';
@@ -15,7 +15,14 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
-    const [projectTitle, setProjectTitle] = useState(title); // To be shown on button
+    const [projectTitle, setProjectTitle] = useState(title);
+
+    useEffect(() => {
+        // console.log(`projectId in button: ${projectId}`);
+        if (!projectId) {
+            setProjectTitle(null);
+        }
+    }, [projectId]);
 
     const onClickShowPopover = (e) => {
         setShowPopover(true);
@@ -38,7 +45,11 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
         );
     } else {
         popoverContent = (
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} disablePadding>
+            <List
+                id='project-btn-popover-list'
+                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                disablePadding
+            >
                 {projects?.map((project) => {
                     return (
                         <div key={project._id}>

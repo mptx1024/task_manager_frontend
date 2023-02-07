@@ -9,7 +9,6 @@ const ProjectPage = () => {
             todos: data?.ids.map((id) => data?.entities[id]).filter((todo) => todo.projectId === state.projectId),
         }),
     });
-    // console.log('🚀 ~ file: ProjectPage.jsx:13 ~ ProjectPage ~ todos', todos);
     if (isLoading) {
         return <p>Loading</p>;
     }

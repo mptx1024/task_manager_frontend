@@ -7,7 +7,6 @@ const Priority = () => {
             todos: data?.ids.map((id) => data?.entities[id]).filter((todo) => todo.priority === true),
         }),
     });
-    console.log('🚀 ~ file: Priority.jsx:10 ~ Priority ~ todos', todos);
 
     // const todos = data?.ids.map((id) => data?.entities[id]);
 

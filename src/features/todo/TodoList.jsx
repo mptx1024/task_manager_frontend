@@ -1,6 +1,6 @@
 import { useGetTodosQuery } from './todosApiSlice';
 
-import TodoItem from './TodoItem';
+import Todo from './Todo';
 import CompletedTodoList from './CompletedTodoList';
 import { Collapse, List } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
@@ -29,13 +29,13 @@ export default function TodoList({ todos }) {
                     unmountOnExit
                     easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
                 >
-                    {<TodoItem key={todo._id} todoId={todo._id} />}
+                    {<Todo key={todo._id} todoId={todo._id} />}
                 </Collapse>
             );
         } else if (todo.completed) {
             completedTodos.push(
                 <Collapse timeout={{ enter: 250, exit: 100 }} key={todo._id} unmountOnExit>
-                    {<TodoItem key={todo._id} todoId={todo._id} />}
+                    {<Todo key={todo._id} todoId={todo._id} />}
                 </Collapse>
             );
         }

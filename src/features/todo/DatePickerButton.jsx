@@ -40,11 +40,19 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
                 ) : null}
             </StyledButton>
             {isOpen && (
-                <div style={{ display: 'flex', maxWidth: '500px', position: 'absolute', zIndex: '100' }}>
+                <div
+                    style={{
+                        // display: 'flex',
+                        // maxWidth: '800px',
+                        // maxHeight: '800px',
+                        position: 'absolute',
+                        zIndex: '100',
+                    }}
+                >
                     <DatePicker
                         // dateFormat='MM-DD-YYYY'
                         onClickOutside={handleClickOutside}
-                        selected={new Date()}
+                        // selected={new Date()}
                         onChange={handleChange}
                         inline
                         minDate={new Date()}

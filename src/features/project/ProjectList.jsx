@@ -31,7 +31,6 @@ const ProjectList = () => {
         setTitle(e.target.value);
     };
     const projects = data?.ids?.map((id) => data.entities[id]);
-
     return (
         <>
             <Typography variant='subtitle1' sx={{ ml: 2, mt: 3, fontWeight: 'bold', color: 'grey' }}>

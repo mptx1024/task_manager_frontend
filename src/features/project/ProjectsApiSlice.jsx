@@ -31,7 +31,7 @@ export const projectsApiSlice = apiSlice.injectEndpoints({
                 url: '/projects',
                 method: 'POST',
                 body: {
-                    ...initialProject, // Include UID, title, completed
+                    ...initialProject, // Including title
                 },
             }),
             invalidatesTags: [{ type: 'Project', id: 'LIST' }],
@@ -54,7 +54,8 @@ export const projectsApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
                 body: _id,
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Project', id: arg.id }],
+            invalidatesTags: (result, error, arg) => ['Project', 'Todo'], // also delete all related todos
+            // [{ type: 'Project', id: arg.id }],
         }),
     }),
 });

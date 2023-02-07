@@ -2,20 +2,13 @@ import { store } from '../../app/store';
 import { projectsApiSlice } from '../project/ProjectsApiSlice';
 import { todosApiSlice } from '../todo/todosApiSlice';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from './authSlice';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import useFirebaseAuth from '../../hooks/useFirebaseAuth';
-
-// import { useGetTodosQuery } from '../todo/todosApiSlice';
-// import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
 
 const Prefetch = () => {
     const userInState = useSelector((state) => state.auth.user);
     const state = useSelector((state) => state);
 
-    const navigate = useNavigate();
     // https://redux-toolkit.js.org/rtk-query/api/created-api/api-slice-utils#prefetch
     // let returnedTodos;
 

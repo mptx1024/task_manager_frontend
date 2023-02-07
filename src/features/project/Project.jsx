@@ -1,17 +1,19 @@
 import { useUpdateProjectsMutation, useDeleteProjectsMutation } from './ProjectsApiSlice';
 import { useState } from 'react';
 import { useRef, useEffect } from 'react';
-import ProjectEditIcon from './ProjectEditIcon';
+import EditProjectButton from './EditProjectButton';
 
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import { IconButton, Box, InputBase } from '@mui/material';
+import { DotIcon } from '../../components/asset/svgIcons';
+import { Typography, Box, InputBase, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 
-const Project = ({ project }) => {
+const Project = ({ project, onClickProject }) => {
     const [updateProject] = useUpdateProjectsMutation();
     const [deleteProject] = useDeleteProjectsMutation();
 
     const [title, setTitle] = useState(project.title);
     const [isEditing, setIsEditing] = useState(false);
+    // const [disableProjectBtn, setDisableProjectBtn] = useState(false);
 
     const onClickUpdateProject = () => {
         updateProject({ _id: project._id, title });
@@ -32,47 +34,26 @@ const Project = ({ project }) => {
     }, [isEditing]);
 
     return (
-        <Box
-            sx={{
-                px: '0.5rem',
-                '&:hover': {
-                    bgcolor: 'grey.100',
-                    cursor: 'pointer',
-                },
-                display: 'flex',
-                justifyContent: 'space-between',
-            }}
-        >
-            <IconButton
-                disableRipple={true}
+        <ListItem sx={{ py: 0, '&:hover': { backgroundColor: 'action.hover' } }}>
+            <ListItemButton
+                disableRipple
+                onClick={() => onClickProject(project._id)}
                 sx={{
-                    '&:hover': {
-                        background: 'transparent',
-                    },
-                    borderRadius: 0,
-                    width: '90%',
+                    minHeight: '3rem',
                     display: 'flex',
-                    justifyContent: 'start',
-                    textAlign: 'left',
+                    justifyContent: 'space-between',
+                    '&:hover': { backgroundColor: 'transparent' },
                 }}
             >
-                <CircleOutlinedIcon sx={{ width: 20, height: 20 }} />
-                <Box
-                    fontSize='subtitle1.fontSize'
-                    sx={{
-                        mx: '0.5rem',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: '1',
-                        WebkitBoxOrient: 'vertical',
-                    }}
-                >
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <ListItemIcon>
+                        <DotIcon sx={{ width: 15, height: 15, color: 'secondary.main' }} />
+                    </ListItemIcon>
                     {isEditing ? (
                         <InputBase
                             onBlur={() => setIsEditing(false)}
                             inputRef={inputElement}
-                            placeholder='Email address'
+                            placeholder='Type a name'
                             value={title}
                             onChange={onChangeTitle}
                             onKeyPress={(e) => {
@@ -80,12 +61,14 @@ const Project = ({ project }) => {
                             }}
                         />
                     ) : (
-                        project.title
+                        <Typography sx={{ maxWidth: '7rem' }} noWrap={true}>
+                            {project.title}
+                        </Typography>
                     )}
                 </Box>
-            </IconButton>
-            <ProjectEditIcon setIsEditing={setIsEditing} onClickDeleteProject={onClickDeleteProject} />
-        </Box>
+            </ListItemButton>
+            <EditProjectButton setIsEditing={setIsEditing} onClickDeleteProject={onClickDeleteProject} />
+        </ListItem>
     );
 };
 export default Project;

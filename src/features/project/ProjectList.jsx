@@ -36,11 +36,15 @@ const ProjectList = () => {
             <Typography variant='subtitle1' sx={{ ml: 2, mt: 3, fontWeight: 'bold', color: 'grey' }}>
                 Projects
             </Typography>
-            <List sx={{ width: '100%' }}>
+            <List
+                sx={{
+                    '.MuiListItemIcon-root': {
+                        minWidth: '2rem',
+                    },
+                }}
+            >
                 {projects?.map((project) => (
-                    <ListItemButton key={project._id} onClick={() => onClickProject(project._id)}>
-                        <Project project={project} />
-                    </ListItemButton>
+                    <Project key={project._id} project={project} onClickProject={onClickProject} />
                 ))}
                 <ListItem>
                     {/* New project input */}

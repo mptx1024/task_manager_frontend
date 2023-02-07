@@ -20,7 +20,13 @@ const Categories = () => {
         alert('This feature is in the roadmap');
     };
     return (
-        <List>
+        <List
+            sx={{
+                '.MuiListItemIcon-root': {
+                    minWidth: '2.5rem',
+                },
+            }}
+        >
             <ListItem disablePadding>
                 <ListItemButton onClick={onClickAll}>
                     <ListItemIcon>
@@ -28,7 +34,7 @@ const Categories = () => {
                     </ListItemIcon>
                     <ListItemText primary={'All'} />
                 </ListItemButton>
-            </ListItem>{' '}
+            </ListItem>
             <ListItem disablePadding>
                 <ListItemButton onClick={onClickPriority}>
                     <ListItemIcon>

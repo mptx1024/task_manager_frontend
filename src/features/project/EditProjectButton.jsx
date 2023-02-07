@@ -1,19 +1,11 @@
 import { useState } from 'react';
-import {
-    IconButton,
-    Popover,
-    List,
-    ListItem,
-    ListItemText,
-    Divider,
-    ListItemButton,
-    ListItemIcon,
-} from '@mui/material';
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import { Popover, List, ListItem, ListItemText, Divider, ListItemButton, ListItemIcon } from '@mui/material';
+
+import { EllipsisIcon } from '../../components/asset/svgIcons';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
-const ProjectEditIcon = ({ setIsEditing, onClickDeleteProject }) => {
+const EditProjectButton = ({ setIsEditing, onClickDeleteProject }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
 
@@ -31,7 +23,15 @@ const ProjectEditIcon = ({ setIsEditing, onClickDeleteProject }) => {
     };
 
     const popoverContent = (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} disablePadding>
+        <List
+            sx={{
+                bgcolor: 'background.paper',
+                '.MuiListItemIcon-root': {
+                    minWidth: '2.5rem',
+                },
+            }}
+            disablePadding
+        >
             <ListItem disablePadding>
                 <ListItemButton onClick={onClickEdit}>
                     <ListItemIcon>
@@ -68,20 +68,12 @@ const ProjectEditIcon = ({ setIsEditing, onClickDeleteProject }) => {
 
     return (
         <>
-            <IconButton
-                sx={{
-                    '&:hover': {
-                        background: 'transparent',
-                    },
-                    borderRadius: 0,
-                    width: '10%',
-                }}
+            <EllipsisIcon
                 onClick={onClickShowPopover}
-            >
-                <MoreHorizOutlinedIcon sx={{ '&:hover': { color: 'blue' } }} />
-            </IconButton>
+                sx={{ color: 'grey.700', '&:hover': { color: 'secondary.main' }, cursor: 'pointer' }}
+            />
             {popover}
         </>
     );
 };
-export default ProjectEditIcon;
+export default EditProjectButton;

@@ -1,50 +1,43 @@
 import { createTheme } from '@mui/material/styles';
+import { grey, red } from '@mui/material/colors';
 
-export const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-        // background: {
-        //     paper: '#f2f2f2',
-        // },
-        // text: {
-        //     primary: '#11111',
-        // },
-    },
-    // overrides: {
-    //     MuiPaper: {
-    //         root: {
-    //             textTransform: 'lowercase',
-    //         },
-    //     },
-    //     MuiBreadcrumbs: {
-    //         root: {
-    //             textTransform: 'lowercase',
-    //         },
-    //     },
-    // },
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    '&.Mui-disabled': {
-                        // When button disabled
-                        background: '#f3f3f3',
-                        color: '#dadada',
-                    },
+const { palette } = createTheme();
+export const getDesignTokens = (mode) => {
+    return createTheme({
+        palette: {
+            mode,
+            
+            customBgGrey: palette.augmentColor({ color: { main: '#bdbdbd' } }),
+
+            ...(mode === 'light'
+                ? {
+                      // palette values for light mode
+                      background: {
+                          actionBar: grey[200],
+                          minorButton: grey[300],
+                      },
+                      contrastThreshold: 4.5,
+                  }
+                : {
+                      // palette values for dark mode
+                      background: {
+                          actionBar: grey[800],
+                          minorButton: grey[700],
+                      },
+                  }),
+        },
+        components: {
+            MuiButton: {
+                styleOverrides: {
+                    // root: {
+                    //     '&.Mui-disabled': {
+                    //         // When button disabled
+                    //         background: '#f3f3f3',
+                    //         color: '#dadada',
+                    //     },
+                    // },
                 },
             },
         },
-    },
-});
-
-export const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-        background: {
-            paper: '#222',
-        },
-        text: {
-            primary: '#fff',
-        },
-    },
-});
+    });
+};

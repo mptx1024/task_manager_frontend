@@ -5,7 +5,7 @@ import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from './DatePickerButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
-import { Stack, Box, TextField } from '@mui/material';
+import { Stack, Box, TextField, Typography } from '@mui/material';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodosMutation();
 
@@ -102,18 +102,31 @@ const EditTodo = ({ setIsEditing, todo }) => {
                         my: '10px',
                     }}
                 >
-                    <StyledButton onClick={onClickCancel} isMajor={true} sx={{ bgcolor: 'grey.500' }}>
-                        Cancel
+                    <StyledButton
+                        onClick={onClickCancel}
+                        isMajor={true}
+                        variant='contained'
+                        sx={{
+                            backgroundColor: 'customBgGrey.main',
+                            ':hover': { backgroundColor: 'customBgGrey.dark' },
+                        }}
+                        // color='custom'
+                    >
+                        <Typography>Cancel</Typography>
                     </StyledButton>
 
                     <StyledButton
                         onClick={onClickSave}
                         isMajor={true}
-                        // size='large'
-                        sx={{ bgcolor: 'secondary.main', color: 'primary.contrastText', ml: 2 }}
+                        variant='contained'
+                        sx={{
+                            backgroundColor: 'secondary.main',
+                            ml: 2,
+                            ':hover': { backgroundColor: 'secondary.dark' },
+                        }}
                         disabled={title ? false : true}
                     >
-                        Save
+                        <Typography>Save</Typography>
                     </StyledButton>
                 </Stack>
             </Box>

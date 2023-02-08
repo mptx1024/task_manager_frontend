@@ -4,7 +4,7 @@ import { useState } from 'react';
 import EditTodo from './EditTodo';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 
-import { CalendarIcon, ProjectIcon } from '../../components/asset/svgIcons';
+import { CalendarIcon, ProjectIcon, EditIcon } from '../../components/asset/svgIcons';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';

@@ -70,7 +70,7 @@ const EditProjectButton = ({ setIsEditing, onClickDeleteProject }) => {
         <>
             <EllipsisIcon
                 onClick={onClickShowPopover}
-                sx={{ color: 'grey.700', '&:hover': { color: 'secondary.main' }, cursor: 'pointer' }}
+                sx={{ '&:hover': { color: 'secondary.main' }, cursor: 'pointer' }}
             />
             {popover}
         </>

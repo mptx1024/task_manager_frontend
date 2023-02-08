@@ -95,3 +95,10 @@ export const EllipsisIcon = (props) => {
         </SvgIcon>
     );
 };
+export const AddIcon = (props) => {
+    return (
+        <SvgIcon {...props}>
+            <path d='M11.25 18.75v-6h-6v-1.5h6v-6h1.5v6h6v1.5h-6v6Z' fill='inherit' />
+        </SvgIcon>
+    );
+};

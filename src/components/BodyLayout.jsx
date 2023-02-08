@@ -14,8 +14,8 @@ const StyledStack = styled(Stack, {
     flexGrow: 1,
     paddingLeft: theme.spacing(8),
     paddingRight: theme.spacing(8),
-    height: '95vh',
-    maxHeight: '95vh',
+    // height: '95vh',
+    // maxHeight: '95vh',
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

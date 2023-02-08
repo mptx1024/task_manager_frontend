@@ -85,7 +85,7 @@ const AddTodo = () => {
                                 alignItems: 'center',
                                 py: '0.3rem',
                                 px: '1rem',
-                                bgcolor: 'grey.200',
+                                backgroundColor: 'background.paper',
                             }}
                         >
                             <Box sx={{ display: 'flex', '&>*': { mr: '0.8rem' } }}>

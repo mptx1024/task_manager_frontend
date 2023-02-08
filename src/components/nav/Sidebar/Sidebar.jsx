@@ -5,13 +5,7 @@ import Categories from './Categories';
 import { drawerWidth } from '../../../config/UiParams';
 import { ChevronLeft } from '@mui/icons-material';
 
-
-import {
-    Drawer,
-    IconButton,
-    Divider,
-    styled,
-} from '@mui/material';
+import { Drawer, IconButton, Divider, styled } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -33,12 +27,11 @@ const SideBar = () => {
         <Drawer
             sx={{
                 width: drawerWidth,
-                // flexShrink: 2,
-                // '& .MuiDrawer-paper': {
-                //     width: drawerWidth,
-                //     boxSizing: 'border-box',
-                // },
-                // zIndex: 1,
+                flexShrink: 2,
+                '& .MuiDrawer-paper': {
+                    width: drawerWidth,
+                    // boxSizing: 'border-box',
+                },
             }}
             variant='persistent'
             anchor='left'

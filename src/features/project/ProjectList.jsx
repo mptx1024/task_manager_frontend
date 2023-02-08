@@ -2,26 +2,23 @@ import { useGetProjectsQuery, useUpdateProjectsMutation, useAddProjectMutation }
 import Project from './Project';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, List, ListItem, Input, IconButton, ListItemButton } from '@mui/material';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+
+import AddProject from './AddProject';
+import { Typography, List, ListItem, Input, IconButton } from '@mui/material';
 
 const ProjectList = () => {
-    const [title, setTitle] = useState('');
-    const navigate = useNavigate();
     const [addProject] = useAddProjectMutation();
+    const [title, setTitle] = useState('');
 
     const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
     if (isLoading) {
         // console.log('Project Loading...');
         return <p>Loading...</p>;
     }
-
-    const onClickProject = (projectId) => {
-        navigate(`/project/${projectId}`, { state: { projectId } });
-    };
+    const projects = data?.ids?.map((id) => data.entities[id]);
 
     const onClickAddProject = () => {
-        if (title) {
+        if (title.trim().length !== 0) {
             addProject({ title });
         }
         setTitle('');
@@ -30,7 +27,6 @@ const ProjectList = () => {
     const onChangeTitle = (e) => {
         setTitle(e.target.value);
     };
-    const projects = data?.ids?.map((id) => data.entities[id]);
     return (
         <>
             <Typography variant='subtitle1' sx={{ ml: 2, mt: 3, fontWeight: 'bold', color: 'grey' }}>
@@ -44,26 +40,9 @@ const ProjectList = () => {
                 }}
             >
                 {projects?.map((project) => (
-                    <Project key={project._id} project={project} onClickProject={onClickProject} />
+                    <Project key={project._id} project={project} />
                 ))}
-                <ListItem>
-                    {/* New project input */}
-                    <Input
-                        autoComplete='false'
-                        type='text'
-                        placeholder='New project'
-                        onChange={onChangeTitle}
-                        onKeyPress={(e) => {
-                            if (e.key === 'Enter') onClickAddProject();
-                        }}
-                        value={title}
-                        disableUnderline={true}
-                        required
-                    />
-                    <IconButton onClick={onClickAddProject}>
-                        <AddOutlinedIcon />
-                    </IconButton>
-                </ListItem>
+                <AddProject onClickAddProject={onClickAddProject} title={title} onChangeTitle={onChangeTitle} />
             </List>
         </>
     );

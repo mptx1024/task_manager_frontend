@@ -1,3 +1,4 @@
+import PageTitle from './PageTitle';
 import { useGetTodosQuery } from '../../features/todo/todosApiSlice';
 import TodoList from '../../features/todo/TodoList';
 
@@ -12,9 +13,10 @@ const All = () => {
         return <p>No Content</p>;
     }
     return (
-        <div>
+        <>
+            <PageTitle title={'All'} />
             <TodoList todos={todos} />
-        </div>
+        </>
     );
 };
 export default All;

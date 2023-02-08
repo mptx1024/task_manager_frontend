@@ -7,7 +7,7 @@ const StyledPaper = styled(Paper, { shouldForwardProp: (prop) => prop !== 'isEdi
     ...theme.typography.body2,
     color: theme.palette.text.secondary,
     // marginTop: theme.spacing(1),
-    margin: '0.3rem',
+    margin: '0.3rem 0',
     boxShadow: '3',
     textAlign: 'center',
     padding: '0.5rem',

@@ -7,15 +7,6 @@ import { TransitionGroup } from 'react-transition-group';
 
 export default function TodoList({ todos }) {
     // console.log('🚀 ~ file: TodoList.jsx:9 ~ TodoList ~ todos', todos);
-    // const { data, isError, isLoading, error } = useGetTodosQuery('todosList');
-    // const todos = data?.ids.map((id) => data?.entities[id]);
-
-    // if (isLoading) {
-    //     return <p>Loading</p>;
-    // }
-    // if (isError && error.status === 404) {
-    //     return <p>No Content</p>;
-    // }
 
     let openedTodos = [];
     let completedTodos = [];

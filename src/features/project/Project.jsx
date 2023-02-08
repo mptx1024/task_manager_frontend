@@ -1,19 +1,25 @@
 import { useUpdateProjectsMutation, useDeleteProjectsMutation } from './ProjectsApiSlice';
 import { useState } from 'react';
 import { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import EditProjectButton from './EditProjectButton';
 
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import { DotIcon } from '../../components/asset/svgIcons';
 import { Typography, Box, InputBase, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 
-const Project = ({ project, onClickProject }) => {
+const Project = ({ project }) => {
     const [updateProject] = useUpdateProjectsMutation();
     const [deleteProject] = useDeleteProjectsMutation();
 
     const [title, setTitle] = useState(project.title);
     const [isEditing, setIsEditing] = useState(false);
     // const [disableProjectBtn, setDisableProjectBtn] = useState(false);
+    const navigate = useNavigate();
+    const onClickProject = () => {
+        navigate(`/project/${project._id}`, { state: { projectId: project._id, projectTitle: project.title } });
+    };
 
     const onClickUpdateProject = () => {
         updateProject({ _id: project._id, title });
@@ -34,10 +40,10 @@ const Project = ({ project, onClickProject }) => {
     }, [isEditing]);
 
     return (
-        <ListItem sx={{ py: 0, '&:hover': { backgroundColor: 'action.hover' } }}>
+        <ListItem sx={{ py: 0, pl: 1, '&:hover': { backgroundColor: 'action.hover' } }}>
             <ListItemButton
                 disableRipple
-                onClick={() => onClickProject(project._id)}
+                onClick={onClickProject}
                 sx={{
                     minHeight: '3rem',
                     display: 'flex',
@@ -47,7 +53,7 @@ const Project = ({ project, onClickProject }) => {
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <ListItemIcon>
-                        <DotIcon sx={{ width: 15, height: 15, color: 'secondary.main' }} />
+                        <DotIcon sx={{ width: 15, height: 15 }} />
                     </ListItemIcon>
                     {isEditing ? (
                         <InputBase

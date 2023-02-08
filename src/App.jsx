@@ -1,10 +1,9 @@
-import Navbar from './components/nav/Navbar';
+import All from './components/page/All';
 import Footer from './components/Footer';
 import BodyLayout from './components/BodyLayout';
 import Login from './features/auth/Login';
 import Layout from './components/Layout';
 
-import All from './components/page/All';
 import Today from './components/page/Today';
 import Priority from './components/page/Priority';
 import Prefetch from './features/auth/Prefetch';

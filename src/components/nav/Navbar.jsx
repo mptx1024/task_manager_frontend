@@ -1,45 +1,36 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleTheme } from '../../features/visual/themeSlice';
-import { toggleSideBar } from '../../features/visual/sideBarSlice';
+import { toggleTheme } from '../../features/util/themeSlice';
+import { toggleSideBar } from '../../features/util/sideBarSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
-// import useFirebaseAuth from '../../hooks/useFirebaseAuth';
 import LoginUserBox from '../user/LoginUserBox';
 import LoginButton from './LoginButton';
 
-// import { useEffect } from 'react';
-// import { onAuthStateChanged } from 'firebase/auth';
-// import { auth } from '../../config/firebase';
-// import { login, logout } from '../../features/auth/authSlice';
-// import { signInAnonymous } from '../../config/firebase';
-
-import { Menu } from '@mui/icons-material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { MenuIcon, Brightness4Icon, Brightness7Icon } from '../asset/svgIcons';
 import { AppBar, Box, IconButton, styled, Toolbar, Typography } from '@mui/material';
 
 const drawerWidth = 240;
 
 const StyledAppBar = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
-})(
-    //
-    ({ theme, isSideBarOpen }) => ({
-        height: '3rem',
-        justifyContent: 'center',
+})(({ theme, isSideBarOpen }) => ({
+    height: '3rem',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.grey[900],
+    backgroundImage: 'none',
+
+    transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(isSideBarOpen && {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
         transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
         }),
-        ...(isSideBarOpen && {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: `${drawerWidth}px`,
-            transition: theme.transitions.create(['margin', 'width'], {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        }),
-    })
-);
+    }),
+}));
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -59,17 +50,16 @@ const Navbar = () => {
                 {isSideBarOpen ? null : (
                     <IconButton
                         onClick={onClickToggleSideBar}
-                        size='large'
                         edge='start'
                         color='inherit'
                         aria-label='menu'
                         sx={{ mr: 2 }}
                     >
-                        <Menu />
+                        <MenuIcon fontSize='medium' />
                     </IconButton>
                 )}
                 <Typography variant='h6' component='div' sx={{ flexGrow: 2 }}>
-                    Todo React & Redux Toolkit
+                    Task Manager
                 </Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

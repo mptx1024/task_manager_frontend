@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import EditProjectButton from './EditProjectButton';
 
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import { DotIcon } from '../../components/asset/svgIcons';
 import { Typography, Box, InputBase, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 

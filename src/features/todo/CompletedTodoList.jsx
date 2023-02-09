@@ -1,7 +1,6 @@
 import { useState } from 'react';
-
+import { ArrowForwardIosIcon } from '../../components/asset/svgIcons';
 import { Collapse, List, Typography, Box, IconButton, Divider } from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { TransitionGroup } from 'react-transition-group';
 
 const CompletedTodoList = ({ content }) => {
@@ -15,7 +14,7 @@ const CompletedTodoList = ({ content }) => {
                     sx={{ transform: isCompletedPanelOpen && 'rotate(90deg)', mr: 2 }}
                     disableRipple={true}
                 >
-                    <ArrowForwardIosIcon fontSize='small' />
+                    <ArrowForwardIosIcon sx={{ height: '18px', width: '18px' }} />
                 </IconButton>
                 <Typography variant='inherit'>Completed</Typography>
             </Box>

@@ -3,14 +3,18 @@ import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
 import { useState } from 'react';
 import EditTodo from './EditTodo';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
+import PatchTooltip from '../../components/PatchTooltip';
+import { compareDates } from '../util/compareDates';
+import {
+    CalendarIcon,
+    ProjectIcon,
+    EditIcon,
+    DeleteIcon,
+    RadioButtonUncheckedIcon,
+    CheckCircleOutlineRoundedIcon,
+    CheckCircleFillIcon,
+} from '../../components/asset/svgIcons';
 
-import { CalendarIcon, ProjectIcon, EditIcon } from '../../components/asset/svgIcons';
-
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { Box, Checkbox, IconButton, Typography, Collapse } from '@mui/material';
 
 const Todo = ({ todoId }) => {
@@ -36,7 +40,7 @@ const Todo = ({ todoId }) => {
         return null;
     }
     const dueDate = todo.dueDate ? new Date(todo.dueDate) : null;
-    const overdue = dueDate < new Date();
+    const overdue = compareDates(dueDate);
 
     const onClickEdit = () => {
         setIsEditing((prev) => !prev);
@@ -66,7 +70,7 @@ const Todo = ({ todoId }) => {
                                 <RadioButtonUncheckedIcon color='secondary' />
                             )
                         }
-                        checkedIcon={<CheckCircleIcon color='secondary' />}
+                        checkedIcon={<CheckCircleFillIcon color='secondary' />}
                         onChange={onClickCheckbox}
                         checked={todo?.completed}
                         sx={{ mr: 1 }}
@@ -100,19 +104,16 @@ const Todo = ({ todoId }) => {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        // border: '1px solid blue',
+                                        '& > *': {
+                                            color: overdue ? 'error.dark' : 'inherit',
+                                        },
                                     }}
                                 >
-                                    <CalendarIcon
-                                        sx={{
-                                            color: overdue ? 'error.light' : 'inherit',
-                                            height: '18px',
-                                            width: '18px',
-                                            mr: '0.2rem',
-                                        }}
-                                    />
-                                    <Typography sx={{ color: overdue ? 'error.light' : 'inherit' }}>
-                                        {dueDate.toLocaleDateString('en-US')}
+                                    <CalendarIcon sx={{ height: '18px', width: '18px', mr: '0.2rem' }} />
+                                    <Typography>
+                                        {overdue
+                                            ? 'Overdue ' + dueDate.toLocaleDateString('en-US')
+                                            : dueDate.toLocaleDateString('en-US')}
                                     </Typography>
                                 </Box>
                             ) : null}
@@ -133,13 +134,17 @@ const Todo = ({ todoId }) => {
                         </Box>
                     </Box>
                 </Box>
-                <Box id='todo-actions'>
-                    <IconButton title='Edit' size='small' onClick={onClickEdit}>
-                        <EditOutlinedIcon fontSize='small' />
-                    </IconButton>
-                    <IconButton title='Delete' size='small' onClick={onClickDelete}>
-                        <DeleteOutlinedIcon fontSize='small' />
-                    </IconButton>
+                <Box id='todo-actions' sx={{ display: 'flex' }}>
+                    <PatchTooltip title='Edit task' arrow>
+                        <IconButton title='Edit' onClick={onClickEdit} sx={{ borderRadius: '50%' }}>
+                            <EditIcon sx={{ height: '20px', width: '20x' }} />
+                        </IconButton>
+                    </PatchTooltip>
+                    <PatchTooltip title='Delete task' arrow>
+                        <IconButton title='Delete' onClick={onClickDelete} sx={{ borderRadius: '50%' }}>
+                            <DeleteIcon sx={{ height: '20px', width: '20x' }} />
+                        </IconButton>
+                    </PatchTooltip>
                 </Box>
             </StyledPaper>
         </Collapse>

@@ -1,22 +1,14 @@
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
+import { compareDates } from '../util/compareDates';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarIcon } from '../../components/asset/svgIcons';
 import { Typography } from '@mui/material';
 
 const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
-    // const [anchorEl, setAnchorEl] = useState(null);
-    // const [showPopover, setShowPopover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    // const onOpenClick = (e) => {
-    //     setShowPopover((prev) => !prev);
-    //     setAnchorEl(e.currentTarget);
-    // };
-    // const onCloseClick = () => {
-    //     setShowPopover((prev) => !prev);
-    //     // setAnchorEl(null);
-    // };
+
     const handleClick = (e) => {
         e.preventDefault();
         setIsOpen(!isOpen);
@@ -28,13 +20,14 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
     const handleClickOutside = (e) => {
         setIsOpen(!isOpen);
     };
+    const overdue = compareDates(dueDate);
 
     return (
         <>
-            <StyledButton onClick={handleClick} variant={variant} size='small'>
+            <StyledButton onClick={handleClick} variant={variant} size='small' overdue={overdue}>
                 <CalendarIcon fontSize='small' />
                 {dueDate ? (
-                    <Typography>{dueDate.toLocaleDateString('en-US')}</Typography>
+                    <Typography color='red'>{dueDate.toLocaleDateString('en-US')}</Typography>
                 ) : text ? (
                     <Typography>{text}</Typography>
                 ) : null}
@@ -55,7 +48,7 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
                         // selected={new Date()}
                         onChange={handleChange}
                         inline
-                        minDate={new Date()}
+                        // minDate={new Date()}
                         isClearable={true}
                         placeholderText='Select a day'
                     />

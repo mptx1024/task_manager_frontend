@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleSideBar } from '../../../features/visual/sideBarSlice';
+import { toggleSideBar } from '../../../features/util/sideBarSlice';
 import ProjectList from '../../../features/project/ProjectList';
 import Categories from './Categories';
 import { drawerWidth } from '../../../config/UiParams';
-import { ChevronLeft } from '@mui/icons-material';
 
+import { ChevronLeftIcon } from '../../asset/svgIcons';
 import { Drawer, IconButton, Divider, styled } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -13,6 +13,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end', // for anchoring sidebar arrow button
     height: '3rem',
     padding: theme.spacing(0, 1),
+    backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.grey[900],
 }));
 
 const SideBar = () => {
@@ -39,15 +40,12 @@ const SideBar = () => {
         >
             <DrawerHeader>
                 <IconButton onClick={onClickCloseSideBar}>
-                    <ChevronLeft />
+                    <ChevronLeftIcon htmlColor='white' />
                 </IconButton>
             </DrawerHeader>
-            <Divider variant='middle' />
             <Categories />
-
             <Divider variant='middle' />
             <ProjectList />
-            {/* {isUserInState ? <ProjectList /> : <p>no project yet</p>} */}
         </Drawer>
     );
 };

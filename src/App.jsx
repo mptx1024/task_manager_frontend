@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 import Today from './components/page/Today';
 import Priority from './components/page/Priority';
 import Prefetch from './features/auth/Prefetch';
-import { getDesignTokens } from './features/visual/themes';
+import { getDesignTokens } from './features/util/themes';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import ProjectPage from './components/page/ProjectPage';

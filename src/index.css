@@ -14,3 +14,6 @@ code {
 /* body {
     min-height: 100vh;
 } */
+.firebase-emulator-warning {
+    display: none;
+}

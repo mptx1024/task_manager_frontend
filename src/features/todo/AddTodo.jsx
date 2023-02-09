@@ -4,8 +4,8 @@ import DatePickerButton from './DatePickerButton';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
+import PatchTooltip from '../../components/PatchTooltip';
 import { Box, Paper, InputBase, Divider } from '@mui/material';
-import { useCallback } from 'react';
 
 const AddTodo = () => {
     const [addNewTodo, { isLoading }] = useAddTodosMutation();
@@ -89,19 +89,27 @@ const AddTodo = () => {
                             }}
                         >
                             <Box sx={{ display: 'flex', '&>*': { mr: '0.8rem' } }}>
-                                <DatePickerButton setDueDate={setDueDate} dueDate={dueDate} variant={'text'} />
-                                <ProjectButton variant={'text'} projectId={projectId} setProjectId={setProjectId} />
-                                <PriorityButton variant={'text'} priority={priority} setPriority={setPriority} />
+                                <PatchTooltip title='Add due date' arrow>
+                                    <DatePickerButton setDueDate={setDueDate} dueDate={dueDate} variant={'text'} />
+                                </PatchTooltip>
+                                <PatchTooltip title='Add to project' arrow>
+                                    <ProjectButton variant={'text'} projectId={projectId} setProjectId={setProjectId} />
+                                </PatchTooltip>
+                                <PatchTooltip title='Flag as priority' arrow>
+                                    <PriorityButton variant={'text'} priority={priority} setPriority={setPriority} />
+                                </PatchTooltip>
                             </Box>
-                            <StyledButton
-                                variant='outlined'
-                                size='small'
-                                disabled={canSave ? false : true}
-                                sx={{ color: 'secondary.main', ':hover': { color: 'secondary.main' } }}
-                                onClick={onClickAddTodo}
-                            >
-                                Add
-                            </StyledButton>
+                            <PatchTooltip title='Add a task' arrow>
+                                <StyledButton
+                                    variant='outlined'
+                                    size='small'
+                                    disabled={canSave ? false : true}
+                                    sx={{ color: 'secondary.main', ':hover': { color: 'secondary.main' } }}
+                                    onClick={onClickAddTodo}
+                                >
+                                    Add
+                                </StyledButton>
+                            </PatchTooltip>
                         </Box>
                     </>
                 ) : null}

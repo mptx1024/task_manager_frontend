@@ -3,7 +3,7 @@ import { styled, Paper } from '@mui/material';
 const StyledPaper = styled(Paper, { shouldForwardProp: (prop) => prop !== 'isEditing' })(({ theme, isEditing }) => ({
     outline: isEditing ? '0.5px solid grey' : '',
     height: isEditing ? '6.5rem' : '4rem',
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+
     ...theme.typography.body2,
     color: theme.palette.text.secondary,
     // marginTop: theme.spacing(1),
@@ -17,7 +17,8 @@ const StyledPaper = styled(Paper, { shouldForwardProp: (prop) => prop !== 'isEdi
     ':hover': isEditing
         ? ''
         : {
-              backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f5f5f5',
+              // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f5f5f5',
+              backgroundColor: theme.palette.action.hover,
           },
     cursor: isEditing ? '' : 'pointer',
 }));

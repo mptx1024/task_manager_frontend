@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Popover, List, ListItem, ListItemText, Divider, ListItemButton, ListItemIcon } from '@mui/material';
 
-import { EllipsisIcon } from '../../components/asset/svgIcons';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { EllipsisIcon, EditIcon, DeleteIcon } from '../../components/asset/svgIcons';
 
 const EditProjectButton = ({ setIsEditing, onClickDeleteProject }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -35,7 +33,7 @@ const EditProjectButton = ({ setIsEditing, onClickDeleteProject }) => {
             <ListItem disablePadding>
                 <ListItemButton onClick={onClickEdit}>
                     <ListItemIcon>
-                        <EditOutlinedIcon />
+                        <EditIcon />
                     </ListItemIcon>
                     <ListItemText primary={'Edit'} />
                 </ListItemButton>
@@ -44,7 +42,7 @@ const EditProjectButton = ({ setIsEditing, onClickDeleteProject }) => {
             <ListItem disablePadding>
                 <ListItemButton onClick={onClickDeleteProject}>
                     <ListItemIcon>
-                        <DeleteOutlinedIcon />
+                        <DeleteIcon />
                     </ListItemIcon>
                     <ListItemText primary={'Delete'} />
                 </ListItemButton>

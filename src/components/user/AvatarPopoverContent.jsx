@@ -15,7 +15,8 @@ import {
     Typography,
     Avatar,
 } from '@mui/material';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
+import { ExitIcon } from '../asset/svgIcons';
 
 const AvatarPopoverContent = () => {
     const userInState = useSelector(selectCurrentUser); // The user in redux state
@@ -50,7 +51,7 @@ const AvatarPopoverContent = () => {
             <ListItem disablePadding>
                 <ListItemButton onClick={onClickSignOut}>
                     <ListItemIcon>
-                        <ExitToAppIcon />
+                        <ExitIcon />
                     </ListItemIcon>
                     <ListItemText primary={'Log out'} />
                 </ListItemButton>

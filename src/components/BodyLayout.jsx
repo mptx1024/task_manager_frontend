@@ -4,7 +4,6 @@ import { drawerWidth } from '../config/UiParams';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import AddTodo from '../features/todo/AddTodo';
-
 import { Stack, styled, Box } from '@mui/material';
 import SideBar from './nav/Sidebar/Sidebar';
 
@@ -14,13 +13,13 @@ const StyledStack = styled(Stack, {
     flexGrow: 1,
     paddingLeft: theme.spacing(8),
     paddingRight: theme.spacing(8),
-    // height: '95vh',
-    // maxHeight: '95vh',
+
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    border: '1px solid red',
+    justifyContent: 'center',
+    // border: '1px solid red',
     marginLeft: `-${drawerWidth}px`,
     // marginRight: `5px`,
     ...(isSideBarOpen && {

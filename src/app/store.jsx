@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './api/apiSlice';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import authReducer from '../features/auth/authSlice';
-import themeReducer from '../features/visual/themeSlice';
-import sideBarReducer from '../features/visual/sideBarSlice';
+import themeReducer from '../features/util/themeSlice';
+import sideBarReducer from '../features/util/sideBarSlice';
 
 export const store = configureStore({
     reducer: {

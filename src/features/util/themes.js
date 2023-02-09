@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { grey, red } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 
 const { palette } = createTheme();
 export const getDesignTokens = (mode) => {

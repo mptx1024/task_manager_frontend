@@ -8,24 +8,24 @@ const LoginButton = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
 
-    const onLoginClick = (e) => {
+    const onClickLogin = (e) => {
         setShowPopover((prev) => !prev);
         setAnchorEl(e.currentTarget);
     };
-    const onCloseClick = () => {
+    const onClickClose = () => {
         setShowPopover((prev) => !prev);
         // setAnchorEl(null);
     };
 
     return (
         <div>
-            <Button variant='contained' onClick={onLoginClick}>
+            <Button variant='contained' onClick={onClickLogin}>
                 Login
             </Button>
             <Popover
                 anchorEl={anchorEl}
                 open={showPopover}
-                onClose={onCloseClick}
+                onClose={onClickClose}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',

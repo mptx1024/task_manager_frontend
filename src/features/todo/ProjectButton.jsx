@@ -36,6 +36,10 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
         setProjectTitle(e.target.textContent);
         setShowPopover(false);
     };
+    const onClickRemoveProject = () => {
+        setProjectId(null);
+        setShowPopover(false);
+    };
     let popoverContent;
     if (!data) {
         popoverContent = (
@@ -62,6 +66,11 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
                         </div>
                     );
                 })}
+                <ListItem disablePadding>
+                    <ListItemButton onClick={onClickRemoveProject}>
+                        <ListItemText primary={'Remove Project'} sx={{ color: 'red' }} />
+                    </ListItemButton>
+                </ListItem>
             </List>
         );
     }

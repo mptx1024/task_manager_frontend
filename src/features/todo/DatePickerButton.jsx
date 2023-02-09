@@ -4,27 +4,40 @@ import DatePicker from 'react-datepicker';
 import { compareDates } from '../util/compareDates';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarIcon } from '../../components/asset/svgIcons';
-import { Typography } from '@mui/material';
+import { Typography, Popover } from '@mui/material';
 
 const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [showPopover, setShowPopover] = useState(false);
 
-    const handleClick = (e) => {
+    const onClickDateButton = (e) => {
         e.preventDefault();
-        setIsOpen(!isOpen);
+        setShowPopover(!showPopover);
+        setAnchorEl(e.currentTarget);
     };
-    const handleChange = (e) => {
-        setIsOpen(!isOpen);
+    const onDateChange = (e) => {
+        setShowPopover(!showPopover);
         setDueDate(e);
     };
-    const handleClickOutside = (e) => {
-        setIsOpen(!isOpen);
+
+    const onClickClose = () => {
+        setShowPopover((prev) => !prev);
     };
+    // const handleClickOutside = (e) => {
+    //     setShowPopover((prev) => !prev);
+    // };
+
+    const onClickReset = () => {
+        setDueDate(null);
+        setShowPopover(!showPopover);
+    };
+
     const overdue = compareDates(dueDate);
 
     return (
         <>
-            <StyledButton onClick={handleClick} variant={variant} size='small' overdue={overdue}>
+            <StyledButton onClick={onClickDateButton} variant={variant} size='small' overdue={overdue}>
                 <CalendarIcon fontSize='small' />
                 {dueDate ? (
                     <Typography color='red'>{dueDate.toLocaleDateString('en-US')}</Typography>
@@ -32,28 +45,31 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
                     <Typography>{text}</Typography>
                 ) : null}
             </StyledButton>
-            {isOpen && (
-                <div
-                    style={{
-                        // display: 'flex',
-                        // maxWidth: '800px',
-                        // maxHeight: '800px',
-                        position: 'absolute',
-                        zIndex: '100',
-                    }}
-                >
+            <Popover
+                sx={{ p: 0, m: 0 }}
+                anchorEl={anchorEl}
+                open={showPopover}
+                onClose={onClickClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                <div>
                     <DatePicker
                         // dateFormat='MM-DD-YYYY'
-                        onClickOutside={handleClickOutside}
+                        // onClickOutside={handleClickOutside}
                         // selected={new Date()}
-                        onChange={handleChange}
+                        onChange={onDateChange}
                         inline
                         // minDate={new Date()}
-                        isClearable={true}
                         placeholderText='Select a day'
                     />
+                    <button style={{ width: '100%', display: 'block' }} onClick={onClickReset}>
+                        No due date
+                    </button>
                 </div>
-            )}
+            </Popover>
         </>
     );
 };

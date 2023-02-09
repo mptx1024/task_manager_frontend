@@ -1,5 +1,4 @@
 import All from './components/page/All';
-import Footer from './components/Footer';
 import BodyLayout from './components/BodyLayout';
 import Login from './features/auth/Login';
 import Layout from './components/Layout';
@@ -13,8 +12,8 @@ import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import ProjectPage from './components/page/ProjectPage';
 
-import { Box, CssBaseline } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
     const mode = useSelector((state) => state.theme.theme);

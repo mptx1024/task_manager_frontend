@@ -1,5 +1,3 @@
-import TodoList from '../features/todo/TodoList';
-import CompletedTodoList from '../features/todo/CompletedTodoList';
 import { drawerWidth } from '../config/UiParams';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';

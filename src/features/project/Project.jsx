@@ -26,6 +26,7 @@ const Project = ({ project }) => {
     };
     const onClickDeleteProject = () => {
         deleteProject({ _id: project._id });
+        navigate('/');
     };
     const onChangeTitle = (e) => {
         setTitle(e.target.value);
@@ -52,7 +53,7 @@ const Project = ({ project }) => {
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <ListItemIcon>
-                        <DotIcon sx={{ width: 15, height: 15 }} />
+                        <DotIcon sx={{ width: 15, height: 15, color: 'secondary.main' }} />
                     </ListItemIcon>
                     {isEditing ? (
                         <InputBase

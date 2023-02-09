@@ -37,7 +37,7 @@ export default function TodoList({ todos }) {
             <List>
                 <TransitionGroup>{openedTodos}</TransitionGroup>
             </List>
-            <CompletedTodoList content={completedTodos} />
+            {completedTodos.length !== 0 ? <CompletedTodoList content={completedTodos} /> : null}
         </>
     );
 }

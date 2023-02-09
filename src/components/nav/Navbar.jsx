@@ -58,11 +58,11 @@ const Navbar = () => {
                         <MenuIcon fontSize='medium' />
                     </IconButton>
                 )}
-                <Typography variant='h6' component='div' sx={{ flexGrow: 2 }}>
+                <Typography variant='h6' sx={{ flexGrow: 2, whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                     Task Manager
                 </Typography>
 
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ mr: '0.5rem' }}>
                     <IconButton onClick={onClickToggleMode}>
                         {themeState === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                     </IconButton>

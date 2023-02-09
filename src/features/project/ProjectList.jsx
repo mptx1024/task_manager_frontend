@@ -10,7 +10,7 @@ const ProjectList = () => {
     const [addProject] = useAddProjectMutation();
     const [title, setTitle] = useState('');
 
-    const { data, isLoading, isSuccess, isError } = useGetProjectsQuery('projectsList');
+    const { data, isLoading } = useGetProjectsQuery('projectsList');
     if (isLoading) {
         // console.log('Project Loading...');
         return <p>Loading...</p>;

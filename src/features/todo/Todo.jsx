@@ -76,7 +76,13 @@ const Todo = ({ todoId }) => {
                         sx={{ mr: 1 }}
                         size='small'
                     />
-                    <Box id='todo-info-box' sx={{ textAlign: 'left' }}>
+                    <Box
+                        id='todo-info-box'
+                        sx={{
+                            textAlign: 'left',
+                            '& .MuiTypography-root': { flexGrow: 2, whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
+                        }}
+                    >
                         <Box id='todo-info-box-title'>
                             {todo.completed ? (
                                 <Typography>
@@ -137,12 +143,12 @@ const Todo = ({ todoId }) => {
                 <Box id='todo-actions' sx={{ display: 'flex' }}>
                     <PatchTooltip title='Edit task' arrow>
                         <IconButton title='Edit' onClick={onClickEdit} sx={{ borderRadius: '50%' }}>
-                            <EditIcon sx={{ height: '20px', width: '20x' }} />
+                            <EditIcon sx={{ height: '20px', width: '20x', color: 'secondary.main' }} />
                         </IconButton>
                     </PatchTooltip>
                     <PatchTooltip title='Delete task' arrow>
                         <IconButton title='Delete' onClick={onClickDelete} sx={{ borderRadius: '50%' }}>
-                            <DeleteIcon sx={{ height: '20px', width: '20x' }} />
+                            <DeleteIcon sx={{ height: '20px', width: '20x', color: 'secondary.main' }} />
                         </IconButton>
                     </PatchTooltip>
                 </Box>

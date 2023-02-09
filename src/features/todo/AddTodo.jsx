@@ -66,9 +66,18 @@ const AddTodo = () => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     autoFocus={true}
-                    sx={{ ml: 1, flex: 1 }}
-                    placeholder='Add a new task'
-                    inputProps={{ 'aria-label': 'Add a new task', style: { height: '40px' } }}
+                    sx={{
+                        ml: 1,
+                        flex: 1,
+                        input: {
+                            height: '40px',
+                            '&::placeholder': {
+                                opacity: 0.7,
+                                color: 'secondary.main',
+                            },
+                        },
+                    }}
+                    placeholder='Add a task'
                     onKeyPress={onKeyPress}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}

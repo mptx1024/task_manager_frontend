@@ -17,7 +17,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
     const mode = useSelector((state) => state.theme.theme);
-    console.log('🚀 ~ file: App.jsx:20 ~ App ~ mode', mode);
 
     const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
     return (

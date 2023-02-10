@@ -17,8 +17,8 @@ import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
     const mode = useSelector((state) => state.theme.theme);
-    const theme = useMemo(() => getDesignTokens(mode), [mode]);
-
+    // const theme = useMemo(() => getDesignTokens(mode), [mode]);
+    const theme = getDesignTokens(mode);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

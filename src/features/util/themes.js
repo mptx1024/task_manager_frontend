@@ -6,7 +6,7 @@ export const getDesignTokens = (mode) => {
     return createTheme({
         palette: {
             mode,
-            
+
             customBgGrey: palette.augmentColor({ color: { main: '#bdbdbd' } }),
 
             ...(mode === 'light'
@@ -25,19 +25,6 @@ export const getDesignTokens = (mode) => {
                           minorButton: grey[700],
                       },
                   }),
-        },
-        components: {
-            MuiButton: {
-                styleOverrides: {
-                    // root: {
-                    //     '&.Mui-disabled': {
-                    //         // When button disabled
-                    //         background: '#f3f3f3',
-                    //         color: '#dadada',
-                    //     },
-                    // },
-                },
-            },
         },
     });
 };

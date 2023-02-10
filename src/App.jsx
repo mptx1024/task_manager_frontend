@@ -12,13 +12,12 @@ import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import ProjectPage from './components/page/ProjectPage';
 
-import { CssBaseline } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
     const mode = useSelector((state) => state.theme.theme);
-    // const theme = useMemo(() => getDesignTokens(mode), [mode]);
-    const theme = getDesignTokens(mode);
+    const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

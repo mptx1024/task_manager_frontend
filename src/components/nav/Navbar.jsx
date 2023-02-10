@@ -16,7 +16,7 @@ const StyledAppBar = styled(AppBar, {
 })(({ theme, isSideBarOpen }) => ({
     height: '3rem',
     justifyContent: 'center',
-    // backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.grey[900],
+    backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.grey[900],
     backgroundImage: 'none',
 
     transition: theme.transitions.create(['margin', 'width'], {

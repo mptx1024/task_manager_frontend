@@ -39,10 +39,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "babel-plugin-import": "^1.13.6",
-        "customize-cra": "^1.0.0",
-        "react-app-rewired": "^2.2.1"
     }
 }

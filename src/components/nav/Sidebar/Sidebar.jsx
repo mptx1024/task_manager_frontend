@@ -14,7 +14,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end', // for anchoring sidebar arrow button
     height: '3rem',
     padding: theme.spacing(0, 1),
-    // backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.grey[900],
+    backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.grey[900],
 }));
 
 const SideBar = () => {

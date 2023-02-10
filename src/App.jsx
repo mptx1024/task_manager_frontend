@@ -25,28 +25,21 @@ function App() {
             <CssBaseline />
             <Routes>
                 <Route path='/' element={<Layout />}>
-                    <Route
-                        index
-                        element={<p style={{ marginTop: '300px', marginLeft: '150px', color: 'red' }}>testing</p>}
-                    />
+                    <Route element={<Login />}>
+                        <Route element={<Prefetch />}>
+                            <Route element={<BodyLayout />}>
+                                <Route index element={<All />} />
+                                <Route path='priority' element={<Priority />} />
+                                <Route path='today' element={<Today />} />
+                                <Route path='project'>
+                                    <Route path=':id' element={<ProjectPage />} />
+                                </Route>
+                            </Route>
+                        </Route>
+                    </Route>
                 </Route>
             </Routes>
         </ThemeProvider>
     );
 }
 export default App;
-
-{
-    /* <Route element={<Login />}>
-<Route element={<Prefetch />}>
-    <Route element={<BodyLayout />}>
-        <Route index element={<All />} />
-        <Route path='priority' element={<Priority />} />
-        <Route path='today' element={<Today />} />
-        <Route path='project'>
-            <Route path=':id' element={<ProjectPage />} />
-        </Route>
-    </Route>
-</Route>
-</Route> */
-}

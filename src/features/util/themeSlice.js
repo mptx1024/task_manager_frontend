@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const themeSlice = createSlice({
     name: 'theme',
-    initialState: { theme: localStorage.getItem('themeMode' || 'light') },
+    initialState: { theme: localStorage.getItem('themeMode') ? localStorage.getItem('themeMode') : 'light' },
     reducers: {
         toggleTheme: (state) => {
             // console.log('🚀 ~ file: themeSlice.js:11 ~ state', state);

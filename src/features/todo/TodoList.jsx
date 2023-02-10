@@ -1,4 +1,3 @@
-
 import Todo from './Todo';
 import CompletedTodoList from './CompletedTodoList';
 import { Collapse, List } from '@mui/material';
@@ -15,9 +14,9 @@ export default function TodoList({ todos }) {
             openedTodos.push(
                 <Collapse
                     key={todo._id}
-                    timeout={{ enter: 250, exit: 100 }}
+                    // timeout={{ enter: 100, exit: 100 }}
                     unmountOnExit
-                    easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
+                    // easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
                 >
                     {<Todo key={todo._id} todoId={todo._id} />}
                 </Collapse>
@@ -30,6 +29,7 @@ export default function TodoList({ todos }) {
             );
         }
     });
+    console.log('🚀 ~ file: TodoList.jsx:11 ~ TodoList ~ completedTodos', completedTodos);
 
     return (
         <>

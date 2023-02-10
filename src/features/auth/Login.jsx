@@ -24,8 +24,9 @@ const Login = () => {
                     })
                 );
             } else {
-                signInAnonymous();
-                // console.log('user is logged out');
+                // signInAnonymous();
+
+                console.log('no user');
             }
         });
     }, []);

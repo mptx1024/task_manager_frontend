@@ -13,8 +13,7 @@ export const store = configureStore({
         sideBar: sideBarReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
-    // devTools: true,
-    devTools: false,
+    devTools: true,
 });
 
 /*

@@ -29,7 +29,7 @@ export default function TodoList({ todos }) {
             );
         }
     });
-    console.log('🚀 ~ file: TodoList.jsx:11 ~ TodoList ~ completedTodos', completedTodos);
+    // console.log('🚀 ~ file: TodoList.jsx:11 ~ TodoList ~ completedTodos', completedTodos);
 
     return (
         <>

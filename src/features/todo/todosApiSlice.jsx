@@ -53,6 +53,19 @@ export const todosApiSlice = apiSlice.injectEndpoints({
                     ...initialTodo, // Include UID, title, completed
                 },
             }),
+            // async onQueryStarted({ initialTodo }, { dispatch, queryFulfilled }) {
+            //     const patchResult = dispatch(
+            //         todosApiSlice.util.updateQueryData('getTodos', 'todosList', (draft) => {
+            //             console.log('🚀 ~ file: todosApiSlice.jsx:58 ~ patchResult ~ draft', draft);
+            //             draft.push(initialTodo);
+            //         })
+            //     );
+            //     try {
+            //         await queryFulfilled;
+            //     } catch (error) {
+            //         patchResult.undo();
+            //     }
+            // },
             invalidatesTags: [{ type: 'Todo', id: 'LIST' }],
         }),
         // PATCH

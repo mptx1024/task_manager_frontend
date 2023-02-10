@@ -1,4 +1,5 @@
-import { styled, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const StyledPaper = styled(Paper, { shouldForwardProp: (prop) => prop !== 'isEditing' })(({ theme, isEditing }) => ({
     outline: isEditing ? '0.5px solid grey' : '',

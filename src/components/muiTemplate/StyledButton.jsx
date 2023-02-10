@@ -1,4 +1,6 @@
-import { styled, Button } from '@mui/material';
+import { Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
 const StyledButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isMajor' && prop !== 'overdue' })(
     ({ theme, isMajor, overdue }) => ({
         textTransform: 'capitalize',

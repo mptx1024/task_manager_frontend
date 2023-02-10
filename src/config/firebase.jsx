@@ -5,7 +5,7 @@ import {
     GoogleAuthProvider,
     signOut,
     signInAnonymously,
-    connectAuthEmulator,
+    // connectAuthEmulator,
 } from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -27,38 +27,39 @@ provider.setCustomParameters({
 });
 
 const auth = getAuth(app);
+
 // Emulator
-connectAuthEmulator(auth, 'http://localhost:9099');
+// connectAuthEmulator(auth, 'http://localhost:9099');
 
 const signInWithGoogle = async () => {
     try {
         // https://firebase.google.com/docs/auth/web/google-signin#web-version-9-modular
         const result = await signInWithPopup(auth, provider);
         // The signed-in user info.
-        const user = result.user;
-        console.log('🚀 ~ file: firebase.js:29 ~ signInWithGoogle ~ user', user);
+        // const user = result.user;
+        // console.log('🚀 ~ file: firebase.js:29 ~ signInWithGoogle ~ user', user);
         // https://firebase.google.com/docs/reference/js/auth.googleauthprovider#googleauthprovidercredentialfromresult
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
     } catch (error) {
         // Handle Errors here.
         console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // // The email of the user's account used.
+        // const email = error.customData.email;
+        // // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // // ...
     }
 };
 
+// https://firebase.google.com/docs/auth/web/google-signin#next_steps
 const signOutGoogle = async () => {
     try {
-        const isSignedOut = await signOut(auth);
+        await signOut(auth);
         // Sign-out successful.
-        console.log(`Sign-out Successfully. isSignedOut resolves to ${isSignedOut}`);
     } catch (error) {
         // An error happened.
         console.log(`Error: ${error}`);
@@ -74,8 +75,8 @@ const signInAnonymous = async () => {
         await signInAnonymously(auth);
     } catch (error) {
         console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
     }
 };
 

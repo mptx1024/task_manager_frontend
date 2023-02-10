@@ -2,7 +2,8 @@ import { drawerWidth } from '../config/UiParams';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import AddTodo from '../features/todo/AddTodo';
-import { Stack, styled, Box } from '@mui/material';
+import { Stack, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import SideBar from './nav/Sidebar/Sidebar';
 
 const StyledStack = styled(Stack, {

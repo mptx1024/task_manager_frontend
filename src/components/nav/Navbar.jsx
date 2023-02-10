@@ -6,7 +6,8 @@ import LoginUserBox from '../user/LoginUserBox';
 import LoginButton from './LoginButton';
 
 import { MenuIcon, Brightness4Icon, Brightness7Icon } from '../asset/svgIcons';
-import { AppBar, Box, IconButton, styled, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;
 

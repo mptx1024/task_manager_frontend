@@ -1,10 +1,9 @@
-import { useGetProjectsQuery, useUpdateProjectsMutation, useAddProjectMutation } from './ProjectsApiSlice';
+import { useGetProjectsQuery, useAddProjectMutation } from './ProjectsApiSlice';
 import Project from './Project';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import AddProject from './AddProject';
-import { Typography, List, ListItem, Input, IconButton } from '@mui/material';
+import { Typography, List } from '@mui/material';
 
 const ProjectList = () => {
     const [addProject] = useAddProjectMutation();

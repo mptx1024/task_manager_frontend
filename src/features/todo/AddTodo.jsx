@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAddTodosMutation } from './todosApiSlice';
 import DatePickerButton from './DatePickerButton';
 import StyledButton from '../../components/muiTemplate/StyledButton';
@@ -12,7 +12,7 @@ const AddTodo = () => {
 
     const AddTodoBar = useRef(null);
     const [showActionBar, setShowActionBar] = useState(true);
-    const [isFocused, setIsFocused] = useState(true);
+    // const [isFocused, setIsFocused] = useState(true);
 
     const [title, setTitle] = useState('');
     const [dueDate, setDueDate] = useState(null);
@@ -79,8 +79,8 @@ const AddTodo = () => {
                     }}
                     placeholder='Add a task'
                     onKeyPress={onKeyPress}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
+                    // onFocus={() => setIsFocused(true)}
+                    // onBlur={() => setIsFocused(false)}
                 />
                 {showActionBar ? (
                     <>

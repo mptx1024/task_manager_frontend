@@ -5,7 +5,8 @@ import Categories from './Categories';
 import { drawerWidth } from '../../../config/UiParams';
 
 import { ChevronLeftIcon } from '../../asset/svgIcons';
-import { Drawer, IconButton, Divider, styled } from '@mui/material';
+import { Drawer, IconButton, Divider } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',

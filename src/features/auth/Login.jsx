@@ -2,9 +2,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { login, logout } from './authSlice';
+import { login } from './authSlice';
 import { signInAnonymous } from '../../config/firebase';
-import { auth } from '../../config/firebase';
 const Login = () => {
     const dispatch = useDispatch();
     const userInState = useSelector((state) => state.auth.user);
@@ -29,7 +28,6 @@ const Login = () => {
                 // console.log('user is logged out');
             }
         });
-        
     }, []);
 
     if (userInState) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AvatarPopoverContent from './AvatarPopoverContent';
 
-import { Box, Avatar, Typography, Button, IconButton, Popover } from '@mui/material';
+import { Avatar, IconButton, Popover } from '@mui/material';
 
 const LoginUserBox = ({ userInState }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -33,7 +33,11 @@ const LoginUserBox = ({ userInState }) => {
     return (
         <>
             <IconButton onClick={onAvatarClick} sx={{ height: 25, width: 25, ml: 2 }}>
-                <Avatar src={userInState?.photoUrl} sx={{ width: 25, height: 25 }} />
+                <Avatar
+                    src={userInState?.photoUrl}
+                    imgProps={{ referrerPolicy: 'no-referrer' }}
+                    sx={{ width: 25, height: 25 }}
+                />
                 {/* <Typography sx={{ mr: 1, ml: 0.5 }}>{userInState?.firstName}</Typography> */}
             </IconButton>
             {popover}

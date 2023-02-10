@@ -1,4 +1,3 @@
-import { useGetTodosQuery } from './todosApiSlice';
 
 import Todo from './Todo';
 import CompletedTodoList from './CompletedTodoList';

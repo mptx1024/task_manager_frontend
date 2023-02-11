@@ -1,11 +1,15 @@
+import { useDispatch } from 'react-redux';
+import Login from '../features/auth/Login';
 import { initializeApp } from 'firebase/app';
+import { Navigate } from 'react-router-dom';
+
 import {
     getAuth,
     signInWithPopup,
     GoogleAuthProvider,
     signOut,
     signInAnonymously,
-    // connectAuthEmulator,
+    connectAuthEmulator,
 } from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -31,12 +35,29 @@ const auth = getAuth(app);
 // Emulator
 // connectAuthEmulator(auth, 'http://localhost:9099');
 
+// const dispatch = useDispatch();
+// const setUserState = (authUser) => {
+//     dispatch(
+//         login({
+//             email: authUser.email,
+//             firstName: authUser.displayName?.split(' ')[0],
+//             lastName: authUser.displayName?.split(' ')[1],
+//             photoUrl: authUser.photoURL,
+//             uid: authUser.uid,
+//             firebaseIdToken,
+//             isAnonymous: authUser.email ? false : true, // anonymous login
+//         })
+//     );
+// };
+
 const signInWithGoogle = async () => {
     try {
         // https://firebase.google.com/docs/auth/web/google-signin#web-version-9-modular
         const result = await signInWithPopup(auth, provider);
         // The signed-in user info.
-        // const user = result.user;
+        const user = result.user;
+        return user;
+
         // console.log('🚀 ~ file: firebase.js:29 ~ signInWithGoogle ~ user', user);
         // https://firebase.google.com/docs/reference/js/auth.googleauthprovider#googleauthprovidercredentialfromresult
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -55,16 +76,6 @@ const signInWithGoogle = async () => {
     }
 };
 
-// https://firebase.google.com/docs/auth/web/google-signin#next_steps
-const signOutGoogle = async () => {
-    try {
-        await signOut(auth);
-        // Sign-out successful.
-    } catch (error) {
-        // An error happened.
-        console.log(`Error: ${error}`);
-    }
-};
 /**
  * Each time anonymous device log out and log in would get a new anonymous UID
  * This is expected. There is no way to log back in to the "same" anonymous auth account once logged out. If wanting to persist UID, need to create your own fake anonymous auth by making a custom auth token (on your server) for the user and creating some system that allows them to retrieve the same token multiple times on the same device.
@@ -72,11 +83,27 @@ const signOutGoogle = async () => {
  */
 const signInAnonymous = async () => {
     try {
-        await signInAnonymously(auth);
+        const result = await signInAnonymously(auth);
+        console.log('🚀 ~ file: firebase.js:96 ~ signInAnonymous ~ result', result);
+        const user = result.user;
+        return user;
     } catch (error) {
         console.log(error);
         // const errorCode = error.code;
         // const errorMessage = error.message;
+    }
+};
+
+// https://firebase.google.com/docs/auth/web/google-signin#next_steps
+const signOutGoogle = async () => {
+    try {
+        const res = await signOut(auth);
+        console.log('signed out res: ', res);
+        // return res;
+        // Sign-out successful.
+    } catch (error) {
+        // An error happened.
+        console.log(`Error: ${error}`);
     }
 };
 

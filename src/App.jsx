@@ -23,16 +23,15 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Routes>
-                <Route path='/' element={<Layout />}>
-                    <Route element={<Login />}>
-                        <Route element={<Prefetch />}>
-                            <Route element={<BodyLayout />}>
-                                <Route index element={<All />} />
-                                <Route path='priority' element={<Priority />} />
-                                <Route path='today' element={<Today />} />
-                                <Route path='project'>
-                                    <Route path=':id' element={<ProjectPage />} />
-                                </Route>
+                <Route path='/' element={<Login />} />
+                <Route element={<Prefetch />}>
+                    <Route element={<Layout />}>
+                        <Route element={<BodyLayout />}>
+                            <Route index path='all' element={<All />} />
+                            <Route path='priority' element={<Priority />} />
+                            <Route path='today' element={<Today />} />
+                            <Route path='project'>
+                                <Route path=':id' element={<ProjectPage />} />
                             </Route>
                         </Route>
                     </Route>

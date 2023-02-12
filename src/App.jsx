@@ -24,19 +24,20 @@ function App() {
             <CssBaseline />
             <Routes>
                 <Route path='/' element={<Login />} />
-                <Route path='all' element={<p>testing</p>} />
-                {/* <Route element={<Prefetch />}>
-                    <Route element={<Layout />}>
-                        <Route element={<BodyLayout />}>
-                            <Route path='all' element={<All />} />
-                            <Route path='priority' element={<Priority />} />
-                            <Route path='today' element={<Today />} />
-                            <Route path='project'>
-                                <Route path=':id' element={<ProjectPage />} />
-                            </Route>
+                {/* <Route path='all' element={<p>testing</p>} /> */}
+
+                {/* <Route element={<Prefetch />}> */}
+                <Route element={<Layout />}>
+                    <Route element={<BodyLayout />}>
+                        <Route path='all' element={<All />} />
+                        <Route path='priority' element={<Priority />} />
+                        <Route path='today' element={<Today />} />
+                        <Route path='project'>
+                            <Route path=':id' element={<ProjectPage />} />
                         </Route>
                     </Route>
-                </Route> */}
+                </Route>
+                {/* </Route> */}
             </Routes>
         </ThemeProvider>
     );

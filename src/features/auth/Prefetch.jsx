@@ -15,13 +15,13 @@ const Prefetch = () => {
 
     useEffect(() => {
         // if (userInState) {
-        store.dispatch(apiSlice.util.resetApiState());
+        // store.dispatch(apiSlice.util.resetApiState());
 
         console.log(`Prefeching.. userInstate? ${Boolean(userInState)}`);
-        store.dispatch(projectsApiSlice.util.prefetch('getProjects', 'projectsList', { force: true }));
-        store.dispatch(todosApiSlice.util.prefetch('getTodos', 'todosList', { force: true }));
+        store.dispatch(projectsApiSlice.util.prefetch('getProjects', 'projectsList', { force: false }));
+        store.dispatch(todosApiSlice.util.prefetch('getTodos', 'todosList', { force: false }));
         // }
-    }, [userInState]);
+    }, []);
     // return <Outlet />;
     // Once the subscriptions are established, render the protected part
     if (Object.keys(state.api.subscriptions).length !== 0) {

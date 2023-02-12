@@ -10,4 +10,4 @@ export const authApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useLoginQuery } = authApiSlice;
+export const { useLoginQuery, useLazyLoginQuery } = authApiSlice;

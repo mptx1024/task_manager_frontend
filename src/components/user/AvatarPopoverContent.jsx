@@ -3,7 +3,7 @@ import { signOutGoogle } from '../../config/firebase';
 import { logout } from '../../features/auth/authSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
-
+import { apiSlice } from '../../app/api/apiSlice';
 import {
     List,
     ListItem,
@@ -25,6 +25,7 @@ const AvatarPopoverContent = () => {
 
     const onClickSignOut = async () => {
         dispatch(logout());
+        dispatch(apiSlice.util.resetApiState());
         await signOutGoogle();
         navigate('/');
     };

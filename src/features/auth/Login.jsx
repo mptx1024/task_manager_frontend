@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCredentials } from './authSlice';
-import { useLoginQuery } from './authApiSlice';
+import { useLoginQuery, useLazyLoginQuery } from './authApiSlice';
 import { signInAnonymous } from '../../config/firebase';
 import { Box, Divider, Button } from '@mui/material';
 
@@ -13,13 +13,10 @@ import { signInWithGoogle } from '../../config/firebase';
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [skip, setSkip] = useState(true);
-    // console.log('🚀 ~ file: Login.jsx:17 ~ Login ~ skip', skip);
-    const { data, isSuccess, isError, isLoading, error, isUninitialized } = useLoginQuery(undefined, { skip });
-    // const auth = getAuth();
+    const [trigger, { data, isSuccess, isError, isLoading, error, isUninitialized }] = useLazyLoginQuery();
 
     const storeUserInState = (authUser) => {
-        return dispatch(
+        dispatch(
             setCredentials({
                 email: authUser.email,
                 firstName: authUser.displayName?.split(' ')[0],
@@ -35,46 +32,30 @@ const Login = () => {
             })
         );
     };
-    // Auto-login and redirect to /all if user was logged in last time
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-    //             // User is signed in, see docs for a list of available properties
-    //             // https://firebase.google.com/docs/reference/js/firebase.User
-    //             console.log('Has currentUser!!', user);
-    //             storeUserInState(user);
-    //             // navigate('/all');
-    //         } else {
-    //             console.log(`No current User!!`);
-    //             // User is signed out
-    //             // ...
-    //         }
-    //     });
-    // }, []);
+
     useEffect(() => {
         if (isSuccess) {
             console.log('Success! data:', data);
             navigate('/all');
         }
-    }, [isSuccess]);
+    }, [isSuccess, data]);
 
     const onClickSignInAnonymous = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const authUser = await signInAnonymous();
         // console.log('🚀 ~ file: Login.jsx:63 ~ onClickSignInAnonymous ~ authUser', authUser);
         if (authUser) {
+            console.log(authUser.uid);
             storeUserInState(authUser);
-            setSkip((prev) => !prev);
-            // navigate('/all');
+            await trigger();
         }
     };
     const onClickGoogle = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const authUser = await signInWithGoogle();
         if (authUser) {
             storeUserInState(authUser);
-            setSkip((prev) => !prev);
-            // navigate('/all');
+            await trigger();
         }
     };
     const onClickLogin = () => {

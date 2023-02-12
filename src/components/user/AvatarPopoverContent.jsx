@@ -3,7 +3,7 @@ import { signOutGoogle } from '../../config/firebase';
 import { logout } from '../../features/auth/authSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
-
+import { apiSlice } from '../../app/api/apiSlice';
 import {
     List,
     ListItem,
@@ -22,30 +22,49 @@ const AvatarPopoverContent = () => {
     const userInState = useSelector(selectCurrentUser); // The user in redux state
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const onClickSignOut = () => {
-        signOutGoogle();
+
+    const onClickSignOut = async () => {
         dispatch(logout());
-        window.location.reload();
-        // console.log(`userInState: ${JSON.stringify(userInState)}`);
+        dispatch(apiSlice.util.resetApiState());
+        await signOutGoogle();
+        navigate('/');
     };
+
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} disablePadding={true}>
             <ListItem alignItems='flex-start'>
-                <ListItemAvatar sx={{ width: 50, height: 50 }}>
-                    <Avatar src={userInState.photoUrl} />
+                <ListItemAvatar
+                    // src={userInState?.photoUrl}
+                    sx={{ width: 50, height: 50 }}
+                >
+                    <Avatar src={userInState?.photoUrl} imgProps={{ referrerPolicy: 'no-referrer' }} />
                 </ListItemAvatar>
-                <ListItemText
-                    primary={
-                        <Typography sx={{ fontWeight: 'medium' }} component='div' variant='body1' color='text.primary'>
-                            {userInState.firstName + ' ' + userInState.lastName[0]}
-                        </Typography>
-                    }
-                    secondary={
-                        <Typography sx={{ display: 'inline' }} component='span' variant='body2' color='text.secondary'>
-                            {userInState.email}
-                        </Typography>
-                    }
-                />
+                {userInState?.isAnonymous ? (
+                    <p>Secret User</p>
+                ) : (
+                    <ListItemText
+                        primary={
+                            <Typography
+                                sx={{ fontWeight: 'medium' }}
+                                component='div'
+                                variant='body1'
+                                color='text.primary'
+                            >
+                                {userInState.firstName + ' ' + userInState.lastName[0]}
+                            </Typography>
+                        }
+                        secondary={
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component='span'
+                                variant='body2'
+                                color='text.secondary'
+                            >
+                                {userInState.email}
+                            </Typography>
+                        }
+                    />
+                )}
             </ListItem>
             <Divider />
             <ListItem disablePadding>

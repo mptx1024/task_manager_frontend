@@ -3,7 +3,6 @@ import { toggleTheme } from '../../features/util/themeSlice';
 import { toggleSideBar } from '../../features/util/sideBarSlice';
 import { selectCurrentUser } from '../../features/auth/authSlice';
 import LoginUserBox from '../user/LoginUserBox';
-import LoginButton from './LoginButton';
 
 import { MenuIcon, Brightness4Icon, Brightness7Icon } from '../asset/svgIcons';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
@@ -68,13 +67,8 @@ const Navbar = () => {
                         {themeState === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                     </IconButton>
                 </Box>
-
                 <Box>
-                    {userInState?.isAnonymous || !userInState ? (
-                        <LoginButton />
-                    ) : (
-                        <LoginUserBox userInState={userInState} />
-                    )}
+                    <LoginUserBox userInState={userInState} />
                 </Box>
             </Toolbar>
         </StyledAppBar>

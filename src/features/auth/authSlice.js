@@ -4,18 +4,18 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: { user: null },
     reducers: {
-        login: (state, action) => {
+        setCredentials: (state, action) => {
             state.user = action.payload;
-            // console.log(`In authSlice->login. state: ${JSON.stringify(state)}`);
+            // console.log(`In authSlice->login. state.auth: ${JSON.stringify(state)}`);
         },
         logout: (state, action) => {
             state = { user: null };
-            // console.log(`In authSlice->logout. state: ${state}`);
+            // console.log(`In authSlice->logout. state.auth: ${JSON.stringify(state)}`);
         },
     },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 
 //selector
 export const selectCurrentUser = (state) => state.auth.user;

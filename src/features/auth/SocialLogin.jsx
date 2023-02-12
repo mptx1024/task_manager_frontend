@@ -6,10 +6,10 @@ const SocialLogin = () => {
         signInWithGoogle();
     };
     const onLoginClick = () => {
-        alert('Hello!');
+        alert('Working in progress');
     };
     return (
-        <div>
+        <div style={{ margin: 0, padding: 0 }}>
             <GoogleLoginButton onClick={onGoogleClick} />
             <GithubLoginButton onClick={onLoginClick} />
             <FacebookLoginButton onClick={onLoginClick} />

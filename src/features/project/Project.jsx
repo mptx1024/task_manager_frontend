@@ -26,7 +26,7 @@ const Project = ({ project }) => {
     };
     const onClickDeleteProject = () => {
         deleteProject({ _id: project._id });
-        navigate('/');
+        navigate('/all');
     };
     const onChangeTitle = (e) => {
         setTitle(e.target.value);

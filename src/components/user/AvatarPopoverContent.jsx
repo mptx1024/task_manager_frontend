@@ -24,18 +24,21 @@ const AvatarPopoverContent = () => {
     const navigate = useNavigate();
 
     const onClickSignOut = async () => {
-        await signOutGoogle();
         dispatch(logout());
+        await signOutGoogle();
         navigate('/');
     };
 
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} disablePadding={true}>
             <ListItem alignItems='flex-start'>
-                <ListItemAvatar sx={{ width: 50, height: 50 }}>
-                    <Avatar src={userInState.photoUrl} />
+                <ListItemAvatar
+                    // src={userInState?.photoUrl}
+                    sx={{ width: 50, height: 50 }}
+                >
+                    <Avatar src={userInState?.photoUrl} imgProps={{ referrerPolicy: 'no-referrer' }} />
                 </ListItemAvatar>
-                {userInState.isAnonymous ? (
+                {userInState?.isAnonymous ? (
                     <p>Secret User</p>
                 ) : (
                     <ListItemText

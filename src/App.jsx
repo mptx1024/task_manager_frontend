@@ -24,10 +24,11 @@ function App() {
             <CssBaseline />
             <Routes>
                 <Route path='/' element={<Login />} />
-                <Route element={<Prefetch />}>
+                <Route path='all' element={<p>testing</p>} />
+                {/* <Route element={<Prefetch />}>
                     <Route element={<Layout />}>
                         <Route element={<BodyLayout />}>
-                            <Route index path='all' element={<All />} />
+                            <Route path='all' element={<All />} />
                             <Route path='priority' element={<Priority />} />
                             <Route path='today' element={<Today />} />
                             <Route path='project'>
@@ -35,7 +36,7 @@ function App() {
                             </Route>
                         </Route>
                     </Route>
-                </Route>
+                </Route> */}
             </Routes>
         </ThemeProvider>
     );

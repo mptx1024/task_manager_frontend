@@ -67,7 +67,6 @@ const Navbar = () => {
                         {themeState === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                     </IconButton>
                 </Box>
-
                 <Box>
                     <LoginUserBox userInState={userInState} />
                 </Box>

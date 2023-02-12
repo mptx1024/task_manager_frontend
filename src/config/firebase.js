@@ -1,7 +1,5 @@
 import { useDispatch } from 'react-redux';
-import Login from '../features/auth/Login';
 import { initializeApp } from 'firebase/app';
-import { Navigate } from 'react-router-dom';
 
 import {
     getAuth,
@@ -33,7 +31,9 @@ provider.setCustomParameters({
 const auth = getAuth(app);
 
 // Emulator
-// connectAuthEmulator(auth, 'http://localhost:9099');
+if (process.env.NODE_ENV === 'development') {
+    connectAuthEmulator(auth, 'http://localhost:9099');
+}
 
 // const dispatch = useDispatch();
 // const setUserState = (authUser) => {
@@ -84,7 +84,6 @@ const signInWithGoogle = async () => {
 const signInAnonymous = async () => {
     try {
         const result = await signInAnonymously(auth);
-        console.log('🚀 ~ file: firebase.js:96 ~ signInAnonymous ~ result', result);
         const user = result.user;
         return user;
     } catch (error) {
@@ -97,12 +96,9 @@ const signInAnonymous = async () => {
 // https://firebase.google.com/docs/auth/web/google-signin#next_steps
 const signOutGoogle = async () => {
     try {
-        const res = await signOut(auth);
-        console.log('signed out res: ', res);
-        // return res;
+        await signOut(auth);
         // Sign-out successful.
     } catch (error) {
-        // An error happened.
         console.log(`Error: ${error}`);
     }
 };

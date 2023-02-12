@@ -8,7 +8,7 @@ const Categories = () => {
     const navigate = useNavigate();
 
     const onClickAll = () => {
-        navigate('/');
+        navigate('/all');
     };
     const onClickToday = () => {
         navigate('/today');

@@ -13,7 +13,7 @@ const All = () => {
         return <p>{error.message}</p>;
     }
     if (isSuccess) {
-        if (todos.length === 0) {
+        if (!todos) {
             return <p>no content</p>;
         }
         return (

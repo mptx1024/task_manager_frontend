@@ -6,8 +6,8 @@ import StyledButton from '../../components/muiTemplate/StyledButton';
 import { List, ListItem, ListItemText, ListItemButton, Popover, Divider, Typography } from '@mui/material';
 
 const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
-    const { data } = useGetProjectsQuery('projectsList');
-    const projects = data?.ids.map((id) => data.entities[id]);
+    const { data: projects } = useGetProjectsQuery('projectsList');
+    // const projects = data?.ids.map((id) => data.entities[id]);
 
     const title = projects
         ?.filter((project) => project._id && project._id === projectId)
@@ -15,6 +15,7 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
+    // Shown on the project button
     const [projectTitle, setProjectTitle] = useState(title);
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
         setShowPopover(false);
     };
     let popoverContent;
-    if (!data) {
+    if (!projects) {
         popoverContent = (
             <ListItem>
                 <ListItemText primary={`No project. Add a project from the sidebar`} />

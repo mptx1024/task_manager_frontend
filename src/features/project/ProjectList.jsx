@@ -9,12 +9,12 @@ const ProjectList = () => {
     const [addProject] = useAddProjectMutation();
     const [title, setTitle] = useState('');
 
-    const { data, isLoading } = useGetProjectsQuery('projectsList');
+    const { data: projects, isLoading } = useGetProjectsQuery('projectsList');
     if (isLoading) {
         // console.log('Project Loading...');
         return <p>Loading...</p>;
     }
-    const projects = data?.ids?.map((id) => data.entities[id]);
+    // const projects = data?.ids?.map((id) => data.entities[id]);
 
     const onClickAddProject = () => {
         if (title.trim().length !== 0) {

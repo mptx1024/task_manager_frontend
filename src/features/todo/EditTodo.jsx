@@ -6,6 +6,7 @@ import DatePickerButton from './DatePickerButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
 import { Stack, Box, TextField, Typography } from '@mui/material';
+import { logout } from '../auth/authSlice';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodoMutation();
 
@@ -13,6 +14,8 @@ const EditTodo = ({ setIsEditing, todo }) => {
     const [description, setDescription] = useState(todo.description);
 
     const [dueDate, setDueDate] = useState(todo.dueDate ? new Date(todo.dueDate) : null);
+    console.log('🚀 ~ file: EditTodo.jsx:17 ~ EditTodo ~ dueDate', typeof dueDate, dueDate);
+
     const [priority, setPriority] = useState(todo.priority);
     const [projectId, setProjectId] = useState(todo.projectId);
 
@@ -28,7 +31,14 @@ const EditTodo = ({ setIsEditing, todo }) => {
     };
 
     const onClickSave = () => {
-        updateTodo({ ...todo, title: title?.trim(), description: description?.trim(), dueDate, priority, projectId });
+        updateTodo({
+            id: todo._id,
+            title: title?.trim(),
+            description: description?.trim(),
+            dueDate: dueDate.toJSON(),
+            priority,
+            projectId,
+        });
         setIsEditing(false);
     };
 

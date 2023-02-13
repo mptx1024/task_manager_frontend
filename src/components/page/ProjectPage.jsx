@@ -8,13 +8,12 @@ const ProjectPage = () => {
 
     const { todos, isError, isLoading } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
-            todos: data ? Object.values(data.entities).filter((todo) => todo.projectId === state.projectId) : null,
+            todos: data ? data.filter((todo) => todo.projectId === state.projectId) : null,
         }),
     });
     const { project, isProjectLoading, isProjectError } = useGetProjectsQuery('projectsList', {
         selectFromResult: ({ data }) => ({
-            project: data?.entities[state.projectId],
-            // project: data?.ids.map((id) => data?.entities[id]).filter((project) => project._id === state.projectId),
+            project: data?.filter((project) => project._id === state.projectId),
         }),
     });
 

@@ -24,18 +24,18 @@ export default function TodoList({ todos }) {
                 // </Collapse>
                 <Todo key={todo._id} todoId={todo._id} />
             );
+        } else if (todo.completed) {
+            completedTodos.push(
+                // <Collapse
+                //     timeout={{ enter: 250, exit: 100 }}
+                //     key={todo._id}
+                //     // unmountOnExit
+                // >
+                //     {<Todo key={todo._id} todoId={todo._id} />}
+                // </Collapse>
+                <Todo key={todo._id} todoId={todo._id} />
+            );
         }
-        // else if (todo.completed) {
-        //     completedTodos.push(
-        //         <Collapse
-        //             timeout={{ enter: 250, exit: 100 }}
-        //             key={todo._id}
-        //             // unmountOnExit
-        //         >
-        //             {<Todo key={todo._id} todoId={todo._id} />}
-        //         </Collapse>
-        //     );
-        // }
     });
     // console.log('🚀 ~ file: TodoList.jsx:11 ~ TodoList ~ completedTodos', completedTodos);
 

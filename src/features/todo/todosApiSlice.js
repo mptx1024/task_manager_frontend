@@ -44,7 +44,7 @@ export const todosApiSlice = apiSlice.injectEndpoints({
         //GET
         getTodo: builder.query({
             query: (id) => `/todos/${id}`,
-            providesTags: (result, error, arg) => [{ type: 'Todo', id: arg }],
+            providesTags: (result, error, id) => [{ type: 'Todo', id }],
         }),
 
         // POST
@@ -74,16 +74,34 @@ export const todosApiSlice = apiSlice.injectEndpoints({
 
         // PATCH
         updateTodo: builder.mutation({
-            query: (todo) => ({
-                url: `/todos/${todo._id}`,
+            query: ({ id, ...patch }) => ({
+                url: `/todos/${id}`,
                 method: 'PATCH',
-                body: todo,
+                body: patch,
             }),
-            // ???? _id or id?
-            invalidatesTags: (result, error, arg) => {
-                console.log('🚀 ~ file: todosApiSlice.js:93 ~ arg', arg);
-                return [{ type: 'Todo', id: arg._id }];
+            async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+                // console.log('🚀 ~ file: todosApiSlice.js:83 ~ onQueryStarted ~ id', id);
+                // console.log('🚀 ~ file: todosApiSlice.js:83 ~ onQueryStarted ~ todo', patch);
+                const patchResult = dispatch(
+                    apiSlice.util.updateQueryData('getTodo', id, (draft) => {
+                        // console.log('🚀 ~ file: todosApiSlice.jsx:58 ~ patchResult ~ draft', patch);
+                        Object.assign(draft, patch);
+                    })
+                );
+                try {
+                    await queryFulfilled;
+                } catch (error) {
+                    patchResult.undo();
+                }
             },
+            // invalidatesTags: (result, error, arg) => {
+            //     console.log('🚀 ~ file: todosApiSlice.js:93 ~ arg', arg);
+            //     return [
+            //         { type: 'Todo', id: arg._id },
+            //         // { type: 'Todo', id: 'LIST' },
+            //         { type: 'Project', id: 'LIST' },
+            //     ];
+            // },
         }),
         // DELETE
         deleteTodo: builder.mutation({

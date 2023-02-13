@@ -1,5 +1,5 @@
 import { useDeleteTodoMutation, useUpdateTodoMutation, useGetTodosQuery, useGetTodoQuery } from './todosApiSlice';
-import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
+import { useGetProjectQuery, useGetProjectsQuery } from '../project/ProjectsApiSlice';
 import { useState, useMemo } from 'react';
 import EditTodo from './EditTodo';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
@@ -44,9 +44,12 @@ const Todo = ({ todoId }) => {
     const { project } = useGetProjectsQuery('projectsList', {
         selectFromResult: ({ data }) => ({
             // Select from cache
-            project: data?.entities[todo?.projectId],
+            // project: data?.entities[todo?.projectId],
+            project: data?.find((project) => project._id === todo?.projectId),
         }),
     });
+    // console.log(`Todo?? ${JSON.stringify(todo)}`);
+    // const { data: project } = useGetProjectQuery(todo?.projectId);
 
     const [deleteTodo] = useDeleteTodoMutation();
     const [updateTodo] = useUpdateTodoMutation();
@@ -56,19 +59,15 @@ const Todo = ({ todoId }) => {
         return <>still loading...</>;
     }
 
-    let dueDate;
-    let overdue;
-    if (todo) {
-        dueDate = todo.dueDate ? new Date(todo.dueDate) : null;
-        overdue = compareDates(dueDate);
-    }
+    const dueDate = todo?.dueDate ? new Date(todo.dueDate) : null;
+    const overdue = compareDates(dueDate);
 
     const onClickEdit = () => {
         setIsEditing((prev) => !prev);
     };
 
     const onClickCheckbox = () => {
-        updateTodo({ ...todo, completed: !todo.completed });
+        updateTodo({ ...todo, id: todo._id, completed: !todo.completed });
     };
     const onClickDelete = () => {
         deleteTodo({ id: todoId });

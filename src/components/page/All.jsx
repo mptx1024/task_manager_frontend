@@ -3,8 +3,8 @@ import { useGetTodosQuery } from '../../features/todo/todosApiSlice';
 import TodoList from '../../features/todo/TodoList';
 
 const All = () => {
-    const { data, isError, isSuccess, isLoading, error } = useGetTodosQuery('todosList');
-    const todos = data?.ids.map((id) => data?.entities[id]);
+    const { data: todos, isError, isSuccess, isLoading, error } = useGetTodosQuery('todosList');
+    // const todos = data?.ids.map((id) => data?.entities[id]);
 
     if (isLoading) {
         return <p>Loading...</p>;

@@ -35,17 +35,23 @@ export const todosApiSlice = apiSlice.injectEndpoints({
                 // });
                 return todosAdapter.setAll(initialState, responseData);
             },
-            providesTags: (result, error, arg) => {
+            providesTags: (result = [], error, arg) => {
                 // console.log('🚀 ~ file: todosApiSlice.jsx:42 ~ result', result);
                 // console.log([{ type: 'Todo', id: 'LIST' }, ...result.ids.map((id) => ({ type: 'Todo', id }))]);
+                console.log(arg);
                 return result?.ids
                     ? [{ type: 'Todo', id: 'LIST' }, ...result.ids.map((id) => ({ type: 'Todo', id }))]
                     : [{ type: 'Todo', id: 'LIST' }];
             },
         }),
+        //GET
+        getTodo: builder.query({
+            query: (id) => `/todos/${id}`,
+            providesTags: (result, error, arg) => [{ type: 'Todo', id: arg }],
+        }),
 
         // POST
-        addTodos: builder.mutation({
+        addTodo: builder.mutation({
             query: (initialTodo) => ({
                 url: '/todos',
                 method: 'POST',
@@ -68,23 +74,23 @@ export const todosApiSlice = apiSlice.injectEndpoints({
             // },
             invalidatesTags: [{ type: 'Todo', id: 'LIST' }],
         }),
+
         // PATCH
-        updateTodos: builder.mutation({
-            query: (initialTodo) => ({
-                url: '/todos',
+        updateTodo: builder.mutation({
+            query: (todo) => ({
+                url: `/todos/${todo._id}`,
                 method: 'PATCH',
-                body: {
-                    ...initialTodo,
-                },
+                body: todo,
             }),
+            // ???? _id or id?
             invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: arg.id }],
         }),
         // DELETE
-        deleteTodos: builder.mutation({
-            query: (_id) => ({
-                url: '/todos',
+        deleteTodo: builder.mutation({
+            query: ({ id }) => ({
+                url: `/todos/${id}`,
                 method: 'DELETE',
-                body: _id,
+                // body: _id,
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: arg.id }],
         }),
@@ -93,8 +99,9 @@ export const todosApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetTodosQuery,
+    useGetTodoQuery,
     useLazyGetTodosQuery,
-    useAddTodosMutation,
-    useUpdateTodosMutation,
-    useDeleteTodosMutation,
+    useAddTodoMutation,
+    useUpdateTodoMutation,
+    useDeleteTodoMutation,
 } = todosApiSlice;

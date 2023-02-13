@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useUpdateTodosMutation } from './todosApiSlice';
+import { useUpdateTodoMutation } from './todosApiSlice';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from './DatePickerButton';
@@ -7,7 +7,7 @@ import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
 import { Stack, Box, TextField, Typography } from '@mui/material';
 const EditTodo = ({ setIsEditing, todo }) => {
-    const [updateTodo] = useUpdateTodosMutation();
+    const [updateTodo] = useUpdateTodoMutation();
 
     const [title, setTitle] = useState(todo.title);
     const [description, setDescription] = useState(todo.description);

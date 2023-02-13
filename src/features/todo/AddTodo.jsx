@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useAddTodosMutation } from './todosApiSlice';
+import { useAddTodoMutation } from './todosApiSlice';
 import DatePickerButton from './DatePickerButton';
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import PriorityButton from './PriorityButton';
@@ -8,7 +8,7 @@ import PatchTooltip from '../../components/PatchTooltip';
 import { Box, Paper, InputBase, Divider } from '@mui/material';
 
 const AddTodo = () => {
-    const [addNewTodo, { isLoading }] = useAddTodosMutation();
+    const [addNewTodo, { isLoading }] = useAddTodoMutation();
 
     const AddTodoBar = useRef(null);
     const [showActionBar, setShowActionBar] = useState(true);

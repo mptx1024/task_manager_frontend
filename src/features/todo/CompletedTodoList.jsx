@@ -28,7 +28,9 @@ const CompletedTodoList = ({ content }) => {
                     }}
                 >
                     <List>
-                        <TransitionGroup>{content}</TransitionGroup>
+                        {/* <TransitionGroup> */}
+                        {content}
+                        {/* </TransitionGroup> */}
                     </List>
                 </Collapse>
             ) : (

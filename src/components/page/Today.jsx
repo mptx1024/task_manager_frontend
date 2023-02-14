@@ -4,22 +4,16 @@ import PageTitle from './PageTitle';
 const Today = () => {
     const { todos, isError, isLoading, error } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
-            todos: data?.ids
-                .map((id) => data?.entities[id])
-                .filter((todo) => new Date(todo.dueDate).getDay() === new Date().getDay()),
+            todos: data?.filter(
+                (todo) => new Date(todo.dueDate).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
+            ),
         }),
     });
 
-    if (isLoading) {
-        return <p>Loading</p>;
-    }
-    if (isError && error.status === 404) {
-        return <p>No Content</p>;
-    }
     return (
         <>
             <PageTitle title={'Today'} />
-            <TodoList todos={todos} />
+            {isLoading ? <p>Loading..</p> : todos?.length === 0 ? <p>No Task</p> : <TodoList todos={todos} />}
         </>
     );
 };

@@ -11,7 +11,6 @@ const ProjectList = () => {
 
     const { data: projects, isLoading } = useGetProjectsQuery('projectsList');
     if (isLoading) {
-        // console.log('Project Loading...');
         return <p>Loading...</p>;
     }
     // const projects = data?.ids?.map((id) => data.entities[id]);

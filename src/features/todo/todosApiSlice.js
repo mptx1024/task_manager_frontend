@@ -1,6 +1,5 @@
-import { createEntityAdapter } from '@reduxjs/toolkit';
 import { apiSlice } from '../../app/api/apiSlice';
-
+import { current } from '@reduxjs/toolkit';
 // const todosAdapter = createEntityAdapter({
 //     /**
 //      selectId: A function that accepts a single Entity instance, and returns the value of whatever unique ID field is inside. If not provided, the default implementation is entity => entity.id. If your Entity type keeps its unique ID values in a field other than entity.id, you must provide a selectId function.
@@ -19,7 +18,6 @@ import { apiSlice } from '../../app/api/apiSlice';
 export const todosApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getTodos: builder.query({
-            // GET
             query: () => ({
                 url: '/todos',
                 // https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery#handling-non-standard-response-status-codes
@@ -35,44 +33,57 @@ export const todosApiSlice = apiSlice.injectEndpoints({
             //     // });
             //     return todosAdapter.setAll(initialState, responseData);
             // },
+            // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            //     console.log('🚀 ~ file: todosApiSlice.js:37 ~ onQueryStarted ~ todo', arg);
+            //     try {
+            //         const { data: todos } = await queryFulfilled;
+            //         const promises = [];
+            //         let len = todos.length;
+            //         while (len--) {
+            //             promises.push(
+            //                 dispatch(apiSlice.util.upsertQueryData('getTodo', todos[len]._id, { ...todos[len] }))
+            //             );
+            //         }
+            //         const res = await Promise.all(promises);
+            //         console.log('🚀 ~ file: todosApiSlice.js:48 ~ onQueryStarted ~ res', res);
+            //     } catch {}
+            // },
+
             providesTags: (result = [], error, arg) => {
                 return result
-                    ? [{ type: 'Todo', id: 'LIST' }, ...result.map(({ _id }) => ({ type: 'Todo', _id }))]
+                    ? [{ type: 'Todo', id: 'LIST' }, ...result.map(({ _id: id }) => ({ type: 'Todo', id }))]
                     : [{ type: 'Todo', id: 'LIST' }];
             },
         }),
-        //GET
         getTodo: builder.query({
             query: (id) => `/todos/${id}`,
             providesTags: (result, error, id) => [{ type: 'Todo', id }],
         }),
 
-        // POST
         addTodo: builder.mutation({
-            query: (initialTodo) => ({
+            query: (todo) => ({
                 url: '/todos',
                 method: 'POST',
-                body: {
-                    ...initialTodo, // Include UID, title, completed
-                },
+                body: { ...todo }, // Include UID, title, completed
             }),
-            // async onQueryStarted({ initialTodo }, { dispatch, queryFulfilled }) {
-            //     const patchResult = dispatch(
+            // async onQueryStarted({ ...todo }, { dispatch, queryFulfilled }) {
+            //     console.log('🚀 ~ file: todosApiSlice.js:60 ~ onQueryStarted ~ todo', todo);
+
+            //     const patchTodoList = dispatch(
             //         todosApiSlice.util.updateQueryData('getTodos', 'todosList', (draft) => {
-            //             console.log('🚀 ~ file: todosApiSlice.jsx:58 ~ patchResult ~ draft', draft);
-            //             draft.push(initialTodo);
+            //             draft.push({ ...todo, _id: '123' });
             //         })
             //     );
             //     try {
             //         await queryFulfilled;
             //     } catch (error) {
-            //         patchResult.undo();
+            //         patchTodoList.undo();
             //     }
             // },
-            invalidatesTags: [{ type: 'Todo', id: 'LIST' }],
+            // invalidatesTags: ['Todo'],
+            invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: 'LIST' }],
         }),
 
-        // PATCH
         updateTodo: builder.mutation({
             query: ({ id, ...patch }) => ({
                 url: `/todos/${id}`,
@@ -80,12 +91,48 @@ export const todosApiSlice = apiSlice.injectEndpoints({
                 body: patch,
             }),
             async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-                // console.log('🚀 ~ file: todosApiSlice.js:83 ~ onQueryStarted ~ id', id);
-                // console.log('🚀 ~ file: todosApiSlice.js:83 ~ onQueryStarted ~ todo', patch);
                 const patchResult = dispatch(
                     apiSlice.util.updateQueryData('getTodo', id, (draft) => {
                         // console.log('🚀 ~ file: todosApiSlice.jsx:58 ~ patchResult ~ draft', patch);
                         Object.assign(draft, patch);
+                    })
+                );
+
+                const action = dispatch(
+                    apiSlice.util.updateQueryData('getTodos', 'todosList', (draft) => {
+                        // console.log('before', current(draft));
+                        const todo = draft.find((todo) => todo._id === id);
+                        if (todo) {
+                            Object.assign(todo, { id, ...patch });
+                        }
+                        // console.log('after', current(draft));
+                    })
+                );
+
+                try {
+                    await queryFulfilled;
+                } catch (error) {
+                    patchResult.undo();
+                    action.undo();
+                }
+            },
+
+            // invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: 'LIST' }],
+        }),
+        deleteTodo: builder.mutation({
+            query: ({ id }) => ({
+                url: `/todos/${id}`,
+                method: 'DELETE',
+                // body: _id,
+            }),
+            async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
+                const patchResult = dispatch(
+                    apiSlice.util.updateQueryData('getTodo', id, (draft) => {
+                        // console.log(id);
+                        // console.log(current(draft));
+                        return null;
+                        // // draft.forEach((todo) => todo._id !== id);
+                        // // console.log(current(draft));
                     })
                 );
                 try {
@@ -94,22 +141,6 @@ export const todosApiSlice = apiSlice.injectEndpoints({
                     patchResult.undo();
                 }
             },
-            // invalidatesTags: (result, error, arg) => {
-            //     console.log('🚀 ~ file: todosApiSlice.js:93 ~ arg', arg);
-            //     return [
-            //         { type: 'Todo', id: arg._id },
-            //         // { type: 'Todo', id: 'LIST' },
-            //         { type: 'Project', id: 'LIST' },
-            //     ];
-            // },
-        }),
-        // DELETE
-        deleteTodo: builder.mutation({
-            query: ({ id }) => ({
-                url: `/todos/${id}`,
-                method: 'DELETE',
-                // body: _id,
-            }),
             invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: 'LIST' }],
         }),
     }),

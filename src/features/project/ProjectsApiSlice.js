@@ -1,4 +1,3 @@
-import { createEntityAdapter } from '@reduxjs/toolkit';
 import { apiSlice } from '../../app/api/apiSlice';
 
 // const projectsAdapter = createEntityAdapter({
@@ -27,7 +26,7 @@ export const projectsApiSlice = apiSlice.injectEndpoints({
         // GET
         getProject: builder.query({
             query: (id) => `/projects/${id}`,
-            providesTags: (result, error, arg) => [{ type: 'Project', id: arg }],
+            providesTags: (result, error, id) => [{ type: 'Project', id }],
         }),
 
         // POST
@@ -39,25 +38,41 @@ export const projectsApiSlice = apiSlice.injectEndpoints({
                     ...initialProject, // Including title
                 },
             }),
-            invalidatesTags: [{ type: 'Project', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Project' }],
         }),
-        // PATCH
-        updateProjects: builder.mutation({
-            query: (project) => ({
-                url: `/projects/${project._id}`,
+
+        updateProject: builder.mutation({
+            query: ({ id, ...patch }) => ({
+                url: `/projects/${id}`,
                 method: 'PATCH',
-                body: project,
+                body: patch,
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Project', id: arg.id }],
+            // async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+            //     const patchResult = dispatch(
+            //         apiSlice.util.updateQueryData('getProject', id, (draft) => {
+            //             // console.log('🚀 ~ file: todosApiSlice.jsx:58 ~ patchResult ~ draft', patch);
+            //             Object.assign(draft, patch);
+            //         })
+            //     );
+
+            //     try {
+            //         await queryFulfilled;
+            //     } catch (error) {
+            //         patchResult.undo();
+            //     }
+            // },
+            invalidatesTags: (result, error, arg) => [{ type: 'Project' }],
+            // invalidatesTags: (result, error, arg) => [{ type: 'Project', id: arg.id }],
         }),
-        // DELETE
-        deleteProjects: builder.mutation({
+
+        deleteProject: builder.mutation({
             query: ({ id }) => ({
                 url: `/projects/${id}`,
                 method: 'DELETE',
                 // body: _id,
             }),
-            invalidatesTags: (result, error, arg) => ['Project', 'Todo'], // also delete all related todos
+            invalidatesTags: (result, error, arg) => ['Project', { type: 'Todo', id: 'LIST' }],
+            // also delete all related todos
             // [{ type: 'Project', id: arg.id }],
         }),
     }),
@@ -68,6 +83,6 @@ export const {
     useGetProjectQuery,
     useLazyGetProjectsQuery,
     useAddProjectMutation,
-    useUpdateProjectsMutation,
-    useDeleteProjectsMutation,
+    useUpdateProjectMutation,
+    useDeleteProjectMutation,
 } = projectsApiSlice;

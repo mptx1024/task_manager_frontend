@@ -14,7 +14,6 @@ const EditTodo = ({ setIsEditing, todo }) => {
     const [description, setDescription] = useState(todo.description);
 
     const [dueDate, setDueDate] = useState(todo.dueDate ? new Date(todo.dueDate) : null);
-    console.log('🚀 ~ file: EditTodo.jsx:17 ~ EditTodo ~ dueDate', typeof dueDate, dueDate);
 
     const [priority, setPriority] = useState(todo.priority);
     const [projectId, setProjectId] = useState(todo.projectId);
@@ -35,7 +34,7 @@ const EditTodo = ({ setIsEditing, todo }) => {
             id: todo._id,
             title: title?.trim(),
             description: description?.trim(),
-            dueDate: dueDate.toJSON(),
+            dueDate: dueDate?.toJSON(),
             priority,
             projectId,
         });

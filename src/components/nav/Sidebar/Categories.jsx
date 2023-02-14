@@ -17,7 +17,7 @@ const Categories = () => {
         navigate('/priority');
     };
     const onClickOverdue = () => {
-        alert('This feature is in the roadmap');
+        navigate('/overdue');
     };
     return (
         <List

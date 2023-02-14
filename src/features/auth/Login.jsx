@@ -35,7 +35,7 @@ const Login = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            console.log('Success! data:', data);
+            // console.log('Success! data:', data);
             navigate('/all');
         }
     }, [isSuccess, data]);

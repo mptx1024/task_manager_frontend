@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 
 import Today from './components/page/Today';
 import Priority from './components/page/Priority';
+import Overdue from './components/page/Overdue';
 import Prefetch from './features/auth/Prefetch';
 import { getDesignTokens } from './features/util/themes';
 import { useSelector } from 'react-redux';
@@ -26,18 +27,19 @@ function App() {
                 <Route path='/' element={<Login />} />
                 {/* <Route path='all' element={<p>testing</p>} /> */}
 
-                {/* <Route element={<Prefetch />}> */}
+                {/* <Route element={<Prefetch />} /> */}
                 <Route element={<Layout />}>
                     <Route element={<BodyLayout />}>
                         <Route path='all' element={<All />} />
                         <Route path='priority' element={<Priority />} />
                         <Route path='today' element={<Today />} />
+                        <Route path='overdue' element={<Overdue />} />
+
                         <Route path='project'>
                             <Route path=':id' element={<ProjectPage />} />
                         </Route>
                     </Route>
                 </Route>
-                {/* </Route> */}
             </Routes>
         </ThemeProvider>
     );

@@ -44,12 +44,7 @@ const AddTodo = () => {
     const onClickAddTodo = async (e) => {
         e.preventDefault();
         if (canSave) {
-            try {
-                console.log(`projectId: ${projectId}`);
-                await addNewTodo({ title, isCompleted: false, projectId, priority, dueDate });
-            } catch (err) {
-                console.error('Failed to save the post', err);
-            }
+            await addNewTodo({ title, isCompleted: false, projectId, priority, dueDate });
         }
         setTitle('');
         setDueDate(null);

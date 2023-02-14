@@ -66,20 +66,22 @@ export const todosApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: { ...todo }, // Include UID, title, completed
             }),
-            // async onQueryStarted({ ...todo }, { dispatch, queryFulfilled }) {
-            //     console.log('🚀 ~ file: todosApiSlice.js:60 ~ onQueryStarted ~ todo', todo);
+            async onQueryStarted(todo, { dispatch, queryFulfilled }) {
+                // console.log('🚀 ~ file: todosApiSlice.js:60 ~ onQueryStarted ~ todo', todo);
 
-            //     const patchTodoList = dispatch(
-            //         todosApiSlice.util.updateQueryData('getTodos', 'todosList', (draft) => {
-            //             draft.push({ ...todo, _id: '123' });
-            //         })
-            //     );
-            //     try {
-            //         await queryFulfilled;
-            //     } catch (error) {
-            //         patchTodoList.undo();
-            //     }
-            // },
+                const patchTodoList = dispatch(
+                    todosApiSlice.util.updateQueryData('getTodos', 'todosList', (draft) => {
+                        draft?.push({ ...todo, _id: '123' });
+                    })
+                );
+                await dispatch(apiSlice.util.upsertQueryData('getTodo', '123', { ...todo, _id: '123' }));
+                try {
+                    await queryFulfilled;
+                } catch (error) {
+                    patchTodoList.undo();
+                    // patchTodo.undo();
+                }
+            },
             // invalidatesTags: ['Todo'],
             invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: 'LIST' }],
         }),

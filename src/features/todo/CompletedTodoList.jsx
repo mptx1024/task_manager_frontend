@@ -4,7 +4,7 @@ import { Collapse, List, Typography, Box, IconButton, Divider } from '@mui/mater
 import { TransitionGroup } from 'react-transition-group';
 
 const CompletedTodoList = ({ content }) => {
-    const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(false);
+    const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(true);
     return (
         <Box>
             <Box sx={{ display: 'flex', alignItems: 'center', my: '1rem' }}>

@@ -39,7 +39,7 @@ const Todo = ({ todoId }) => {
     //         // todo: selectTodoForList(result, todoId),
     //     }),
     // });
-    const { data: todo, isLoading, isSuccess, isError } = useGetTodoQuery(todoId);
+    const { data: todo, isFetching, isLoading, isSuccess, isError } = useGetTodoQuery(todoId);
 
     const { project } = useGetProjectsQuery('projectsList', {
         selectFromResult: ({ data }) => ({

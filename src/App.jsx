@@ -34,7 +34,6 @@ function App() {
                         <Route path='priority' element={<Priority />} />
                         <Route path='today' element={<Today />} />
                         <Route path='overdue' element={<Overdue />} />
-
                         <Route path='project'>
                             <Route path=':id' element={<ProjectPage />} />
                         </Route>

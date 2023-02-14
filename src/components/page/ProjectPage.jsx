@@ -1,8 +1,9 @@
 import { useGetTodosQuery } from '../../features/todo/todosApiSlice';
-import { useGetProjectsQuery, useGetProjectQuery } from '../../features/project/ProjectsApiSlice';
+import { useGetProjectsQuery } from '../../features/project/ProjectsApiSlice';
 import TodoList from '../../features/todo/TodoList';
 import { useLocation } from 'react-router-dom';
 import PageTitle from './PageTitle';
+
 const ProjectPage = () => {
     const { state } = useLocation();
     const { todos, isError, isLoading } = useGetTodosQuery('todosList', {
@@ -21,17 +22,18 @@ const ProjectPage = () => {
 
     if (isLoading || isProjectLoading) {
         return <p>Loading...</p>;
-    }
-    if (isError || isProjectError) {
+    } else if (isError || isProjectError) {
         return <p>No Content</p>;
+    } else if (!project) {
+        return <p> No project. Something went wrong</p>;
     }
-    if (project) {
-        return (
-            <>
-                <PageTitle title={project?.title} />
-                {todos?.length ? <TodoList todos={todos} /> : <p>No task yet</p>}
-            </>
-        );
-    }
+    // else if (!isUpserting) {
+    return (
+        <>
+            <PageTitle title={project?.title} />
+            {todos?.length ? <TodoList todos={todos} /> : <p>No task yet</p>}
+        </>
+    );
+    // }
 };
 export default ProjectPage;

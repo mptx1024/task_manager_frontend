@@ -1,7 +1,7 @@
 import StyledButton from '../../components/muiTemplate/StyledButton';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { compareDates } from '../util/compareDates';
+import { isOverdue } from '../util/isOverdue';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarIcon } from '../../components/asset/svgIcons';
 import { Typography, Popover } from '@mui/material';
@@ -33,7 +33,7 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
         setShowPopover(!showPopover);
     };
 
-    const overdue = compareDates(dueDate);
+    const overdue = isOverdue(dueDate);
 
     return (
         <>
@@ -62,7 +62,7 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
                         // selected={new Date()}
                         onChange={onDateChange}
                         inline
-                        // minDate={new Date()}
+                        minDate={new Date()}
                         placeholderText='Select a day'
                     />
                     <button style={{ width: '100%', display: 'block' }} onClick={onClickReset}>

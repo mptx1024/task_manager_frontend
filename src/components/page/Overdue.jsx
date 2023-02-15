@@ -1,13 +1,11 @@
 import { useGetTodosQuery } from '../../features/todo/todosApiSlice';
 import TodoList from '../../features/todo/TodoList';
 import PageTitle from './PageTitle';
-
+import { isOverdue } from '../../features/util/isOverdue';
 const Overdue = () => {
     const { todos, isLoading } = useGetTodosQuery('todosList', {
         selectFromResult: ({ data }) => ({
-            todos: data?.filter(
-                (todo) => new Date(todo.dueDate).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)
-            ),
+            todos: data?.filter((todo) => todo.dueDate && isOverdue(new Date(todo.dueDate))),
         }),
     });
 

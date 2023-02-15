@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCredentials } from './authSlice';
@@ -67,7 +67,7 @@ const Login = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'secondary.light',
+                backgroundColor: 'background.paper',
                 height: '100%',
                 width: '100%',
                 position: 'fixed',
@@ -100,9 +100,11 @@ const Login = () => {
                 <Button onClick={onClickSignInAnonymous} variant='contained' sx={{ color: 'white', mx: '5px' }}>
                     I Want to Use It Anonymously
                 </Button>
-                <Divider light sx={{ color: 'grey.500', my: '10px', mx: '5px' }}>
-                    Or
-                </Divider>
+                <div>
+                    <Divider light sx={{ color: 'grey.500', mx: '5px' }} spacing={1}>
+                        Or
+                    </Divider>
+                </div>
                 <div style={{ margin: 0, padding: 0 }}>
                     <GoogleLoginButton onClick={onClickGoogle} />
                     <GithubLoginButton onClick={onClickLogin} />

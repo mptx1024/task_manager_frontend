@@ -40,7 +40,7 @@ const AvatarPopoverContent = () => {
                     <Avatar src={userInState?.photoUrl} imgProps={{ referrerPolicy: 'no-referrer' }} />
                 </ListItemAvatar>
                 {userInState?.isAnonymous ? (
-                    <p>Secret User</p>
+                    <p>Anonymous User</p>
                 ) : (
                     <ListItemText
                         primary={

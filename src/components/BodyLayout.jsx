@@ -1,13 +1,14 @@
 import { drawerWidth } from '../config/UiParams';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import AddTodo from '../features/todo/AddTodo';
-import { Stack, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import SideBar from './nav/Sidebar/Sidebar';
+import Navbar from './nav/Navbar';
+
 import { useGetTodosQuery } from '../features/todo/todosApiSlice';
 import { useUpsertTodoCache } from './page/useUpsertTodoCache';
+import { Stack } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
@@ -20,14 +21,12 @@ const StyledStack = styled(Stack, {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    justifyContent: 'center',
+    // justifyContent: 'center',
     // border: '1px solid red',
-    marginLeft: `-${drawerWidth}px`,
+    // marginLeft: `-${drawerWidth}px`,
     // marginRight: `5px`,
     ...(isSideBarOpen && {
-        // width: `calc(100% - ${drawerWidth}px)`,
-        // marginLeft: `${drawerWidth}px`,
-        marginLeft: `0px`,
+        marginLeft: `${drawerWidth}px`,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
@@ -39,14 +38,15 @@ const BodyLayout = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
     // const [isUpserting, setIsUpserting] = useState(true);
 
-    const { data: todos, isError, isSuccess, isLoading, error } = useGetTodosQuery('todosList');
-    
+    const { data: todos } = useGetTodosQuery('todosList');
+
     const { isUpserting } = useUpsertTodoCache(todos);
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <>
             {!isUpserting ? (
                 <>
+                    <Navbar />
                     <SideBar />
                     <StyledStack isSideBarOpen={isSideBarOpen}>
                         <AddTodo />
@@ -54,9 +54,9 @@ const BodyLayout = () => {
                     </StyledStack>
                 </>
             ) : (
-                <p>testing upsert</p>
+                <p>Retrieving data...</p>
             )}
-        </Box>
+        </>
     );
 };
 export default BodyLayout;

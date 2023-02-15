@@ -15,7 +15,7 @@ const Project = ({ project }) => {
     const [updateProject] = useUpdateProjectMutation();
     const [deleteProject] = useDeleteProjectMutation();
 
-    const [title, setTitle] = useState(project?.title);
+    const [title, setTitle] = useState(project?.title || '');
     const [isEditing, setIsEditing] = useState(false);
 
     // const [disableProjectBtn, setDisableProjectBtn] = useState(false);
@@ -62,10 +62,10 @@ const Project = ({ project }) => {
                     minHeight: '3rem',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    '&:hover': { backgroundColor: 'transparent' },
-                    '&.Mui-focusVisible': {
-                        backgroundColor: 'transparent',
-                    },
+                    '&:hover, &.Mui-focusVisible': { backgroundColor: 'transparent' },
+                    // '&.Mui-focusVisible': {
+                    //     backgroundColor: 'transparent',
+                    // },
                 }}
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -85,7 +85,7 @@ const Project = ({ project }) => {
                             }}
                         />
                     ) : (
-                        <Typography sx={{ maxWidth: '15vh' }} noWrap={true}>
+                        <Typography sx={{ maxWidth: '15vw' }} noWrap={true}>
                             {project.title}
                         </Typography>
                     )}

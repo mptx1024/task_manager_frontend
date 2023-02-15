@@ -5,12 +5,13 @@ import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from './DatePickerButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
-import { Stack, Box, Typography, InputBase } from '@mui/material';
+
+import { Stack, Box, Typography, InputBase, useTheme } from '@mui/material';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodoMutation();
 
-    const [title, setTitle] = useState(todo.title);
-    const [description, setDescription] = useState(todo.description);
+    const [title, setTitle] = useState(todo.title || '');
+    const [description, setDescription] = useState(todo.description || '');
 
     const [dueDate, setDueDate] = useState(todo.dueDate ? new Date(todo.dueDate) : null);
 
@@ -39,45 +40,52 @@ const EditTodo = ({ setIsEditing, todo }) => {
         });
         setIsEditing(false);
     };
-
+    const theme = useTheme();
     return (
         <>
             <StyledPaper isEditing={true}>
                 <InputBase
+                    id='edit-todo-title'
                     autoFocus={true}
                     fullWidth
-                    id='title'
                     placeholder='title'
                     variant='standard'
-                    inputProps={{ style: { fontSize: '1rem' }, maxLength: 70 }}
-                    //     shrink: false,
-                    //     style: { fontSize: '1rem', transformOrigin: 'center' },
+                    inputProps={{ style: { fontSize: '1rem', color: theme.palette.text.primary }, maxLength: 70 }}
                     value={title}
                     onChange={onTitleChange}
                     size='small'
-                    // sx={{ border: '1px solid black' }}
                 />
                 <InputBase
+                    id='edit-todo-description'
                     fullWidth
-                    id='description'
                     placeholder='Description'
-                    variant='standard'
-                    inputProps={{ style: { fontSize: '1rem' }, maxLength: 300 }}
+                    // variant='standard'
+                    inputProps={{
+                        style: { fontSize: '0.8rem', color: theme.palette.text.secondary },
+                        maxLength: 300,
+                    }}
                     value={description}
                     onChange={onDescriptionChange}
                     multiline={true}
                     maxRows={2}
                     minRows={1}
                     size='small'
-                    // sx={{ border: '1px solid blue' }}
                 />
                 <Box
+                    id='edit-todo-action-btn-group'
                     sx={{
                         display: 'flex',
                         justifyContent: 'flex-start',
                         // select the second child
                         '&>*:nth-of-type(2)': {
                             mx: '0.5rem',
+                        },
+                        '& .MuiTypography-root': {
+                            textAlign: 'left',
+                            maxWidth: '10vw',
+                            whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis',
+                            overflow: 'hidden',
                         },
                     }}
                 >

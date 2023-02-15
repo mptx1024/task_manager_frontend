@@ -6,6 +6,7 @@ import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
 import PatchTooltip from '../../components/PatchTooltip';
 import { RadioButtonUncheckedIcon } from '../../components/asset/svgIcons';
+import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import { Box, Paper, InputBase, Divider } from '@mui/material';
 
 const AddTodo = () => {
@@ -45,7 +46,7 @@ const AddTodo = () => {
     const onClickAddTodo = async (e) => {
         e.preventDefault();
         if (canSave) {
-            await addNewTodo({ title, isCompleted: false, projectId, priority, dueDate });
+            await addNewTodo({ title, isCompleted: false, projectId, priority, dueDate: dueDate?.toJSON() });
         }
         setTitle('');
         setDueDate(null);
@@ -55,32 +56,33 @@ const AddTodo = () => {
 
     return (
         <Box ref={AddTodoBar} sx={{ mt: 10, mb: 3 }}>
-            <Paper>
-                <InputBase
-                    startAdornment={<RadioButtonUncheckedIcon color='secondary' />}
-                    autoComplete='false'
-                    fullWidth={true}
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    autoFocus={true}
-                    sx={{
-                        ml: 1,
-                        flex: 1,
-                        input: {
-                            height: '40px',
-                            '&::placeholder': {
-                                opacity: 0.7,
-                                color: 'secondary.main',
+            <StyledPaper isAddTodo={true}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <RadioButtonUncheckedIcon color='secondary' sx={{ mx: '1rem' }} fontSize='small' />
+                    <InputBase
+                        autoComplete='false'
+                        fullWidth={true}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        autoFocus={true}
+                        sx={{
+                            ml: 1,
+                            flex: 1,
+                            input: {
+                                height: '40px',
+                                '&::placeholder': {
+                                    opacity: 0.7,
+                                    color: 'secondary.main',
+                                },
                             },
-                        },
-                    }}
-                    placeholder='Add a task'
-                    onKeyPress={onKeyPress}
-                    inputProps={{ maxLength: 70 }}
-
-                    // onFocus={() => setIsFocused(true)}
-                    // onBlur={() => setIsFocused(false)}
-                />
+                        }}
+                        placeholder='Add a task'
+                        onKeyPress={onKeyPress}
+                        inputProps={{ maxLength: 70 }}
+                        // onFocus={() => setIsFocused(true)}
+                        // onBlur={() => setIsFocused(false)}
+                    />
+                </Box>
                 {showActionBar ? (
                     <>
                         <Divider />
@@ -121,7 +123,7 @@ const AddTodo = () => {
                         </Box>
                     </>
                 ) : null}
-            </Paper>
+            </StyledPaper>
         </Box>
     );
 };

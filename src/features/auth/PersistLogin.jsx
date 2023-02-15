@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials, selectCurrentUser } from './authSlice';
 import { auth } from '../../config/firebase';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const PersistLogin = () => {
     const dispatch = useDispatch();
     const userInState = useSelector(selectCurrentUser);
     useEffect(() => {
-        auth.onAuthStateChanged((authUser) => {
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
             if (authUser && !userInState) {
                 // console.log(`Time to dispatch setCredentials`);
                 dispatch(
@@ -28,7 +28,8 @@ const PersistLogin = () => {
                 );
             }
         });
+        return () => unsubscribe();
     }, []);
-    return userInState ? <Outlet /> : <p>not login</p>;
+    return userInState ? <Outlet /> : <p>Logging in...</p>;
 };
 export default PersistLogin;

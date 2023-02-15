@@ -5,6 +5,7 @@ import StyledButton from '../../components/muiTemplate/StyledButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
 import PatchTooltip from '../../components/PatchTooltip';
+import { RadioButtonUncheckedIcon } from '../../components/asset/svgIcons';
 import { Box, Paper, InputBase, Divider } from '@mui/material';
 
 const AddTodo = () => {
@@ -56,6 +57,7 @@ const AddTodo = () => {
         <Box ref={AddTodoBar} sx={{ mt: 10, mb: 3 }}>
             <Paper>
                 <InputBase
+                    startAdornment={<RadioButtonUncheckedIcon color='secondary' />}
                     autoComplete='false'
                     fullWidth={true}
                     value={title}
@@ -74,6 +76,8 @@ const AddTodo = () => {
                     }}
                     placeholder='Add a task'
                     onKeyPress={onKeyPress}
+                    inputProps={{ maxLength: 70 }}
+
                     // onFocus={() => setIsFocused(true)}
                     // onBlur={() => setIsFocused(false)}
                 />

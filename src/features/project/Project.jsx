@@ -76,6 +76,7 @@ const Project = ({ project }) => {
                         <InputBase
                             onBlur={() => setIsEditing(false)}
                             inputRef={inputElement}
+                            inputProps={{ maxLength: 30 }}
                             placeholder={'Type a name'}
                             value={title}
                             onChange={onChangeTitle}
@@ -84,7 +85,7 @@ const Project = ({ project }) => {
                             }}
                         />
                     ) : (
-                        <Typography sx={{ maxWidth: '7rem' }} noWrap={true}>
+                        <Typography sx={{ maxWidth: '15vh' }} noWrap={true}>
                             {project.title}
                         </Typography>
                     )}

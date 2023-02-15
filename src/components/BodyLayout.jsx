@@ -40,8 +40,8 @@ const BodyLayout = () => {
     // const [isUpserting, setIsUpserting] = useState(true);
 
     const { data: todos, isError, isSuccess, isLoading, error } = useGetTodosQuery('todosList');
+    
     const { isUpserting } = useUpsertTodoCache(todos);
-    // console.log('🚀 ~ file: BodyLayout.jsx:41 ~ BodyLayout ~ isUpserting', isUpserting);
 
     return (
         <Box sx={{ display: 'flex' }}>

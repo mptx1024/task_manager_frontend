@@ -5,8 +5,7 @@ import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import DatePickerButton from './DatePickerButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
-import { Stack, Box, TextField, Typography } from '@mui/material';
-import { logout } from '../auth/authSlice';
+import { Stack, Box, Typography, InputBase } from '@mui/material';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodoMutation();
 
@@ -44,13 +43,13 @@ const EditTodo = ({ setIsEditing, todo }) => {
     return (
         <>
             <StyledPaper isEditing={true}>
-                <TextField
+                <InputBase
                     autoFocus={true}
                     fullWidth
                     id='title'
                     placeholder='title'
                     variant='standard'
-                    InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }}
+                    inputProps={{ style: { fontSize: '1rem' }, maxLength: 70 }}
                     //     shrink: false,
                     //     style: { fontSize: '1rem', transformOrigin: 'center' },
                     value={title}
@@ -58,16 +57,17 @@ const EditTodo = ({ setIsEditing, todo }) => {
                     size='small'
                     // sx={{ border: '1px solid black' }}
                 />
-                <TextField
+                <InputBase
                     fullWidth
                     id='description'
                     placeholder='Description'
                     variant='standard'
-                    InputProps={{ style: { fontSize: '1rem' }, disableUnderline: true }}
+                    inputProps={{ style: { fontSize: '1rem' }, maxLength: 300 }}
                     value={description}
                     onChange={onDescriptionChange}
                     multiline={true}
-                    rows={1}
+                    maxRows={2}
+                    minRows={1}
                     size='small'
                     // sx={{ border: '1px solid blue' }}
                 />

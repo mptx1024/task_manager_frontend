@@ -1,11 +1,10 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCredentials } from './authSlice';
-import { useLoginQuery, useLazyLoginQuery } from './authApiSlice';
+import { useLazyLoginQuery } from './authApiSlice';
 import { signInAnonymous } from '../../config/firebase';
-import { Box, Divider, Button } from '@mui/material';
+import { Box, Divider, Button, CircularProgress, Typography } from '@mui/material';
 
 import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton } from 'react-social-login-buttons';
 import { signInWithGoogle } from '../../config/firebase';
@@ -13,8 +12,9 @@ import { signInWithGoogle } from '../../config/firebase';
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [trigger, { data, isSuccess, isError, isLoading, error, isUninitialized }] = useLazyLoginQuery();
 
+    const [trigger, { data, isSuccess, isLoading, isError, error }] = useLazyLoginQuery();
+    // let isLoading = true;
     const storeUserInState = (authUser) => {
         dispatch(
             setCredentials({
@@ -35,29 +35,27 @@ const Login = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            // console.log('Success! data:', data);
             navigate('/all');
         }
     }, [isSuccess, data]);
 
-    const onClickSignInAnonymous = async (e) => {
-        // e.preventDefault();
+    const onClickSignInAnonymous = async () => {
         const authUser = await signInAnonymous();
-        // console.log('🚀 ~ file: Login.jsx:63 ~ onClickSignInAnonymous ~ authUser', authUser);
         if (authUser) {
-            console.log(authUser.uid);
             storeUserInState(authUser);
             await trigger();
         }
     };
-    const onClickGoogle = async (e) => {
-        // e.preventDefault();
+    const onClickGoogle = async () => {
         const authUser = await signInWithGoogle();
         if (authUser) {
             storeUserInState(authUser);
             await trigger();
         }
     };
+    const onClickGithub = async () => {};
+    const onClickFB = async () => {};
+
     const onClickLogin = () => {
         alert('Working in progress');
     };
@@ -77,11 +75,17 @@ const Login = () => {
         >
             <div style={{ color: 'black', marginBottom: '10px' }}>
                 {isError ? (
-                    <>Oh no, there was an error {error}</>
-                ) : isUninitialized ? (
-                    <div>Currently skipped</div>
-                ) : isLoading ? (
-                    <>loading...</>
+                    <>Oh no, there was an error {error.message}</>
+                ) : // : isUninitialized ? (
+                //     <div>Currently skipped</div>
+                // )
+                isLoading ? (
+                    <Box sx={{ display: 'flex' }}>
+                        <Typography align='center' variant='subtitle2' gutterBottom sx={{ mr: '0.5rem' }}>
+                            Just a few seconds...
+                        </Typography>
+                        <CircularProgress size='1.5rem' />
+                    </Box>
                 ) : data ? (
                     <div>{data.msg}</div>
                 ) : null}

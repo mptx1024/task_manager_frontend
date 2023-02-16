@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { setCredentials } from './authSlice';
 import { useLazyLoginQuery } from './authApiSlice';
 import { signInAnonymous } from '../../config/firebase';
-import { Box, Divider, Button, CircularProgress, Typography } from '@mui/material';
-
-import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton } from 'react-social-login-buttons';
 import { signInWithGoogle } from '../../config/firebase';
+import CircularLoader from '../../components/CircularLoader';
+
+import { Box, Divider, Button } from '@mui/material';
+import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton } from 'react-social-login-buttons';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -77,17 +78,7 @@ const Login = () => {
                 {isError ? (
                     <>Oh no, there was an error {error.message}</>
                 ) : isLoading ? (
-                    <Box sx={{ display: 'flex' }}>
-                        <Typography
-                            align='center'
-                            variant='subtitle2'
-                            gutterBottom
-                            sx={{ mr: '1rem', color: 'text.main' }}
-                        >
-                            Just a few seconds...
-                        </Typography>
-                        <CircularProgress size='1.5rem' />
-                    </Box>
+                    <CircularLoader {...{ message: 'Just a few seconds...' }} />
                 ) : data ? (
                     <div>{data.msg}</div>
                 ) : null}

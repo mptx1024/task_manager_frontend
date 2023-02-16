@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { apiSlice } from '../../app/api/apiSlice';
 
 export const useUpsertTodoCache = (todos) => {
-    const [isUpserting, setIsUpserting] = useState(true);
+    const [isUpsertingCache, setIsUpsertingCache] = useState(true);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,12 +14,12 @@ export const useUpsertTodoCache = (todos) => {
             while (len--) {
                 promises.push(dispatch(apiSlice.util.upsertQueryData('getTodo', todos[len]._id, { ...todos[len] })));
             }
-            Promise.all(promises).then(setIsUpserting(false));
+            Promise.all(promises).then(setIsUpsertingCache(false));
         };
         if (todos) {
             upsertGetTodoCache(todos);
         }
     }, [dispatch, todos]);
 
-    return { isUpserting };
+    return { isUpsertingCache };
 };

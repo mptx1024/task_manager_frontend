@@ -18,7 +18,6 @@ export const useUpsertTodoCache = (todos) => {
         };
         if (todos) {
             upsertGetTodoCache(todos);
-            console.log('finished upserting');
         }
     }, [dispatch, todos]);
 

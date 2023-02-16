@@ -1,10 +1,10 @@
-import { useUpdateProjectMutation, useDeleteProjectMutation, useGetProjectQuery } from './ProjectsApiSlice';
+import { useUpdateProjectMutation, useDeleteProjectMutation } from './ProjectsApiSlice';
 import { useState } from 'react';
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import EditProjectButton from './EditProjectButton';
-
+import CircularLoader from '../../components/CircularLoader';
 import { DotIcon } from '../../components/asset/svgIcons';
 import { Typography, Box, InputBase, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 
@@ -12,10 +12,11 @@ const Project = ({ project }) => {
     // const { data: project } = useGetProjectQuery(projectId);
     // console.log('🚀 ~ file: Project.jsx:13 ~ Project ~ project', project);
 
-    const [updateProject] = useUpdateProjectMutation();
-    const [deleteProject] = useDeleteProjectMutation();
+    const [updateProject, { isLoading: isUpdating }] = useUpdateProjectMutation();
 
-    const [title, setTitle] = useState(project?.title);
+    const [deleteProject, { isLoading: isDeleting }] = useDeleteProjectMutation();
+
+    const [title, setTitle] = useState(project?.title || '');
     const [isEditing, setIsEditing] = useState(false);
 
     // const [disableProjectBtn, setDisableProjectBtn] = useState(false);
@@ -44,8 +45,11 @@ const Project = ({ project }) => {
         }
     }, [isEditing]);
 
-    if (!project) {
-        return <p>Loading...</p>;
+    if (isUpdating) {
+        return <CircularLoader {...{ message: 'Updating...' }} />;
+    }
+    if (isDeleting) {
+        return <CircularLoader {...{ message: 'Deleting...' }} />;
     }
     return (
         <ListItem
@@ -62,10 +66,10 @@ const Project = ({ project }) => {
                     minHeight: '3rem',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    '&:hover': { backgroundColor: 'transparent' },
-                    '&.Mui-focusVisible': {
-                        backgroundColor: 'transparent',
-                    },
+                    '&:hover, &.Mui-focusVisible': { backgroundColor: 'transparent' },
+                    // '&.Mui-focusVisible': {
+                    //     backgroundColor: 'transparent',
+                    // },
                 }}
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -76,6 +80,7 @@ const Project = ({ project }) => {
                         <InputBase
                             onBlur={() => setIsEditing(false)}
                             inputRef={inputElement}
+                            inputProps={{ maxLength: 30 }}
                             placeholder={'Type a name'}
                             value={title}
                             onChange={onChangeTitle}
@@ -84,7 +89,7 @@ const Project = ({ project }) => {
                             }}
                         />
                     ) : (
-                        <Typography sx={{ maxWidth: '7rem' }} noWrap={true}>
+                        <Typography sx={{ maxWidth: '8rem' }} noWrap={true}>
                             {project.title}
                         </Typography>
                     )}

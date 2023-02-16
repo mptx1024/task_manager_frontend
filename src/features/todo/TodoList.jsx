@@ -1,12 +1,11 @@
 import Todo from './Todo';
-import CompletedTodoList from './CompletedTodoList';
-import { Collapse, List } from '@mui/material';
+import CompletedTodoPanel from './CompletedTodoPanel';
+import { Collapse, Fade, Divider } from '@mui/material';
+import { useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
-import { useGetTodosQuery } from './todosApiSlice';
 
 export default function TodoList({ todos }) {
-    // console.log('🚀 ~ file: TodoList.jsx:9 ~ TodoList ~ todos', todos);
-    // const { data: todos, isError, isSuccess, isLoading, error } = useGetTodosQuery('todosList');
+    const [isCompletedPanelOpen, setIsCompletedPanelOpen] = useState(true);
 
     let openedTodos = [];
     let completedTodos = [];
@@ -15,38 +14,51 @@ export default function TodoList({ todos }) {
         if (!todo.completed) {
             openedTodos.push(
                 // <Collapse
+                //     in={true}
                 //     key={todo._id}
                 //     timeout={{ enter: 100, exit: 100 }}
                 //     unmountOnExit
-                //     easing={{ enter: 'cubic-bezier(0,-1.55,.61,1.58)', exit: 'linear' }}
+                //     // easing={{
+                //     //     enter: 'cubic-bezier(0,-1.55,.61,1.58)',
+                //     //     exit: 'cubic-bezier(0,-1.55,.61,1.58)',
+                //     // }}
                 // >
-                // {<Todo key={todo._id} todoId={todo._id} />}
+                //     <Todo key={todo._id} todoId={todo._id} />
                 // </Collapse>
                 <Todo key={todo._id} todoId={todo._id} />
             );
         } else if (todo.completed) {
             completedTodos.push(
-                // <Collapse
-                //     timeout={{ enter: 250, exit: 100 }}
-                //     key={todo._id}
-                //     // unmountOnExit
-                // >
-                //     {<Todo key={todo._id} todoId={todo._id} />}
-                // </Collapse>
-                <Todo key={todo._id} todoId={todo._id} />
+                <Collapse timeout={{ enter: 300, exit: 300 }} key={todo._id} unmountOnExit>
+                    {<Todo key={todo._id} todoId={todo._id} />}
+                </Collapse>
+                // <Todo key={todo._id} todoId={todo._id} />
             );
         }
     });
-    // console.log('🚀 ~ file: TodoList.jsx:11 ~ TodoList ~ completedTodos', completedTodos);
 
     return (
         <>
-            <List>
-                {/* <TransitionGroup> */}
-                {openedTodos}
-                {/* </TransitionGroup> */}
-            </List>
-            {completedTodos.length !== 0 ? <CompletedTodoList content={completedTodos} /> : null}
+            {/* <TransitionGroup>{openedTodos}</TransitionGroup> */}
+            {openedTodos}
+            {completedTodos.length !== 0 ? (
+                <CompletedTodoPanel {...{ isCompletedPanelOpen, setIsCompletedPanelOpen }} />
+            ) : null}
+            {isCompletedPanelOpen ? (
+                <Collapse
+                    in={isCompletedPanelOpen}
+                    timeout={{ enter: 500, exit: 100 }}
+                    easing={{
+                        enter: 'cubic-bezier(0, 1.5, .8, 1)',
+                        exit: 'cubic-bezier(0, 1.5, .8, 1)',
+                    }}
+                >
+                    <TransitionGroup>{completedTodos}</TransitionGroup>
+                    {/* {completedTodos} */}
+                </Collapse>
+            ) : (
+                <Divider />
+            )}
         </>
     );
 }

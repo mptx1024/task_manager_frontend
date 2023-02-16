@@ -1,66 +1,43 @@
-import { useDeleteTodoMutation, useUpdateTodoMutation, useGetTodosQuery, useGetTodoQuery } from './todosApiSlice';
-import { useGetProjectQuery, useGetProjectsQuery } from '../project/ProjectsApiSlice';
-import { useState, useMemo } from 'react';
+import { useDeleteTodoMutation, useUpdateTodoMutation, useGetTodoQuery } from './todosApiSlice';
+import { useGetProjectsQuery } from '../project/ProjectsApiSlice';
+import { useState } from 'react';
 import EditTodo from './EditTodo';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import PatchTooltip from '../../components/PatchTooltip';
-import { compareDates } from '../util/compareDates';
-
-import { createSelector } from '@reduxjs/toolkit';
-
+import { isOverdue } from '../util/isOverdue';
+import CircularLoader from '../../components/CircularLoader';
 import {
     CalendarIcon,
     ProjectIcon,
     EditIcon,
     DeleteIcon,
     RadioButtonUncheckedIcon,
+    RadioButtonUncheckedThickerIcon,
     CheckCircleOutlineRoundedIcon,
+    CheckCircleOutlineRoundedThickerIcon,
     CheckCircleFillIcon,
 } from '../../components/asset/svgIcons';
 
-import { Box, Checkbox, IconButton, Typography, Collapse } from '@mui/material';
+import { Box, Checkbox, IconButton, Typography } from '@mui/material';
 
 const Todo = ({ todoId }) => {
-    // const selectTodoForList = useMemo(() => {
-    //     const emptyArray = [];
-    //     // Return a unique selector instance for this page so that
-    //     // the filtered results are correctly memoized
-    //     return createSelector(
-    //         (res) => res.data,
-    //         (res, todoId) => todoId,
-    //         (data, todoId) => data?.find((todo) => todo._id === todoId) ?? emptyArray
-    //     );
-    // }, []);
-    //
-    // const { todo } = useGetTodosQuery('todosList', {
-    //     selectFromResult: ({ data }) => ({
-    //         // Select from cache
-    //         todo: data?.find((todo) => todo._id === todoId),
-    //         // todo: selectTodoForList(result, todoId),
-    //     }),
-    // });
-    const { data: todo, isFetching, isLoading, isSuccess, isError } = useGetTodoQuery(todoId);
-
+    const { data: todo, isLoading } = useGetTodoQuery(todoId);
     const { project } = useGetProjectsQuery('projectsList', {
         selectFromResult: ({ data }) => ({
-            // Select from cache
-            // project: data?.entities[todo?.projectId],
             project: data?.find((project) => project._id === todo?.projectId),
         }),
     });
-    // console.log(`Todo?? ${JSON.stringify(todo)}`);
-    // const { data: project } = useGetProjectQuery(todo?.projectId);
 
     const [deleteTodo] = useDeleteTodoMutation();
     const [updateTodo] = useUpdateTodoMutation();
     const [isHovered, setIsHovered] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     if (isLoading) {
-        return <>loading...</>;
+        return <CircularLoader {...{ message: 'Loading...' }} />;
     }
 
     const dueDate = todo?.dueDate ? new Date(todo.dueDate) : null;
-    const overdue = compareDates(dueDate);
+    const overdue = isOverdue(dueDate);
 
     const onClickEdit = () => {
         setIsEditing((prev) => !prev);
@@ -72,22 +49,13 @@ const Todo = ({ todoId }) => {
     const onClickDelete = () => {
         deleteTodo({ id: todoId });
     };
-    // let content;
-    // if (isError) {
-    //     console.log('error!!!');
-    // }
-    // if (isFetching || isLoading || !todo) {
-    //     console.log(`fetching / loading`);
-    //     return <p>loading...</p>;
-    // }
-    // else if (isSuccess) {
-    //     console.log('success!!');
+
     if (todo) {
         return isEditing ? (
             <EditTodo setIsEditing={setIsEditing} todo={todo} />
         ) : (
-            // <Collapse in timeout={{ enter: 500, exit: 100 }} easing={{ enter: 'linear', exit: 'linear' }}>
-            <StyledPaper>
+            // <Fade in={true} timeout={{ appear: 500, enter: 1000 }}>
+            <StyledPaper isTodo={true}>
                 <Box id='todo-info' sx={{ display: 'flex', alignItems: 'center' }}>
                     <Checkbox
                         id='todo-info-box-checkbox'
@@ -95,12 +63,18 @@ const Todo = ({ todoId }) => {
                         onMouseLeave={() => setIsHovered(false)}
                         icon={
                             isHovered ? (
-                                <CheckCircleOutlineRoundedIcon color='secondary' />
+                                todo.priority ? (
+                                    <CheckCircleOutlineRoundedThickerIcon color='error' />
+                                ) : (
+                                    <CheckCircleOutlineRoundedIcon color='secondary' />
+                                )
+                            ) : todo.priority ? (
+                                <RadioButtonUncheckedThickerIcon color='error' />
                             ) : (
                                 <RadioButtonUncheckedIcon color='secondary' />
                             )
                         }
-                        checkedIcon={<CheckCircleFillIcon color='secondary' />}
+                        checkedIcon={<CheckCircleFillIcon color={todo.priority ? 'error' : 'secondary'} />}
                         onChange={onClickCheckbox}
                         checked={todo?.completed}
                         sx={{ mr: 1 }}
@@ -108,16 +82,21 @@ const Todo = ({ todoId }) => {
                     />
                     <Box
                         id='todo-info-box'
-                        sx={{
-                            textAlign: 'left',
-                            '& .MuiTypography-root': {
-                                flexGrow: 2,
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis',
-                            },
-                        }}
+                        // sx={{ border: '1px solid red' }}
                     >
-                        <Box id='todo-info-box-title'>
+                        <Box
+                            id='todo-info-box-title'
+                            sx={{
+                                // border: '1px solid yellow',
+                                '& .MuiTypography-root': {
+                                    textAlign: 'left',
+                                    maxWidth: '40vw',
+                                    whiteSpace: 'nowrap',
+                                    textOverflow: 'ellipsis',
+                                    overflow: 'hidden',
+                                },
+                            }}
+                        >
                             {todo?.completed ? (
                                 <Typography>
                                     <s>{todo.title}</s>
@@ -131,10 +110,15 @@ const Todo = ({ todoId }) => {
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                // border: '1px solid yellow',
+                                // border: '1px solid black',
                                 columnGap: '1rem',
-                                '&>* .MuiTypography-root': {
+                                '& .MuiTypography-root': {
                                     fontSize: '0.8rem',
+                                    textAlign: 'left',
+                                    maxWidth: '15vw',
+                                    overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                    textOverflow: 'ellipsis',
                                 },
                             }}
                         >
@@ -187,7 +171,7 @@ const Todo = ({ todoId }) => {
                     </PatchTooltip>
                 </Box>
             </StyledPaper>
-            // </Collapse>
+            // </Fade>
         );
     }
     // return content;

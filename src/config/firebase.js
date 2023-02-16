@@ -30,7 +30,7 @@ provider.setCustomParameters({
 
 const auth = getAuth(app);
 
-// Emulator
+// Emulator:
 // if (process.env.NODE_ENV === 'development') {
 //     connectAuthEmulator(auth, 'http://localhost:9099');
 // }

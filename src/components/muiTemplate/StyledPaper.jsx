@@ -1,27 +1,41 @@
 import { Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const StyledPaper = styled(Paper, { shouldForwardProp: (prop) => prop !== 'isEditing' })(({ theme, isEditing }) => ({
-    outline: isEditing ? '0.5px solid grey' : '',
-    height: isEditing ? '6.5rem' : '4rem',
+const StyledPaper = styled(Paper, {
+    shouldForwardProp: (prop) => !['isEditing', 'isAddTodo', 'isTodo'].includes(prop),
+})(({ theme, isEditing, isAddTodo, isTodo }) => ({
+    ...(isAddTodo === true
+        ? {
+              // AddTodo.jsx
+          }
+        : isEditing === true
+        ? {
+              // EditTodo.jsx
+              maxHeight: '8rem',
+              outline: '0.5px solid grey',
+              padding: '0.5rem',
+          }
+        : isTodo === true
+        ? {
+              // Todo.jsx
+              maxHeight: '3.5rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '0.5rem',
 
-    ...theme.typography.body2,
+              ':hover': {
+                  backgroundColor: theme.palette.action.hover,
+              },
+          }
+        : null),
+
     color: theme.palette.text.secondary,
-    // marginTop: theme.spacing(1),
     margin: '0.3rem 0',
+    // Controls width of the todo / addTodo /editTodo bar
+    minWidth: '35vw',
     boxShadow: '3',
     textAlign: 'center',
-    padding: '0.5rem',
-    display: isEditing ? null : 'flex',
-    justifyContent: isEditing ? null : 'space-between',
     alignItems: 'center',
-    ':hover': isEditing
-        ? ''
-        : {
-              // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f5f5f5',
-              backgroundColor: theme.palette.action.hover,
-          },
-    cursor: isEditing ? '' : 'pointer',
 }));
 
 export default StyledPaper;

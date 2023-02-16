@@ -6,7 +6,7 @@ import AddProject from './AddProject';
 import { Typography, List } from '@mui/material';
 
 const ProjectList = () => {
-    const [addProject] = useAddProjectMutation();
+    const [addProject, { isLoading: isAdding }] = useAddProjectMutation();
     const [title, setTitle] = useState('');
 
     const { data: projects, isLoading } = useGetProjectsQuery('projectsList');

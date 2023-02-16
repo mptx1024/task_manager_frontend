@@ -1,7 +1,8 @@
+import DataFetchingBackdrop from '../../components/Backdrop';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials, selectCurrentUser } from './authSlice';
 import { auth } from '../../config/firebase';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const PersistLogin = () => {
@@ -30,6 +31,6 @@ const PersistLogin = () => {
         });
         return () => unsubscribe();
     }, []);
-    return userInState ? <Outlet /> : <p>Logging in...</p>;
+    return userInState ? <Outlet /> : <DataFetchingBackdrop />;
 };
 export default PersistLogin;

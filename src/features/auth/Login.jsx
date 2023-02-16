@@ -76,12 +76,14 @@ const Login = () => {
             <div style={{ color: 'black', marginBottom: '10px' }}>
                 {isError ? (
                     <>Oh no, there was an error {error.message}</>
-                ) : // : isUninitialized ? (
-                //     <div>Currently skipped</div>
-                // )
-                isLoading ? (
+                ) : isLoading ? (
                     <Box sx={{ display: 'flex' }}>
-                        <Typography align='center' variant='subtitle2' gutterBottom sx={{ mr: '0.5rem' }}>
+                        <Typography
+                            align='center'
+                            variant='subtitle2'
+                            gutterBottom
+                            sx={{ mr: '1rem', color: 'text.main' }}
+                        >
                             Just a few seconds...
                         </Typography>
                         <CircularProgress size='1.5rem' />

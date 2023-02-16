@@ -1,10 +1,10 @@
-import { useUpdateProjectMutation, useDeleteProjectMutation, useGetProjectQuery } from './ProjectsApiSlice';
+import { useUpdateProjectMutation, useDeleteProjectMutation } from './ProjectsApiSlice';
 import { useState } from 'react';
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import EditProjectButton from './EditProjectButton';
-
+import CircularLoader from '../../components/CircularLoader';
 import { DotIcon } from '../../components/asset/svgIcons';
 import { Typography, Box, InputBase, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 
@@ -12,8 +12,9 @@ const Project = ({ project }) => {
     // const { data: project } = useGetProjectQuery(projectId);
     // console.log('🚀 ~ file: Project.jsx:13 ~ Project ~ project', project);
 
-    const [updateProject] = useUpdateProjectMutation();
-    const [deleteProject] = useDeleteProjectMutation();
+    const [updateProject, { isLoading: isUpdating }] = useUpdateProjectMutation();
+
+    const [deleteProject, { isLoading: isDeleting }] = useDeleteProjectMutation();
 
     const [title, setTitle] = useState(project?.title || '');
     const [isEditing, setIsEditing] = useState(false);
@@ -44,8 +45,11 @@ const Project = ({ project }) => {
         }
     }, [isEditing]);
 
-    if (!project) {
-        return <p>Loading...</p>;
+    if (isUpdating) {
+        return <CircularLoader {...{ message: 'Updating...' }} />;
+    }
+    if (isDeleting) {
+        return <CircularLoader {...{ message: 'Deleting...' }} />;
     }
     return (
         <ListItem
@@ -85,7 +89,7 @@ const Project = ({ project }) => {
                             }}
                         />
                     ) : (
-                        <Typography sx={{ maxWidth: '15vw' }} noWrap={true}>
+                        <Typography sx={{ maxWidth: '8rem' }} noWrap={true}>
                             {project.title}
                         </Typography>
                     )}

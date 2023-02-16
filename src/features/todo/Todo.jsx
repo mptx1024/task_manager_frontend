@@ -5,7 +5,7 @@ import EditTodo from './EditTodo';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
 import PatchTooltip from '../../components/PatchTooltip';
 import { isOverdue } from '../util/isOverdue';
-
+import CircularLoader from '../../components/CircularLoader';
 import {
     CalendarIcon,
     ProjectIcon,
@@ -18,11 +18,10 @@ import {
     CheckCircleFillIcon,
 } from '../../components/asset/svgIcons';
 
-import { Box, Checkbox, IconButton, Typography, Collapse, Fade } from '@mui/material';
+import { Box, Checkbox, IconButton, Typography } from '@mui/material';
 
 const Todo = ({ todoId }) => {
     const { data: todo, isLoading } = useGetTodoQuery(todoId);
-
     const { project } = useGetProjectsQuery('projectsList', {
         selectFromResult: ({ data }) => ({
             project: data?.find((project) => project._id === todo?.projectId),
@@ -34,7 +33,7 @@ const Todo = ({ todoId }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     if (isLoading) {
-        return <>loading...</>;
+        return <CircularLoader {...{ message: 'Loading...' }} />;
     }
 
     const dueDate = todo?.dueDate ? new Date(todo.dueDate) : null;
@@ -50,16 +49,7 @@ const Todo = ({ todoId }) => {
     const onClickDelete = () => {
         deleteTodo({ id: todoId });
     };
-    // let content;
-    // if (isError) {
-    //     console.log('error!!!');
-    // }
-    // if (isFetching || isLoading || !todo) {
-    //     console.log(`fetching / loading`);
-    //     return <p>loading...</p>;
-    // }
-    // else if (isSuccess) {
-    //     console.log('success!!');
+
     if (todo) {
         return isEditing ? (
             <EditTodo setIsEditing={setIsEditing} todo={todo} />

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import AddTodo from '../features/todo/AddTodo';
 import SideBar from './nav/Sidebar/Sidebar';
 import Navbar from './nav/Navbar';
-
+import DataFetchingBackdrop from './Backdrop';
 import { useGetTodosQuery } from '../features/todo/todosApiSlice';
 import { useUpsertTodoCache } from './page/useUpsertTodoCache';
 import { Stack } from '@mui/material';
@@ -36,27 +36,39 @@ const StyledStack = styled(Stack, {
 
 const BodyLayout = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
-    // const [isUpserting, setIsUpserting] = useState(true);
 
-    const { data: todos } = useGetTodosQuery('todosList');
+    const { data: todos, isLoading } = useGetTodosQuery('todosList');
 
     const { isUpserting } = useUpsertTodoCache(todos);
+    if (isUpserting || isLoading) {
+        return <DataFetchingBackdrop />;
+    }
 
     return (
         <>
-            {!isUpserting ? (
-                <>
-                    <Navbar />
-                    <SideBar />
-                    <StyledStack isSideBarOpen={isSideBarOpen}>
-                        <AddTodo />
-                        <Outlet />
-                    </StyledStack>
-                </>
-            ) : (
-                <p>Retrieving data...</p>
-            )}
+            <Navbar />
+            <SideBar />
+            <StyledStack isSideBarOpen={isSideBarOpen}>
+                <AddTodo />
+                <Outlet />
+            </StyledStack>
         </>
     );
+    // return (
+    //     <>
+    //         {!isUpserting ? (
+    //             <>
+    //                 <Navbar />
+    //                 <SideBar />
+    //                 <StyledStack isSideBarOpen={isSideBarOpen}>
+    //                     <AddTodo />
+    //                     <Outlet />
+    //                 </StyledStack>
+    //             </>
+    //         ) : (
+    //             <p>Retrieving data...</p>
+    //         )}
+    //     </>
+    // );
 };
 export default BodyLayout;

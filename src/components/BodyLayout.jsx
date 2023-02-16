@@ -21,10 +21,6 @@ const StyledStack = styled(Stack, {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    // justifyContent: 'center',
-    // border: '1px solid red',
-    // marginLeft: `-${drawerWidth}px`,
-    // marginRight: `5px`,
     ...(isSideBarOpen && {
         marginLeft: `${drawerWidth}px`,
         transition: theme.transitions.create('margin', {
@@ -37,13 +33,15 @@ const StyledStack = styled(Stack, {
 const BodyLayout = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
-    const { data: todos, isLoading } = useGetTodosQuery('todosList');
+    const { data: todos, isLoading, isSuccess } = useGetTodosQuery('todosList');
+    // console.log('🚀 ~ file: BodyLayout.jsx:37 ~ BodyLayout ~ todos', todos, isSuccess);
 
-    const { isUpserting } = useUpsertTodoCache(todos);
-    if (isUpserting || isLoading) {
+    const { isUpsertingCache } = useUpsertTodoCache(todos);
+
+    // In case no todo is returned
+    if ((isUpsertingCache || isLoading) && !isSuccess) {
         return <DataFetchingBackdrop />;
     }
-
     return (
         <>
             <Navbar />

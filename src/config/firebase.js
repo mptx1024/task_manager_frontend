@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { initializeApp } from 'firebase/app';
 
 import {

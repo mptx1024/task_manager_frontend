@@ -8,13 +8,7 @@ import { Typography, List } from '@mui/material';
 const ProjectList = () => {
     const [addProject, { isLoading: isAdding }] = useAddProjectMutation();
     const [title, setTitle] = useState('');
-
     const { data: projects, isLoading } = useGetProjectsQuery('projectsList');
-    if (isLoading || isAdding) {
-        return <CircularLoader {...{ message: 'Loading...' }} />;
-    }
-
-    // const projects = data?.ids?.map((id) => data.entities[id]);
 
     const onClickAddProject = () => {
         if (title.trim().length !== 0) {

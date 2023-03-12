@@ -30,6 +30,7 @@ const PageTitle = ({ title }) => {
                 },
                 display: 'flex',
                 alignItems: 'center',
+                mt: '1rem',
             }}
         >
             {icon}

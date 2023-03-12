@@ -87,11 +87,11 @@ const Login = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    width: '25%',
+                    minWidth: '10rem',
                 }}
             >
                 <Button onClick={onClickSignInAnonymous} variant='contained' sx={{ color: 'white', mx: '5px' }}>
-                    I Want to Use It Anonymously
+                    Use It Anonymously
                 </Button>
                 <div>
                     <Divider light sx={{ color: 'grey.500', mx: '5px' }} spacing={1}>

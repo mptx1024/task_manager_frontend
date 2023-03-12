@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import AddTodo from '../features/todo/AddTodo';
 import SideBar from './nav/Sidebar/Sidebar';
 import Navbar from './nav/Navbar';
+import Footer from './Footer';
 import DataFetchingBackdrop from './Backdrop';
 import { useGetTodosQuery } from '../features/todo/todosApiSlice';
 import { useUpsertTodoCache } from './page/useUpsertTodoCache';
@@ -13,9 +14,13 @@ import { styled } from '@mui/material/styles';
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
 })(({ theme, isSideBarOpen }) => ({
-    flexGrow: 1,
-    paddingLeft: theme.spacing(8),
-    paddingRight: theme.spacing(8),
+    // flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    padding: '2rem 10%',
+    marginTop: '3rem', // for starting after navbar
+    height: '100vh',
+    marginBottom: '0rem',
 
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
@@ -27,6 +32,10 @@ const StyledStack = styled(Stack, {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        [theme.breakpoints.down('sm')]: {
+            visibility: 'hidden',
+            // filter: 'brightness(10%)',
+        },
     }),
 }));
 
@@ -46,27 +55,12 @@ const BodyLayout = () => {
         <>
             <Navbar />
             <SideBar />
-            <StyledStack isSideBarOpen={isSideBarOpen}>
+            <StyledStack isSideBarOpen={isSideBarOpen} id='body_layout'>
                 <AddTodo />
                 <Outlet />
+                <Footer />
             </StyledStack>
         </>
     );
-    // return (
-    //     <>
-    //         {!isUpserting ? (
-    //             <>
-    //                 <Navbar />
-    //                 <SideBar />
-    //                 <StyledStack isSideBarOpen={isSideBarOpen}>
-    //                     <AddTodo />
-    //                     <Outlet />
-    //                 </StyledStack>
-    //             </>
-    //         ) : (
-    //             <p>Retrieving data...</p>
-    //         )}
-    //     </>
-    // );
 };
 export default BodyLayout;

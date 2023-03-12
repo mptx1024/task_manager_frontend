@@ -3,7 +3,7 @@ import { Typography, Box, IconButton } from '@mui/material';
 
 const CompletedTodoPanel = ({ isCompletedPanelOpen, setIsCompletedPanelOpen }) => {
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', my: '1rem' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: '1rem' }}>
             <IconButton
                 size='small'
                 onClick={() => setIsCompletedPanelOpen((prev) => !prev)}

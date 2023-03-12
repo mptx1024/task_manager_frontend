@@ -6,7 +6,7 @@ import DatePickerButton from './DatePickerButton';
 import PriorityButton from './PriorityButton';
 import ProjectButton from './ProjectButton';
 
-import { Stack, Box, Typography, InputBase, useTheme } from '@mui/material';
+import { Box, Typography, InputBase, useTheme } from '@mui/material';
 const EditTodo = ({ setIsEditing, todo }) => {
     const [updateTodo] = useUpdateTodoMutation();
 
@@ -42,8 +42,8 @@ const EditTodo = ({ setIsEditing, todo }) => {
     };
     const theme = useTheme();
     return (
-        <>
-            <StyledPaper isEditing={true}>
+        <div id='edit_todo'>
+            <StyledPaper id='edit_todo_container' isEditing={true}>
                 <InputBase
                     id='edit-todo-title'
                     autoFocus={true}
@@ -109,45 +109,43 @@ const EditTodo = ({ setIsEditing, todo }) => {
                     />
                 </Box>
             </StyledPaper>
-            <Box>
-                <Stack
-                    direction='row'
+            <Box
+                id='edit_todo_btns'
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    mr: '2px',
+                    my: '10px',
+                }}
+            >
+                <StyledButton
+                    onClick={onClickCancel}
+                    isMajor={true}
+                    variant='contained'
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        mr: '2px',
-                        my: '10px',
+                        backgroundColor: 'customBgGrey.main',
+                        ':hover': { backgroundColor: 'customBgGrey.dark' },
                     }}
+                    // color='custom'
                 >
-                    <StyledButton
-                        onClick={onClickCancel}
-                        isMajor={true}
-                        variant='contained'
-                        sx={{
-                            backgroundColor: 'customBgGrey.main',
-                            ':hover': { backgroundColor: 'customBgGrey.dark' },
-                        }}
-                        // color='custom'
-                    >
-                        <Typography>Cancel</Typography>
-                    </StyledButton>
+                    <Typography>Cancel</Typography>
+                </StyledButton>
 
-                    <StyledButton
-                        onClick={onClickSave}
-                        isMajor={true}
-                        variant='contained'
-                        sx={{
-                            backgroundColor: 'secondary.main',
-                            ml: 2,
-                            ':hover': { backgroundColor: 'secondary.dark' },
-                        }}
-                        disabled={title ? false : true}
-                    >
-                        <Typography>Save</Typography>
-                    </StyledButton>
-                </Stack>
+                <StyledButton
+                    onClick={onClickSave}
+                    isMajor={true}
+                    variant='contained'
+                    sx={{
+                        backgroundColor: 'secondary.main',
+                        ml: 2,
+                        ':hover': { backgroundColor: 'secondary.dark' },
+                    }}
+                    disabled={title ? false : true}
+                >
+                    <Typography>Save</Typography>
+                </StyledButton>
             </Box>
-        </>
+        </div>
     );
 };
 export default EditTodo;

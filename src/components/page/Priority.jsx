@@ -9,10 +9,10 @@ const Priority = () => {
     });
 
     return (
-        <>
+        <div>
             <PageTitle title={'Priority'} />
             {isLoading ? <p>Loading..</p> : todos?.length === 0 ? <p>No Task</p> : <TodoList todos={todos} />}
-        </>
+        </div>
     );
 };
 export default Priority;

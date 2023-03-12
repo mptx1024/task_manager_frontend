@@ -6,7 +6,6 @@ const All = () => {
     const {
         data: todos,
         isError,
-        isSuccess,
         isLoading,
         error,
     } = useGetTodosQuery(
@@ -22,10 +21,10 @@ const All = () => {
     }
     // else if (!isUpserting) {
     return (
-        <>
+        <div>
             <PageTitle title={'All'} />
             <TodoList todos={todos} />
-        </>
+        </div>
     );
     // }
 };

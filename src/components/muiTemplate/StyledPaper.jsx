@@ -32,9 +32,8 @@ const StyledPaper = styled(Paper, {
     color: theme.palette.text.secondary,
     margin: '0.3rem 0',
     // Controls width of the todo / addTodo /editTodo bar
-    minWidth: '35vw',
-    boxShadow: '3',
-    textAlign: 'center',
+    minWidth: '15rem',
+    maxWidth: '100%',
     alignItems: 'center',
 }));
 

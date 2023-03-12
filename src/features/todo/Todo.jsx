@@ -56,7 +56,15 @@ const Todo = ({ todoId }) => {
         ) : (
             // <Fade in={true} timeout={{ appear: 500, enter: 1000 }}>
             <StyledPaper isTodo={true}>
-                <Box id='todo-info' sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box
+                    id='todo-info'
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        maxWidth: '70%',
+                        overflow: 'hidden',
+                    }}
+                >
                     <Checkbox
                         id='todo-info-box-checkbox'
                         onMouseEnter={() => setIsHovered(true)}
@@ -80,45 +88,31 @@ const Todo = ({ todoId }) => {
                         sx={{ mr: 1 }}
                         size='small'
                     />
-                    <Box
-                        id='todo-info-box'
-                        // sx={{ border: '1px solid red' }}
-                    >
-                        <Box
-                            id='todo-info-box-title'
+                    <Box id='todo-info-box' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        <Typography
+                            id='todo-info-box-todo-title'
                             sx={{
-                                // border: '1px solid yellow',
-                                '& .MuiTypography-root': {
-                                    textAlign: 'left',
-                                    maxWidth: '40vw',
-                                    whiteSpace: 'nowrap',
-                                    textOverflow: 'ellipsis',
-                                    overflow: 'hidden',
-                                },
+                                textAlign: 'left',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
                             }}
                         >
-                            {todo?.completed ? (
-                                <Typography>
-                                    <s>{todo.title}</s>
-                                </Typography>
-                            ) : (
-                                <Typography>{todo?.title}</Typography>
-                            )}
-                        </Box>
+                            {todo?.completed ? <s>{todo.title}</s> : todo.title}
+                        </Typography>
                         <Box
                             id='todo-info-box-subtitle'
                             sx={{
                                 display: 'flex',
-                                alignItems: 'center',
-                                // border: '1px solid black',
-                                columnGap: '1rem',
+                                columnGap: '0.2rem',
+                                width: '100%',
+                                textOverflow: 'ellipsis',
                                 '& .MuiTypography-root': {
                                     fontSize: '0.8rem',
                                     textAlign: 'left',
-                                    maxWidth: '15vw',
-                                    overflow: 'hidden',
                                     whiteSpace: 'nowrap',
                                     textOverflow: 'ellipsis',
+                                    overflow: 'hidden',
                                 },
                             }}
                         >
@@ -128,13 +122,11 @@ const Todo = ({ todoId }) => {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        '& > *': {
-                                            color: overdue ? 'error.dark' : 'inherit',
-                                        },
+                                        minWidth: '4rem',
                                     }}
                                 >
                                     <CalendarIcon sx={{ height: '18px', width: '18px', mr: '0.2rem' }} />
-                                    <Typography>
+                                    <Typography sx={{ color: overdue ? 'error.dark' : 'inherit' }}>
                                         {overdue
                                             ? 'Overdue ' + dueDate.toLocaleDateString('en-US')
                                             : dueDate.toLocaleDateString('en-US')}
@@ -148,11 +140,11 @@ const Todo = ({ todoId }) => {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        // border: '1px solid black',
+                                        minWidth: '3rem',
                                     }}
                                 >
                                     <ProjectIcon sx={{ height: '18px', width: '18px', mr: '0.2rem' }} />
-                                    <Typography> {project.title}</Typography>
+                                    <Typography>{project.title}</Typography>
                                 </Box>
                             ) : null}
                         </Box>
@@ -160,12 +152,12 @@ const Todo = ({ todoId }) => {
                 </Box>
                 <Box id='todo-actions' sx={{ display: 'flex' }}>
                     <PatchTooltip title='Edit task' arrow>
-                        <IconButton title='Edit' onClick={onClickEdit} sx={{ borderRadius: '50%' }}>
+                        <IconButton title='Edit' onClick={onClickEdit} sx={{ borderRadius: '40%', px: '0.2rem' }}>
                             <EditIcon sx={{ height: '20px', width: '20x', color: 'secondary.main' }} />
                         </IconButton>
                     </PatchTooltip>
                     <PatchTooltip title='Delete task' arrow>
-                        <IconButton title='Delete' onClick={onClickDelete} sx={{ borderRadius: '50%' }}>
+                        <IconButton title='Delete' onClick={onClickDelete} sx={{ borderRadius: '40%', px: '0.2rem' }}>
                             <DeleteIcon sx={{ height: '20px', width: '20x', color: 'secondary.main' }} />
                         </IconButton>
                     </PatchTooltip>

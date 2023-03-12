@@ -3,7 +3,6 @@ import { useGetProjectsQuery } from '../../features/project/ProjectsApiSlice';
 import TodoList from '../../features/todo/TodoList';
 import { useLocation } from 'react-router-dom';
 import PageTitle from './PageTitle';
-
 const ProjectPage = () => {
     const { state } = useLocation();
     const { todos, isError, isLoading } = useGetTodosQuery('todosList', {
@@ -29,10 +28,10 @@ const ProjectPage = () => {
     }
     // else if (!isUpserting) {
     return (
-        <>
+        <div style={{ border: '1px solid black' }}>
             <PageTitle title={project?.title} />
             {todos?.length ? <TodoList todos={todos} /> : <p>No task yet</p>}
-        </>
+        </div>
     );
     // }
 };

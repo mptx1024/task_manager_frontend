@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import Today from './components/page/Today';
 import Priority from './components/page/Priority';
 import Overdue from './components/page/Overdue';
-import Prefetch from './features/auth/Prefetch';
+// import Prefetch from './features/auth/Prefetch';
 import PersistLogin from './features/auth/PersistLogin';
 import { getDesignTokens } from './features/util/themes';
 import { useSelector } from 'react-redux';

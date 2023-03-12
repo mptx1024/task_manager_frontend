@@ -7,7 +7,7 @@ const Footer = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 marginTop: 'auto',
-                marginBottom: '10vh',
+                marginBottom: '1.5rem',
             }}
         >
             <span>Made By</span>

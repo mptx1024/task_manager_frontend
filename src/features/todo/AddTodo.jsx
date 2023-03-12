@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useAddTodoMutation } from './todosApiSlice';
 import DatePickerButton from './DatePickerButton';
 import StyledButton from '../../components/muiTemplate/StyledButton';
@@ -7,7 +7,7 @@ import ProjectButton from './ProjectButton';
 import PatchTooltip from '../../components/PatchTooltip';
 import { RadioButtonUncheckedIcon } from '../../components/asset/svgIcons';
 import StyledPaper from '../../components/muiTemplate/StyledPaper';
-import { Box, Paper, InputBase, Divider } from '@mui/material';
+import { Box, InputBase, Divider } from '@mui/material';
 
 const AddTodo = () => {
     const [addNewTodo, { isLoading }] = useAddTodoMutation();

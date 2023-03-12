@@ -58,7 +58,7 @@ const Login = () => {
     const onClickFB = async () => {};
 
     const onClickLogin = () => {
-        alert('Working in progress');
+        alert('This feature is under development');
     };
 
     return (

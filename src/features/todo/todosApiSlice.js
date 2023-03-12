@@ -1,5 +1,5 @@
 import { apiSlice } from '../../app/api/apiSlice';
-import { current } from '@reduxjs/toolkit';
+// import { current } from '@reduxjs/toolkit';
 
 export const todosApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -67,12 +67,10 @@ export const todosApiSlice = apiSlice.injectEndpoints({
 
                 const action = dispatch(
                     apiSlice.util.updateQueryData('getTodos', 'todosList', (draft) => {
-                        // console.log('before', current(draft));
                         const todo = draft.find((todo) => todo._id === id);
                         if (todo) {
                             Object.assign(todo, { id, ...patch });
                         }
-                        // console.log('after', current(draft));
                     })
                 );
 
@@ -95,11 +93,7 @@ export const todosApiSlice = apiSlice.injectEndpoints({
             async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
                 const patchResult = dispatch(
                     apiSlice.util.updateQueryData('getTodo', id, (draft) => {
-                        // console.log(id);
-                        // console.log(current(draft));
                         return null;
-                        // // draft.forEach((todo) => todo._id !== id);
-                        // // console.log(current(draft));
                     })
                 );
                 try {

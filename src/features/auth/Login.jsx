@@ -14,8 +14,8 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [trigger, { data, isSuccess, isLoading, isError, error }] = useLazyLoginQuery();
-    // let isLoading = true;
+    let [trigger, { data, isSuccess, isLoading, isError, error }] = useLazyLoginQuery();
+    // isLoading = true;
     const storeUserInState = (authUser) => {
         dispatch(
             setCredentials({
@@ -54,8 +54,8 @@ const Login = () => {
             await trigger();
         }
     };
-    const onClickGithub = async () => {};
-    const onClickFB = async () => {};
+    // const onClickGithub = async () => {};
+    // const onClickFB = async () => {};
 
     const onClickLogin = () => {
         alert('This feature is under development');
@@ -78,7 +78,7 @@ const Login = () => {
                 {isError ? (
                     <>Oh no, there was an error {error.message}</>
                 ) : isLoading ? (
-                    <CircularLoader {...{ message: 'Just a few seconds...' }} />
+                    <CircularLoader {...{ message: 'Connecting may take 10~15 seconds...' }} />
                 ) : data ? (
                     <div>{data.msg}</div>
                 ) : null}

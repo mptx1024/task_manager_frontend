@@ -5,7 +5,6 @@ const sideBarSlice = createSlice({
     initialState: { sideBar: false },
     reducers: {
         toggleSideBar: (state) => {
-            console.log(`in toggleSlice: ${state.sideBar}`);
             state.sideBar = !state.sideBar;
         },
     },

@@ -6,11 +6,6 @@ export const todosApiSlice = apiSlice.injectEndpoints({
         getTodos: builder.query({
             query: () => ({
                 url: '/todos',
-                // https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery#handling-non-standard-response-status-codes
-                // validateStatus: (response, result) => {
-                //     // console.log(result);
-                //     return response.status === 200 && !result.isError;
-                // },
             }),
 
             providesTags: (result = [], error, arg) => {

@@ -4,19 +4,31 @@ import { useNavigate } from 'react-router-dom';
 
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
-const Categories = () => {
+const Categories = ({ dispatch, toggleSideBar }) => {
     const navigate = useNavigate();
-
+    const breakpoint = 560; // At which px the sidebar should slide out upon clicking
     const onClickAll = () => {
+        if (document.documentElement.clientWidth <= breakpoint) {
+            dispatch(toggleSideBar());
+        }
         navigate('/all');
     };
     const onClickToday = () => {
+        if (document.documentElement.clientWidth <= breakpoint) {
+            dispatch(toggleSideBar());
+        }
         navigate('/today');
     };
     const onClickPriority = () => {
+        if (document.documentElement.clientWidth <= breakpoint) {
+            dispatch(toggleSideBar());
+        }
         navigate('/priority');
     };
     const onClickOverdue = () => {
+        if (document.documentElement.clientWidth <= breakpoint) {
+            dispatch(toggleSideBar());
+        }
         navigate('/overdue');
     };
     return (

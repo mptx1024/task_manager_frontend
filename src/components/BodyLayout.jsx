@@ -14,7 +14,6 @@ import { styled } from '@mui/material/styles';
 const StyledStack = styled(Stack, {
     shouldForwardProp: (prop) => prop !== 'isSideBarOpen',
 })(({ theme, isSideBarOpen }) => ({
-    // flexGrow: 1,
     display: 'flex',
     justifyContent: 'flex-start',
     padding: '2rem 10%',
@@ -32,9 +31,8 @@ const StyledStack = styled(Stack, {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down(400)]: {
             visibility: 'hidden',
-            // filter: 'brightness(10%)',
         },
     }),
 }));
@@ -43,7 +41,6 @@ const BodyLayout = () => {
     const isSideBarOpen = useSelector((state) => state.sideBar.sideBar);
 
     const { data: todos, isLoading, isSuccess } = useGetTodosQuery('todosList');
-    // console.log('🚀 ~ file: BodyLayout.jsx:37 ~ BodyLayout ~ todos', todos, isSuccess);
 
     const { isUpsertingCache } = useUpsertTodoCache(todos);
 

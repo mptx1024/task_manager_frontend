@@ -2,18 +2,19 @@ import { useUpdateProjectMutation, useDeleteProjectMutation } from './ProjectsAp
 import { useState } from 'react';
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { toggleSideBar } from '../util/sideBarSlice';
 import EditProjectButton from './EditProjectButton';
 import CircularLoader from '../../components/CircularLoader';
 import { DotIcon } from '../../components/asset/svgIcons';
 import { Typography, Box, InputBase, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 
 const Project = ({ project }) => {
-    // const { data: project } = useGetProjectQuery(projectId);
-    // console.log('🚀 ~ file: Project.jsx:13 ~ Project ~ project', project);
+
+    const dispatch = useDispatch();
+    const breakpoint = 560; // At which px the sidebar should slide out upon clicking
 
     const [updateProject, { isLoading: isUpdating }] = useUpdateProjectMutation();
-
     const [deleteProject, { isLoading: isDeleting }] = useDeleteProjectMutation();
 
     const [title, setTitle] = useState(project?.title || '');
@@ -23,6 +24,9 @@ const Project = ({ project }) => {
     const navigate = useNavigate();
 
     const onClickProject = () => {
+        if (document.documentElement.clientWidth <= breakpoint) {
+            dispatch(toggleSideBar());
+        }
         navigate(`/project/${project._id}`, { state: { projectId: project._id, projectTitle: project.title } });
     };
 

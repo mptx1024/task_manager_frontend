@@ -28,7 +28,7 @@ const ProjectPage = () => {
     }
     // else if (!isUpserting) {
     return (
-        <div style={{ border: '1px solid black' }}>
+        <div>
             <PageTitle title={project?.title} />
             {todos?.length ? <TodoList todos={todos} /> : <p>No task yet</p>}
         </div>

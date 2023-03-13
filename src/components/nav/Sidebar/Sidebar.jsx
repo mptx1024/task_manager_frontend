@@ -44,7 +44,7 @@ const SideBar = () => {
                     <ChevronLeftIcon htmlColor='white' />
                 </IconButton>
             </DrawerHeader>
-            <Categories />
+            <Categories dispatch={dispatch} toggleSideBar={toggleSideBar} />
             <Divider variant='middle' />
             <ProjectList />
         </Drawer>

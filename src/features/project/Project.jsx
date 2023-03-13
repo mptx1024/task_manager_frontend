@@ -20,7 +20,6 @@ const Project = ({ project }) => {
     const [title, setTitle] = useState(project?.title || '');
     const [isEditing, setIsEditing] = useState(false);
 
-    // const [disableProjectBtn, setDisableProjectBtn] = useState(false);
     const navigate = useNavigate();
 
     const onClickProject = () => {
@@ -71,9 +70,6 @@ const Project = ({ project }) => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     '&:hover, &.Mui-focusVisible': { backgroundColor: 'transparent' },
-                    // '&.Mui-focusVisible': {
-                    //     backgroundColor: 'transparent',
-                    // },
                 }}
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

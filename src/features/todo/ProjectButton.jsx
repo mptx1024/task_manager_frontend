@@ -7,7 +7,6 @@ import { List, ListItem, ListItemText, ListItemButton, Popover, Divider, Typogra
 
 const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
     const { data: projects } = useGetProjectsQuery('projectsList');
-    // const projects = data?.ids.map((id) => data.entities[id]);
 
     const title = projects
         ?.filter((project) => project._id && project._id === projectId)
@@ -19,7 +18,6 @@ const ProjectButton = ({ text, variant, projectId, setProjectId }) => {
     const [projectTitle, setProjectTitle] = useState(title);
 
     useEffect(() => {
-        // console.log(`projectId in button: ${projectId}`);
         if (!projectId) {
             setProjectTitle(null);
         }

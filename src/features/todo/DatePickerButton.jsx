@@ -7,7 +7,6 @@ import { CalendarIcon } from '../../components/asset/svgIcons';
 import { Typography, Popover } from '@mui/material';
 
 const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
-    // const [isOpen, setIsOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
 
@@ -24,9 +23,6 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
     const onClickClose = () => {
         setShowPopover((prev) => !prev);
     };
-    // const handleClickOutside = (e) => {
-    //     setShowPopover((prev) => !prev);
-    // };
 
     const onClickReset = () => {
         setDueDate(null);
@@ -57,9 +53,6 @@ const DatePickerButton = ({ setDueDate, dueDate, text, variant }) => {
             >
                 <div>
                     <DatePicker
-                        // dateFormat='MM-DD-YYYY'
-                        // onClickOutside={handleClickOutside}
-                        // selected={new Date()}
                         onChange={onDateChange}
                         inline
                         minDate={new Date()}

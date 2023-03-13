@@ -34,7 +34,6 @@ const AddTodo = () => {
     };
 
     return (
-        // <Box id='add_todo_box' ref={AddTodoBar} sx={{ mt: '5rem', mb: '1rem' }}>
         <StyledPaper isAddTodo={true}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <RadioButtonUncheckedIcon color='secondary' sx={{ mx: '1rem' }} fontSize='small' />
@@ -62,7 +61,6 @@ const AddTodo = () => {
             </Box>
 
             <Divider />
-            {/* alignItems:center is for vertically aligning components in the middle */}
             <Box
                 id='add-todo-action-bar'
                 sx={{

@@ -10,7 +10,7 @@
 
 ## Check out [live demo](https://task-manager003.vercel.app/)
 
-🚀 Thsi Task Manager integrates advanced caching techniques to optimize UI performance
+🚀 Task Manager integrated with caching techniques to optimize UI performance
 
 ## [_This is the frontend repo of MERN Task Manager. For backend repo please [click here](https://github.com/fjiasigmoid/todo_backend)_]
 
@@ -48,7 +48,7 @@
 Run the following command on your local environment:
 
 ```
-git clone --depth=1 https://github.com/ixartz/Next-JS-Landing-Page-Starter-Template.git my-project-name
+git clone --depth=1 https://github.com/fjiasigmoid/task_manager_frontend.git my-project-name
 cd my-project-name
 npm install
 ```

@@ -6,7 +6,7 @@ import { useLazyLoginQuery } from './authApiSlice';
 import { signInAnonymous } from '../../config/firebase';
 import { signInWithGoogle } from '../../config/firebase';
 import CircularLoader from '../../components/CircularLoader';
-
+import Footer from '../../components/Footer';
 import { Box, Divider, Button } from '@mui/material';
 import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton } from 'react-social-login-buttons';
 
@@ -88,6 +88,7 @@ const Login = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     minWidth: '10rem',
+                    mb: '10vh',
                 }}
             >
                 <Button onClick={onClickSignInAnonymous} variant='contained' sx={{ color: 'white', mx: '5px' }}>
@@ -104,6 +105,9 @@ const Login = () => {
                     <FacebookLoginButton onClick={onClickLogin} />
                 </div>
             </Box>
+            <div>
+                <Footer />
+            </div>
         </Box>
     );
 };

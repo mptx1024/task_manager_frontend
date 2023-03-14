@@ -5,14 +5,15 @@ const Footer = () => {
         <div
             style={{
                 display: 'flex',
-                justifyContent: 'center',
+                alignItems: 'center',
                 marginTop: 'auto',
-                marginBottom: '1.5rem',
+                marginBottom: '1rem',
+                fontSize: '0.9rem',
             }}
         >
             <span>Made By</span>
-            <a href='https://github.com/fjiaSigmoid' style={{ display: 'flex' }}>
-                <GitHubIcon viewBox='0 0 30 30' sx={{ ml: '0.3rem' }} />
+            <a href='https://github.com/fjiasigmoid/task_manager_frontend' style={{ display: 'flex' }}>
+                <GitHubIcon viewBox='0 0 30 30' />
                 <span>@fjiaSigmoid</span>
             </a>
         </div>

@@ -10,9 +10,9 @@
 
 ## Check out [live demo](https://task-manager003.vercel.app/)
 
-🚀 Task Manager integrated with caching techniques to optimize UI performance
+## [_This is the frontend repo. For backend repo please [click here](https://github.com/fjiasigmoid/todo_backend)_]
 
-## [_This is the frontend repo of MERN Task Manager. For backend repo please [click here](https://github.com/fjiasigmoid/todo_backend)_]
+🚀 Task Manager integrated with caching techniques to optimize UI performance
 
 ## Features
 
@@ -21,27 +21,37 @@
 -   Filter by Priority, Date, Projects, and Overdue
 -   Solcial and anonymous login
 
-## Technology Highlights
+## Highlights
 
--   [Redux RTK Query](https://redux-toolkit.js.org/rtk-query/overview) for data fetching and cache management
--   [Opimistic update strategy](https://itnext.io/caching-in-a-pwa-when-to-use-optimistic-vs-pessimistic-d627a5943990)
-    -   Update cache in parallel with running queries, allowing instant UI response to user
--   [Automated re-fetching](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching) with tagging system
-    -   Optimize data fetching and reduce unnecessary network requests
--   Persistent login
-    -   Restore app state & data after refreshing pages
--   Integrate with Firebase auth
-    -   Social and anonyous login with [Firebase Auth](https://firebase.google.com/products/auth) solution
--   Dark mode with [MUI v5](https://mui.com/material-ui/customization/dark-mode/)
+-   ### Frontend
+
+    -   [Redux RTK Query](https://redux-toolkit.js.org/rtk-query/overview) for data fetching and cache management
+    -   [Opimistic update strategy](https://itnext.io/caching-in-a-pwa-when-to-use-optimistic-vs-pessimistic-d627a5943990)
+        -   Update cache in parallel with running queries, allowing instant UI response to user
+    -   [Automated re-fetching](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching) with tagging system
+        -   Optimize data fetching and reduce unnecessary network requests
+    -   Persistent login
+        -   Restore app state & data after refreshing pages
+    -   Integrate with [Firebase Auth](https://firebase.google.com/products/auth)
+        -   Social and anonyous login
+    -   Dark mode with [MUI v5](https://mui.com/material-ui/customization/dark-mode/)
+
+-   ### Backend
+
+    -   JWT token authentication
+    -   Automatically create & destroy template tasks and anonymous user records
 
 ## Getting started
+
+<span style="color:red">(To run the app you also need to install the [backend repo](https://github.com/fjiasigmoid/task_manager_backend))</span>
 
 ### Requirements
 
 1. nodejs and npm
-2. Firebase login requirement:
+2. Firebase authentication:
 
--   This app use Firebase auth (for both social or anonymous login). You need to create an Firebase app and get credentials. It's free and easy. You can follow this [tutorial](https://medium.com/nerd-for-tech/how-to-add-firebase-to-your-javascript-project-1cb998b51856)
+-   The app uses [Firebase auth client SDK](https://firebase.google.com/docs/firestore/client/libraries) (for both social or anonymous login). You need to create a Firebase app and get credentials. It's free and easy. You can follow this [tutorial](https://medium.com/nerd-for-tech/how-to-add-firebase-to-your-javascript-project-1cb998b51856).
+-   Once the project is created, [download or copy your project's config credentials](https://support.google.com/firebase/answer/7015592#zippy=%2Cin-this-article)
 
 ### Install
 
@@ -53,7 +63,7 @@ cd my-project-name
 npm install
 ```
 
-Create an .env file on the root directory. Copy paste below and put your Firebase credentials in it:
+Create an .env file on the root directory. Copy paste below code in it and repace 'your_firebase_credentials' with your Firebase credentials:
 
 ```
 NODE_ENV=development
@@ -105,11 +115,7 @@ Deploy this frontend on Vercel in one click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffjiasigmoid%2Ftask_manager_frontend&demo-url=https%3A%2F%2Ftask-manager003.vercel.app%2F)
 
--   Don't for get to place firebase credentials in Environment Variables.
--   You would also need to deploy the backend backend
-
-### License
-
-Licensed under the MIT License, Copyright © 2022
+-   Don't for get to place firebase credentials in Environment Variable.
+-   You would also need to deploy the [backend](https://github.com/fjiasigmoid/task_manager_backend.git)
 
 Made with ♥ by [fjiaSigmoid](https://github.com/fjiaSigmoid)
